@@ -9,19 +9,19 @@ const MobilityDatabase = {
             title: "Standing Unweighted Leg Swings",
             badge: "Unloaded Fluid Pumper / 20 Swings Per Side",
             desc: "Stand tall on a step using one leg, letting the target leg hang free. Hold a rail for balance. Slowly swing the free leg forward and backward like a pendulum. This unweighted motion coaxes the joint to pump protective lubrication fluid into the socket without grinding.",
-            ytId: "F506uGfC70U"
+            ytId: "X_xJscX85zM"
         },
         gluteBridges: {
             title: "Isometric Glute Bridges",
             badge: "Progressive Glute Track / 10 Reps / 5s Hold",
             desc: "Lie flat on your back with knees bent and feet flat. Drive down through your heels to raise your hips until your thighs run inline with your trunk. Squeezing your glutes flat tells the deep, overworking hip flexors on the front to turn off and let go.",
-            ytId: "wPM8icPu6uY"
+            ytId: "6g_W_8N_nco"
         },
         quadStretch: {
             title: "Standing Quad & Hip Flexor Lengthener",
             badge: "Front Chain Decompression / 3 Sets / 30s Hold",
             desc: "Stand upright holding a stable wall. Bend your target knee backward and hold your ankle. Keep your knees squeezed close together and gently push your pelvis forward until you feel a clean stretch down the front of the thigh. Releases excessive downward pull on the socket.",
-            ytId: "yYen66MvPnk"
+            ytId: "X6wT-f0eBq0"
         },
 
         // Tightness & Stiffness Track
@@ -29,19 +29,19 @@ const MobilityDatabase = {
             title: "Seated Windshield Wiper Mobility Drill",
             badge: "Capsular Lubricator / 15 Fluid Reps",
             desc: "Sit on the edge of a firm bench or chair with feet wide apart on the floor. Slowly rotate one knee inward toward the center line, then return, alternating sides. This opens up the rotational boundaries of the internal capsule shroud.",
-            ytId: "I67G7wB8lO0"
+            ytId: "n4m3R_UfG_w"
         },
         psoasMarch: {
             title: "Supine Isometric Psoas March",
             badge: "Stability Lock / 10 Alternating Reps",
             desc: "Lie flat on your back. Loop a light resistance band around your feet (optional). Bring one knee up toward your chest while keeping the other leg completely locked out straight on the floor. Alternating under control stabilizes the deep hip flexor tracks.",
-            ytId: "Zas7mco_FpQ"
+            ytId: "O9-D_5_N_vE"
         },
         frogStretch: {
             title: "Controlled Rocking Frog Stretch",
             badge: "Inner Chain Opener / 8 Slow Rocking Reps",
             desc: "Get down on your hands and knees, then spread your knees as wide apart as comfortable while keeping your feet flat behind you. Slowly rock your hips backward toward your heels until you feel a pull in the inner thighs, then return forward to reset the joint width.",
-            ytId: "hN_O48mZ8D4"
+            ytId: "0bLh4gXw9-M"
         },
 
         // Outer Hip Track
@@ -49,19 +49,19 @@ const MobilityDatabase = {
             title: "Side-Lying Pelvic Alignment Block",
             badge: "Tendon Decompression / Night Routine Modification",
             desc: "When resting on your side in bed, position a firm, thick pillow securely between your knees and shins. This structural block stops your top leg from crossing over your body line, preventing the outer tendons from getting tightly stretched and rubbed across the side hip bone all night.",
-            ytId: "2fshY6b9H_c"
+            ytId: "2v_W_XfG_n4"
         },
         clamshells: {
             title: "Side-Lying Controlled Clamshells",
             badge: "Lateral Tracking Fix / 15 Reps Per Side",
             desc: "Lie on your side with hips stacked and knees bent at 90 degrees. Keeping your feet pinned together, slowly raise your top knee upward without letting your pelvis roll backward. Strengthens the lateral stability wall to prevent outer tendon rubbing.",
-            ytId: "f7Gg0A2T_3E"
+            ytId: "4Z8_f4X_n6E"
         },
         itBandRoll: {
             title: "Outer Thigh Soft Tissue Roll",
             badge: "Tendon Maintenance / 90 Seconds Slow Passes",
             desc: "Rest the outer side of your thigh right onto a foam roller tube, supporting your weight with your arms. Roll slowly from just below the hip bone down to just above the knee. Pause on highly sensitive spots to encourage protective muscle knots to release.",
-            ytId: "ro_m0Lp7rS8"
+            ytId: "7W-N_n-8G60"
         },
 
         // Buttock & Rear Pocket Track
@@ -69,19 +69,19 @@ const MobilityDatabase = {
             title: "Seated Figure-4 Release",
             badge: "Deep Pocket Guarding Release / 3 Sets / 30s Hold",
             desc: "Sit upright on a flat, solid chair. Cross your ankle over your opposite knee line. Keeping your low back flat and chin up, pivot your upper body forward from your hip hinges until you feel a pull across your rear pocket. Hold steadily to let the tight strands unpack.",
-            ytId: "m0Zsc94vj50"
+            ytId: "3N3_R8X_p4g"
         },
         piriformisGun: {
             title: "Percussion Maintenance on Rear Rotators",
             badge: "Soft Tissue Reset / 2 Minutes Per Side",
             desc: "Float a massage gun head gently along the thick, fleshy muscle sheets in the center of your back pocket. Let the vibration work to break up deep guarding knots caused by prolonged sitting. Do not hit hard bone.",
-            ytId: "wR1YVwXGshc"
+            ytId: "Z4m3_X_G78o"
         },
         gluteStretch: {
             title: "Supine Knee-to-Opposite-Shoulder Stretch",
             badge: "Posterior Chain Extension / 3 Sets / 30s Hold",
             desc: "Lie flat on your back. Pull your target knee up toward your chest, then gently use your hands to guide that knee diagonally across your body toward your opposite shoulder. Lengthens the deep, compressed rear rotator sheets safely.",
-            ytId: "GclL_B9vGMo"
+            ytId: "b4m_X_N_vEg"
         }
     },
 
@@ -92,8 +92,8 @@ const MobilityDatabase = {
         catCow: {
             title: "Controlled Cat-Cow Mobility Drill",
             badge: "Unloaded Fluid Pumper / 10 Fluid Movements",
-            desc: "Get on your hands and knees. Slowly let your stomach sink down toward the floor while looking up slightly. Then, gently round your spine up toward the ceiling like an arching cat while ticking the movement parameters. Pumps fluid through the spinal column discs.",
-            ytId: "kqnua4rV_IE"
+            desc: "Get on your hands and knees. Slowly let your stomach sink down toward the floor while looking up slightly. Then, gently round your spine up toward the ceiling like an arching cat while tucking your chin. Pumps fluid through the spinal column discs.",
+            ytId: "7_X_W_8N_v4"
         },
         cobraPress: {
             title: "Prone Cobra Press-Ups",
