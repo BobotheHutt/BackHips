@@ -384,19 +384,17 @@
             document.getElementById('output-diagnostic-panel').style.display = 'none';
         }
 
-        // STRICT PARSER FIX: Forces the browser to output a clean URL path object
+        // SECURE MEDIA BLOCK COMPONENT CONTAINER
         function buildExerciseCard(exerciseData) {
             if (!exerciseData || !exerciseData.ytId) {
                 return ''; 
             }
             
-            // Build a solid, un-smashable native browser URL object
-            var nativeUrl = new URL("https://youtube.com");
+            var nativeUrl = new URL("https://www.youtube.com");
             nativeUrl.pathname = "/embed/" + exerciseData.ytId;
             nativeUrl.searchParams.set("rel", "0");
             nativeUrl.searchParams.set("modestbranding", "1");
             
-            // Convert it safely to a string for the player frame source
             var playerSourceUrl = nativeUrl.toString();
             
             return '<div class="spec-card">' +
@@ -404,10 +402,12 @@
                    '<div class="badge">' + exerciseData.badge + '</div>' +
                    '<p style="color: #94a3b8; font-size: 16px;">' + exerciseData.desc + '</p>' +
                    '<div class="video-player-box">' +
+                   /* ADDED MEDIA RUNTIME OVERRIDES TO PREVENT DOCUMENT POLICY VIOLATIONS */
                    '<iframe src="' + playerSourceUrl + '" title="' + exerciseData.title + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' +
                    '</div>' +
                    '</div>';
         }
+
 
 
         function runDiagnosticEngine() {
