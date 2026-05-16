@@ -351,7 +351,6 @@
 
     <!-- UI & Analysis Core Engine Logic -->
     <script>
-        // MASTER TOGGLE REFIX: Handles all collapsible drawers across elements flawlessly
         function toggleDrawer(drawerId, headerElement) {
             const drawer = document.getElementById(drawerId);
             const arrow = headerElement.querySelector('.toggle-arrow');
@@ -385,10 +384,9 @@
             document.getElementById('output-diagnostic-panel').style.display = 'none';
         }
 
-        // EMBEDDED HASH ID PLAYER REFIX: Safely isolates the [1] index string from the link split array
+        // NO-SPLIT LOOKUP FIX: Directly feeds the clean 11-digit video key into the embed code frame
         function buildExerciseCard(exerciseData) {
-            const videoIdArray = exerciseData.video.split('v=');
-            const exactVideoId = videoIdArray[1];
+            const exactVideoId = exerciseData.video;
             
             return `
                 <div class="spec-card">
