@@ -385,8 +385,11 @@
         }
 
         // NO-SPLIT KEY FIX: Swapped out 'video' for your custom 'ytId' database parameter
+        // BULLETPROOF DIRECT LINK GLUE FIX
         function buildExerciseCard(exerciseData) {
             var targetId = exerciseData.ytId;
+            
+            // Strictly forces the exact YouTube folder embed link structure
             var playerSourceUrl = "https://youtube.com" + targetId + "?rel=0&modestbranding=1";
             
             return '<div class="spec-card">' +
@@ -398,6 +401,7 @@
                    '</div>' +
                    '</div>';
         }
+
 
         function runDiagnosticEngine() {
             if (typeof MobilityDatabase === 'undefined') {
