@@ -11,22 +11,17 @@
             background-color: #121824; 
             color: #e2e8f0; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            padding: 24px;
+            padding: 16px;
             line-height: 1.6;
         }
 
-        /* Two-Column Grid for Laptop Screens */
-        .workspace-grid {
-            max-width: 1350px;
+        /* Strict Single-Column Layout Container */
+        .workspace-container {
+            max-width: 800px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr;
+            display: flex;
+            flex-direction: column;
             gap: 24px;
-        }
-        @media (min-width: 1024px) {
-            .workspace-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-            .col-left { grid-column: span 5 / span 5; }
-            .col-right { grid-column: span 7 / span 7; }
         }
 
         /* Shop Dashboard Component Cards */
@@ -36,51 +31,53 @@
             border-radius: 16px;
             padding: 24px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            height: fit-content;
-        }
-        .panel-title {
-            font-size: 24px;
-            font-weight: 900;
-            color: #ffffff;
-            padding-bottom: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .panel-desc { color: #94a3b8; font-size: 14px; margin-bottom: 20px; border-bottom: 2px solid #334155; padding-bottom: 12px; }
-
-        /* Collapsible Toggle Header Button */
-        .collapse-toggle-btn {
             width: 100%;
-            background-color: #0f172a;
+        }
+
+        /* Full-Block Interactive Clickable Header */
+        .panel-header-btn {
+            background-color: #1e293b;
             border: 2px solid #334155;
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 800;
-            padding: 14px 20px;
-            border-radius: 12px;
+            border-radius: 16px;
+            padding: 20px 24px;
+            width: 100%;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             transition: all 0.15s ease;
         }
-        .collapse-toggle-btn:hover { background-color: #1a2333; border-color: #475569; }
-        .toggle-arrow { font-size: 14px; color: #38bdf8; }
+        .panel-header-btn:hover { background-color: #243246; border-color: #475569; }
+        .panel-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .toggle-arrow { font-size: 16px; color: #38bdf8; }
         
-        /* Hidden Container by Default */
-        .collapsible-content {
+        /* Master Drawer Container (Hidden by Default) */
+        .collapsible-drawer {
             display: none;
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            border-top: none;
+            border-radius: 0 0 16px 16px;
+            padding: 24px;
+            margin-top: -18px; /* Seamlessly connects block to the header above */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
 
-        /* Clear Button */
+        /* Action Buttons */
         .reset-btn {
             background-color: #334155;
             color: #cbd5e1;
             border: none;
-            padding: 4px 10px;
-            font-size: 12px;
+            padding: 6px 14px;
+            font-size: 13px;
             font-weight: 700;
             border-radius: 6px;
             cursor: pointer;
@@ -118,38 +115,37 @@
             cursor: pointer;
         }
 
-        /* Caution Alert Callout Box */
-        .alert-box {
-            background-color: #2a1b10;
-            border: 1px solid #b45309;
-            border-left: 5px solid #d97706;
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 24px;
-            display: flex;
-            gap: 12px;
-        }
-        .alert-box p { color: #fef3c7; font-size: 14px; font-weight: 500; }
-
-        /* Dynamic Blueprint Information Panel */
+        /* Dynamic Live Output Banner Block */
         .dynamic-banner {
             background: linear-gradient(135deg, #0c4a6e 0%, #1e1b4b 100%);
             border: 2px solid #0284c7;
             border-left: 6px solid #0284c7;
             padding: 20px;
             border-radius: 12px;
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin-top: 8px;
+            margin-bottom: 16px;
             display: none;
         }
         .dynamic-banner h3 { font-size: 14px; font-weight: 900; color: #38bdf8; text-transform: uppercase; tracking-spacing: 0.5px; margin-bottom: 12px; }
         .dynamic-text-content { font-size: 16px; color: #f1f5f9; display: flex; flex-direction: column; gap: 16px; }
 
-        /* Text Reading Presentation Rules */
+        /* General Warning Notice Callout */
+        .alert-box {
+            background-color: #2a1b10;
+            border: 1px solid #b45309;
+            border-left: 5px solid #d97706;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            gap: 12px;
+        }
+        .alert-box p { color: #fef3c7; font-size: 14px; font-weight: 500; }
+
+        /* Informational Content Text Rules */
         .content-title { font-size: 28px; font-weight: 900; color: #ffffff; border-bottom: 2px solid #334155; padding-bottom: 8px; margin-bottom: 16px; }
         .content-p { font-size: 17px; color: #94a3b8; margin-bottom: 24px; line-height: 1.7; }
         
-        .grid-cards { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 20px; }
+        .grid-cards { display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
         .spec-card { background-color: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 20px; }
         .spec-card h5 { font-size: 19px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
         .badge {
@@ -167,118 +163,110 @@
 </head>
 <body>
 
-    <div class="workspace-grid">
+    <div class="workspace-container">
         
-        <!-- Left Side: Hip Selector Column (Now Holds Everything Symptom-Related) -->
-        <section class="col-left panel-card">
-            <div class="panel-title" style="margin-bottom: 12px;">
-                <span>Hip Checklists</span>
-            </div>
-            
-            <!-- Collapsible Master Header Button -->
-            <button onclick="toggleHipSymptomPanel()" class="collapse-toggle-btn" id="toggle-trigger">
-                <span>📋 Open Hip Symptom Checker</span>
-                <span class="toggle-arrow" id="arrow-indicator">▼</span>
-            </button>
+        <!-- BLOCK 1: Fully Clickable Symptom Checker Title Block -->
+        <button onclick="toggleMasterSymptomBlock()" class="panel-header-btn" id="block-header-trigger">
+            <span class="panel-title">📋 Hip Symptom Checker</span>
+            <span class="toggle-arrow" id="arrow-indicator">▼ Click to Expand</span>
+        </button>
 
-            <!-- Hidden Content Section By Default -->
-            <div class="collapsible-content" id="hip-checker-drawer">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                    <span style="color: #94a3b8; font-size: 13.5px; font-weight: 600;">Select active symptoms:</span>
-                    <button type="button" onclick="clearHipSymptoms()" class="reset-btn">Clear All</button>
+        <!-- BLOCK 2: Hidden Content Checklist Drawer -->
+        <div class="collapsible-drawer" id="master-checklist-drawer">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #334155; padding-bottom: 12px;">
+                <span style="color: #94a3b8; font-size: 14px; font-weight: 600;">Check how your hip feels right now:</span>
+                <button type="button" onclick="clearHipSymptoms()" class="reset-btn">Clear Selections</button>
+            </div>
+
+            <form id="hip-form" onchange="evaluateHipState()">
+                <!-- Symptom 1 -->
+                <div class="control-block">
+                    <label class="checkbox-row">
+                        <span class="checkbox-label">Deep pain inside the groin or front hip joint</span>
+                        <input type="checkbox" id="symp-groin">
+                    </label>
+                    <div id="scale-groin" class="slider-area">
+                        <div class="slider-labels"><span>Mild ache</span><span>Severe pain</span></div>
+                        <input type="range" min="1" max="10" value="5">
+                    </div>
                 </div>
 
-                <form id="hip-form" onchange="evaluateHipState()">
-                    <!-- Symptom 1: Groin Pain -->
-                    <div class="control-block">
-                        <label class="checkbox-row">
-                            <span class="checkbox-label">Deep pain inside the groin or front hip joint</span>
-                            <input type="checkbox" id="symp-groin">
-                        </label>
-                        <div id="scale-groin" class="slider-area">
-                            <div class="slider-labels"><span>Mild ache</span><span>Severe pain</span></div>
-                            <input type="range" min="1" max="10" value="5">
-                        </div>
+                <!-- Symptom 2 -->
+                <div class="control-block">
+                    <label class="checkbox-row">
+                        <span class="checkbox-label">Hip feels tight or "stuck" when tying shoes or getting out of cars</span>
+                        <input type="checkbox" id="symp-stuck">
+                    </label>
+                    <div id="scale-stuck" class="slider-area">
+                        <div class="slider-labels"><span>Slightly stiff</span><span>Hard to bend</span></div>
+                        <input type="range" min="1" max="10" value="5">
                     </div>
+                </div>
 
-                    <!-- Symptom 2: Tight / Stuck Joint -->
-                    <div class="control-block">
-                        <label class="checkbox-row">
-                            <span class="checkbox-label">Hip feels tight or "stuck" when tying shoes or getting out of cars</span>
-                            <input type="checkbox" id="symp-stuck">
-                        </label>
-                        <div id="scale-stuck" class="slider-area">
-                            <div class="slider-labels"><span>Slightly stiff</span><span>Hard to bend</span></div>
-                            <input type="range" min="1" max="10" value="5">
-                        </div>
+                <!-- Symptom 3 -->
+                <div class="control-block">
+                    <label class="checkbox-row">
+                        <span class="checkbox-label">Heavy aching and stiffness right after waking up in the morning</span>
+                        <input type="checkbox" id="symp-morning">
+                    </label>
+                    <div id="scale-morning" class="slider-area">
+                        <div class="slider-labels"><span>Loosens quickly</span><span>Lasts a long time</span></div>
+                        <input type="range" min="1" max="10" value="5">
                     </div>
+                </div>
 
-                    <!-- Symptom 3: Morning Hip Stiffness -->
-                    <div class="control-block">
-                        <label class="checkbox-row">
-                            <span class="checkbox-label">Heavy aching and stiffness right after waking up in the morning</span>
-                            <input type="checkbox" id="symp-morning">
-                        </label>
-                        <div id="scale-morning" class="slider-area">
-                            <div class="slider-labels"><span>Loosens quickly</span><span>Lasts a long time</span></div>
-                            <input type="range" min="1" max="10" value="5">
-                        </div>
+                <!-- Symptom 4 -->
+                <div class="control-block">
+                    <label class="checkbox-row">
+                        <span class="checkbox-label">Pain on the outside of the hip when lying down on that side at night</span>
+                        <input type="checkbox" id="symp-outside">
+                    </label>
+                    <div id="scale-outside" class="slider-area">
+                        <div class="slider-labels"><span>Dull pressure</span><span>Sharp throbbing</span></div>
+                        <input type="range" min="1" max="10" value="5">
                     </div>
+                </div>
 
-                    <!-- Symptom 4: Outer Hip Pain Lying Down -->
-                    <div class="control-block">
-                        <label class="checkbox-row">
-                            <span class="checkbox-label">Pain on the outside of the hip when lying down on that side at night</span>
-                            <input type="checkbox" id="symp-outside">
-                        </label>
-                        <div id="scale-outside" class="slider-area">
-                            <div class="slider-labels"><span>Dull pressure</span><span>Sharp throbbing</span></div>
-                            <input type="range" min="1" max="10" value="5">
-                        </div>
+                <!-- Symptom 5 -->
+                <div class="control-block">
+                    <label class="checkbox-row">
+                        <span class="checkbox-label">A deep ache in the buttock or hip after sitting in a soft chair for too long</span>
+                        <input type="checkbox" id="symp-buttock">
+                    </label>
+                    <div id="scale-buttock" class="slider-area">
+                        <div class="slider-labels"><span>Mild ache</span><span>Deep burning</span></div>
+                        <input type="range" min="1" max="10" value="5">
                     </div>
+                </div>
 
-                    <!-- Symptom 5: Buttock Ache After Sitting -->
-                    <div class="control-block">
-                        <label class="checkbox-row">
-                            <span class="checkbox-label">A deep ache in the buttock or hip after sitting in a soft chair for too long</span>
-                            <input type="checkbox" id="symp-buttock">
-                        </label>
-                        <div id="scale-buttock" class="slider-area">
-                            <div class="slider-labels"><span>Mild ache</span><span>Deep burning</span></div>
-                            <input type="range" min="1" max="10" value="5">
-                        </div>
+                <!-- Symptom 6 -->
+                <div class="control-block">
+                    <label class="checkbox-row">
+                        <span class="checkbox-label">A sharp catch or clicking feeling in the hip when twisting or turning around</span>
+                        <input type="checkbox" id="symp-clicking">
+                    </label>
+                    <div id="scale-clicking" class="slider-area">
+                        <div class="slider-labels"><span>Mild pop</span><span>Sharp catch</span></div>
+                        <input type="range" min="1" max="10" value="5">
                     </div>
+                </div>
+            </form>
 
-                    <!-- Symptom 6: Catching / Clicking on Twisting -->
-                    <div class="control-block">
-                        <label class="checkbox-row">
-                            <span class="checkbox-label">A sharp catch or clicking feeling in the hip when twisting or turning around</span>
-                            <input type="checkbox" id="symp-clicking">
-                        </label>
-                        <div id="scale-clicking" class="slider-area">
-                            <div class="slider-labels"><span>Mild pop</span><span>Sharp catch</span></div>
-                            <input type="range" min="1" max="10" value="5">
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <!-- MOVED: Dynamic Alert Feed Box Now Renders Right Below The Form -->
+            <!-- Live Notes Banner Display Area Inside Block -->
             <div id="hip-alert-banner" class="dynamic-banner">
                 <h3>Live Notes Based on Your Selections</h3>
                 <div id="hip-alert-text" class="dynamic-text-content"></div>
             </div>
 
-            <!-- Standard Context Warning Note -->
+            <!-- Standard Tracking Notice Block Inside Collapsible Drawer -->
             <div class="alert-box">
                 <span style="font-size: 20px;">⚠️</span>
                 <p>Tracking these patterns helps you gather good information about your movement. Bringing a quick list of these notes to your next regular check-up is a helpful way to work with a physical specialist on a personalized exercise routine.</p>
             </div>
-        </section>
+        </div>
 
-        <!-- Right Side: Stable Informational Sheets Column -->
-        <section class="col-right panel-card">
-            <!-- Core Knowledge Base -->
+        <!-- BLOCK 3: Stable Permanent Informational Reference Sheets -->
+        <section class="panel-card">
             <h3 class="content-title">Hip Joint Basics</h3>
             <p class="content-p">
                 The hip joint works like a heavy-duty ball-and-socket assembly designed to carry your upper body weight. When the smooth cushioning tissue inside the joint wears thin over time, the bones can rub closer together. This extra friction causes the surrounding muscles to tighten up automatically to try and shield the joint.
@@ -303,21 +291,22 @@
 
     <!-- UI State Pipeline -->
     <script>
-        function toggleHipSymptomPanel() {
-            const drawer = document.getElementById('hip-checker-drawer');
-            const trigger = document.getElementById('toggle-trigger');
+        // Master Drawer Visibility Toggler
+        function toggleMasterSymptomBlock() {
+            const drawer = document.getElementById('master-checklist-drawer');
+            const trigger = document.getElementById('block-header-trigger');
             const arrow = document.getElementById('arrow-indicator');
 
             if (drawer.style.display === 'block') {
                 drawer.style.display = 'none';
+                trigger.style.borderRadius = '16px'; // Restores rounded corners when shut
                 trigger.style.borderColor = '#334155';
-                trigger.querySelector('span').innerText = '📋 Open Hip Symptom Checker';
-                arrow.innerText = '▼';
+                arrow.innerText = '▼ Click to Expand';
             } else {
                 drawer.style.display = 'block';
+                trigger.style.borderRadius = '16px 16px 0 0'; // Flattens bottom boundary to blend into drawer
                 trigger.style.borderColor = '#0284c7';
-                trigger.querySelector('span').innerText = '📂 Hide Hip Symptom Checker';
-                arrow.innerText = '▲';
+                arrow.innerText = '▲ Click to Collapse';
             }
         }
 
