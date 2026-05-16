@@ -308,7 +308,7 @@
 
             <h4 class="content-subtitle">The Mechanics of Muscle Guarding</h4>
             <p class="content-p">
-                When internal joint lubrication decreases, or when a muscle fiber experiences sudden strain, the nervous system recognizes that the structural parts are vulnerable to pressure. To prevent structural damage, the body engages a defensive mechanism called <span class="knowledge-highlight">muscle guarding</span>. The region sends a rapid message commanding the deep surrounding muscle sheets—including the quads, hamstrings, and inner hip flexors—to clamp down hard like an involuntary biological splint.
+                When internal joint lubrication decreases, or when a muscle fiber experiences sudden strain, the nervous system recognizes that the structural parts are vulnerable to pressure. To prevent structural damage, the body engages a defensive mechanism called <span class="knowledge-highlight">muscle guarding</span>. The brain sends a rapid message commanding the deep surrounding muscle sheets—including the quads, hamstrings, and inner hip flexors—to clamp down hard like an involuntary biological splint.
             </p>
             <p class="content-p">
                 While this lockdown configuration successfully protects the joint from moving into a harmful position, it creates a separate mechanical issue. The constant contraction locks up fluid circulation, resulting in stubborn muscle knots, constant aching, and a feeling that the mechanical assembly is rusted or "stuck." To release this clamp, forcing a hard stretch will backfire. Instead, light, unweighted movements are required to signal the brain to lift the lockdown.
@@ -384,9 +384,20 @@
             document.getElementById('output-diagnostic-panel').style.display = 'none';
         }
 
-        // CONCATENATION REFIX: Glues strings cleanly together using standard addition math symbols
+        // FAILSAFE AUTO-DETECTOR: Scans for multiple name options ('video', 'videoId', 'id') to protect against undefined errors
         function buildExerciseCard(exerciseData) {
-            var targetId = exerciseData.video;
+            var targetId = exerciseData.video || exerciseData.videoId || exerciseData.id;
+            
+            // Failsafe text backup box in case the property text is missing completely
+            if (!targetId || targetId === "") {
+                return '<div class="spec-card">' +
+                       '<h5>' + exerciseData.title + '</h5>' +
+                       '<div class="badge">' + exerciseData.badge + '</div>' +
+                       '<p style="color: #e11d48; font-weight: bold;">Configuration Notice: Video tracking parameter missing inside exercises.js key data.</p>' +
+                       '<p style="color: #94a3b8; font-size: 16px;">' + exerciseData.desc + '</p>' +
+                       '</div>';
+            }
+            
             var playerSourceUrl = "https://youtube.com" + targetId + "?rel=0&modestbranding=1";
             
             return '<div class="spec-card">' +
