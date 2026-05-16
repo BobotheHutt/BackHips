@@ -379,19 +379,18 @@
             document.getElementById('output-diagnostic-panel').style.display = 'none';
         }
 
-        // Helper function to inject an exercise card string from the database
+        // TAILORED FIX: Forces link to clear the sandbox frame boundary completely using target="_top"
         function buildExerciseCard(exerciseData) {
             return `
                 <div class="spec-card">
                     <h5>${exerciseData.title}</h5>
                     <div class="badge">${exerciseData.badge}</div>
                     <p style="color: #94a3b8; font-size: 16px;">${exerciseData.desc}</p>
-                    <a href="${exerciseData.video}" target="_blank" class="photo-link-btn">▶️ Watch Exercise Video</a>
+                    <a href="${exerciseData.video}" target="_top" class="photo-link-btn">▶️ Watch Exercise Video</a>
                 </div>`;
         }
 
         function runDiagnosticEngine() {
-            // Check if database loaded correctly
             if (typeof MobilityDatabase === 'undefined') {
                 alert("Database Error: exercises.js was not found or failed to load.");
                 return;
@@ -491,7 +490,6 @@
                 if (!loadedExercises.has('stance')) { exercisesHTML += buildExerciseCard(db.stance); loadedExercises.add('stance'); }
             }
 
-            // High Intensity Advisory Filter
             if (maxIntensity >= 8 || triggersDoctorAdvisory) {
                 const warningBox = document.getElementById('doctor-warning-box');
                 const warningText = document.getElementById('doctor-warning-text');
