@@ -100,7 +100,8 @@
         .checkbox-label { font-size: 16px; font-weight: 700; color: #f1f5f9; text-align: left; flex: 1; }
         .control-block input[type="checkbox"] { width: 26px; height: 26px; accent-color: #0284c7; cursor: pointer; flex-shrink: 0; }
         
-        .slider-area { margin-top: 14px; border-top: 1px solid #1e293b; padding-top: 12px; }
+        /* Sliders Hidden by Default */
+        .slider-area { margin-top: 14px; border-top: 1px solid #1e293b; padding-top: 12px; display: none; }
         .slider-labels { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 6px; }
         .control-block input[type="range"] { width: 100%; accent-color: #0284c7; cursor: pointer; }
 
@@ -151,6 +152,7 @@
         .grid-cards { display: flex; flex-direction: column; gap: 16px; }
         .spec-card { background-color: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 20px; }
         .spec-card h5 { font-size: 19px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
+        
         .badge {
             display: inline-block;
             background-color: #1e293b;
@@ -162,6 +164,24 @@
             border-radius: 20px;
             margin-bottom: 12px;
         }
+
+        /* Stable Blue Link Buttons for Photo References */
+        .photo-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 14px;
+            background-color: #0c4a6e;
+            border: 1px solid #0284c7;
+            color: #38bdf8;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+        .photo-link-btn:hover { background-color: #0284c7; color: #ffffff; }
     </style>
 </head>
 <body>
@@ -180,14 +200,14 @@
                 <button type="button" onclick="resetInputForm()" class="reset-btn">Clear All</button>
             </div>
 
-            <form id="hip-form">
+            <form id="hip-form" onchange="toggleSliderVisibility()">
                 <!-- Groin Pain -->
                 <div class="control-block">
                     <label class="checkbox-row">
                         <span class="checkbox-label">Deep pain inside the groin crease or front hip socket</span>
                         <input type="checkbox" id="symp-groin">
                     </label>
-                    <div class="slider-area">
+                    <div class="slider-area" id="box-groin">
                         <div class="slider-labels"><span>Mild twinge</span><span>Severe rub</span></div>
                         <input type="range" id="scale-groin" min="1" max="10" value="5">
                     </div>
@@ -199,7 +219,7 @@
                         <span class="checkbox-label">Hip feels tight or "stuck" when bending down or getting out of cars</span>
                         <input type="checkbox" id="symp-stuck">
                     </label>
-                    <div class="slider-area">
+                    <div class="slider-area" id="box-stuck">
                         <div class="slider-labels"><span>Slightly stiff</span><span>Hard to bend</span></div>
                         <input type="range" id="scale-stuck" min="1" max="10" value="5">
                     </div>
@@ -211,7 +231,7 @@
                         <span class="checkbox-label">Heavy aching and stiffness right after waking up in the morning</span>
                         <input type="checkbox" id="symp-morning">
                     </label>
-                    <div class="slider-area">
+                    <div class="slider-area" id="box-morning">
                         <div class="slider-labels"><span>Loosens quickly</span><span>Lasts an hour+</span></div>
                         <input type="range" id="scale-morning" min="1" max="10" value="5">
                     </div>
@@ -223,7 +243,7 @@
                         <span class="checkbox-label">Pain on the outside bone when lying down on your side at night</span>
                         <input type="checkbox" id="symp-outside">
                     </label>
-                    <div class="slider-area">
+                    <div class="slider-area" id="box-outside">
                         <div class="slider-labels"><span>Dull pressure</span><span>Sharp throb</span></div>
                         <input type="range" id="scale-outside" min="1" max="10" value="5">
                     </div>
@@ -235,7 +255,7 @@
                         <span class="checkbox-label">Deep ache in the rear pocket area after sitting in soft couches or deep chairs</span>
                         <input type="checkbox" id="symp-buttock">
                     </label>
-                    <div class="slider-area">
+                    <div class="slider-area" id="box-buttock">
                         <div class="slider-labels"><span>Dull ache</span><span>Deep burn</span></div>
                         <input type="range" id="scale-buttock" min="1" max="10" value="5">
                     </div>
@@ -247,7 +267,7 @@
                         <span class="checkbox-label">A sharp catch, pinch, or click inside the hip when twisting around</span>
                         <input type="checkbox" id="symp-clicking">
                     </label>
-                    <div class="slider-area">
+                    <div class="slider-area" id="box-clicking">
                         <div class="slider-labels"><span>Mild pop</span><span>Sharp catch</span></div>
                         <input type="range" id="scale-clicking" min="1" max="10" value="5">
                     </div>
@@ -276,7 +296,7 @@
 
             <!-- Part B: Dynamic Exercise Prescription -->
             <div class="diagnostic-section-title">2. Target Maintenance Routines</div>
-            <p class="routine-p">Based on your specific input logs, focus on performing these targeted physical therapy movements to loosen up current shielding knots:</p>
+            <p class="routine-p">Based on your specific input logs, focus on performing these targeted maintenance movements to loosen up current shielding knots:</p>
             <div class="grid-cards" id="exercises-render-target"></div>
         </section>
 
@@ -301,13 +321,23 @@
             }
         }
 
+        // Live Toggle to only show sliders when checked
+        function toggleSliderVisibility() {
+            document.getElementById('box-groin').style.display = document.getElementById('symp-groin').checked ? 'block' : 'none';
+            document.getElementById('box-stuck').style.display = document.getElementById('symp-stuck').checked ? 'block' : 'none';
+            document.getElementById('box-morning').style.display = document.getElementById('symp-morning').checked ? 'block' : 'none';
+            document.getElementById('box-outside').style.display = document.getElementById('symp-outside').checked ? 'block' : 'none';
+            document.getElementById('box-buttock').style.display = document.getElementById('symp-buttock').checked ? 'block' : 'none';
+            document.getElementById('box-clicking').style.display = document.getElementById('symp-clicking').checked ? 'block' : 'none';
+        }
+
         function resetInputForm() {
             document.getElementById('hip-form').reset();
+            toggleSliderVisibility();
             document.getElementById('output-diagnostic-panel').style.display = 'none';
         }
 
         function runDiagnosticEngine() {
-            // Isolate current checkbox states
             const groin = document.getElementById('symp-groin').checked;
             const stuck = document.getElementById('symp-stuck').checked;
             const morning = document.getElementById('symp-morning').checked;
@@ -315,7 +345,6 @@
             const buttock = document.getElementById('symp-buttock').checked;
             const clicking = document.getElementById('symp-clicking').checked;
 
-            // Isolate slider numeric intensities
             const groinLvl = parseInt(document.getElementById('scale-groin').value);
             const stuckLvl = parseInt(document.getElementById('scale-stuck').value);
             const morningLvl = parseInt(document.getElementById('scale-morning').value);
@@ -323,7 +352,6 @@
             const buttockLvl = parseInt(document.getElementById('scale-buttock').value);
             const clickingLvl = parseInt(document.getElementById('scale-clicking').value);
 
-            // Verify if at least one checkbox is selected
             if (!groin && !stuck && !morning && !outside && !buttock && !clicking) {
                 alert("Please select at least one symptom parameter before generating a report.");
                 return;
@@ -333,12 +361,10 @@
             let exercisesHTML = "";
             let maxIntensity = 0;
             let triggersDoctorAdvisory = false;
-
-            // ----------------------------------------------------
-            // CORE DIAGNOSTIC ROUTINES MAPPING LABELS
-            // ----------------------------------------------------
             
-            // Scenario A: Internal Mechanical Rub (Groin Pain / Tightness / Morning Stiffness)
+            // Set of trackers to ensure we don't list the same exercise card twice if multiple boxes pull it
+            let loadedExercises = new Set();
+
             if (groin || stuck || morning) {
                 let currentMax = Math.max(groin ? groinLvl : 0, stuck ? stuckLvl : 0, morning ? morningLvl : 0);
                 if (currentMax > maxIntensity) maxIntensity = currentMax;
@@ -349,21 +375,29 @@
                         <p class="assessment-p">Aches inside the groin crease or heavy waking stiffness usually mean the ball-and-socket space is compacting, causing bone-on-bone friction. The surrounding hip stabilizers automatically knot up like a protective shield to lock down the joint.</p>
                     </div>`;
 
-                // Add corresponding target movements
-                exercisesHTML += `
-                    <div class="spec-card">
-                        <h5>Standing Unweighted Leg Swings</h5>
-                        <div class="badge">20 Swings / Per Side</div>
-                        <p style="color: #94a3b8; font-size: 16px;">Stand tall on a step using one leg, letting the target leg hang free. Hold onto a rail or wall for balance. Slowly swing the free leg forward and backward like a pendulum. This unweighted motion coaxes the joint to pump protective lubrication fluid directly into the socket without grinding.</p>
-                    </div>
-                    <div class="spec-card">
-                        <h5>Isometric Glute Bridges</h5>
-                        <div class="badge">10 Reps / 5 Second Hold</div>
-                        <p style="color: #94a3b8; font-size: 16px;">Lie on your back with knees bent and feet flat on the floor. Drive down through your heels to raise your hips until your thighs run inline with your trunk. Squeezing your glutes tells the deep, overworking hip flexors on the front to turn off and let go.</p>
-                    </div>`;
+                if (!loadedExercises.has('swings')) {
+                    exercisesHTML += `
+                        <div class="spec-card">
+                            <h5>Standing Unweighted Leg Swings</h5>
+                            <div class="badge">20 Swings / Per Side</div>
+                            <p style="color: #94a3b8; font-size: 16px;">Stand tall on a step using one leg, letting the target leg hang free. Hold onto a rail or wall for balance. Slowly swing the free leg forward and backward like a pendulum. This unweighted motion coaxes the joint to pump protective lubrication fluid directly into the socket without grinding.</p>
+                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼️ View Exercise Pictures</a>
+                        </div>`;
+                    loadedExercises.add('swings');
+                }
+
+                if (!loadedExercises.has('bridges')) {
+                    exercisesHTML += `
+                        <div class="spec-card">
+                            <h5>Isometric Glute Bridges</h5>
+                            <div class="badge">10 Reps / 5 Second Hold</div>
+                            <p style="color: #94a3b8; font-size: 16px;">Lie on your back with knees bent and feet flat on the floor. Drive down through your heels to raise your hips until your thighs run inline with your trunk. Squeezing your glutes tells the deep, overworking hip flexors on the front to turn off and let go.</p>
+                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼️ View Exercise Pictures</a>
+                        </div>`;
+                    loadedExercises.add('bridges');
+                }
             }
 
-            // Scenario B: Outer Tendon Compression (Outer Bone Discomfort)
             if (outside) {
                 if (outsideLvl > maxIntensity) maxIntensity = outsideLvl;
                 
@@ -373,15 +407,18 @@
                         <p class="assessment-p">Discomfort on the hard outside bone at night occurs when the side hip tendons get squeezed against the bone framework, irritating the fluid protective sacs underneath.</p>
                     </div>`;
 
-                exercisesHTML += `
-                    <div class="spec-card">
-                        <h5>Side-Lying Pelvic Alignment Block</h5>
-                        <div class="badge">Night Routine Modification</div>
-                        <p style="color: #94a3b8; font-size: 16px;">When resting on your side in bed, position a firm, thick pillow securely between your knees and shins. This structural block stops your top leg from crossing over your body line, preventing the outer tendons from getting tightly stretched and rubbed across the hip bone all night.</p>
-                    </div>`;
+                if (!loadedExercises.has('alignment')) {
+                    exercisesHTML += `
+                        <div class="spec-card">
+                            <h5>Side-Lying Pelvic Alignment Block</h5>
+                            <div class="badge">Night Routine Modification</div>
+                            <p style="color: #94a3b8; font-size: 16px;">When resting on your side in bed, position a firm, thick pillow securely between your knees and shins. This structural block stops your top leg from crossing over your body line, preventing the outer tendons from getting tightly stretched and rubbed across the hip bone all night.</p>
+                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼️ View Setup Pictures</a>
+                        </div>`;
+                    loadedExercises.add('alignment');
+                }
             }
 
-            // Scenario C: Deep Pocket Muscle Strain (Buttock Pain After Sitting)
             if (buttock) {
                 if (buttockLvl > maxIntensity) maxIntensity = buttockLvl;
                 
@@ -391,18 +428,21 @@
                         <p class="assessment-p">A deep ache in the back pocket following sitting happens when the deep muscles underneath get overly squashed and strained by deep, soft chair bases.</p>
                     </div>`;
 
-                exercisesHTML += `
-                    <div class="spec-card">
-                        <h5>Seated Figure-4 Release</h5>
-                        <div class="badge">3 Sets / 30 Second Hold</div>
-                        <p style="color: #94a3b8; font-size: 16px;">Sit upright on a flat, solid chair. Cross your ankle over your opposite knee line. Keeping your low back flat and chin up, pivot your upper body forward from your hip hinges until you feel a pull across your rear pocket. Hold steadily to let the tight strands unpack.</p>
-                    </div>`;
+                if (!loadedExercises.has('figure4')) {
+                    exercisesHTML += `
+                        <div class="spec-card">
+                            <h5>Seated Figure-4 Release</h5>
+                            <div class="badge">3 Sets / 30 Second Hold</div>
+                            <p style="color: #94a3b8; font-size: 16px;">Sit upright on a flat, solid chair. Cross your ankle over your opposite knee line. Keeping your low back flat and chin up, pivot your upper body forward from your hip hinges until you feel a pull across your rear pocket. Hold steadily to let the tight strands unpack.</p>
+                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼️ View Stretch Pictures</a>
+                        </div>`;
+                    loadedExercises.add('figure4');
+                }
             }
 
-            // Scenario D: Catching / Mechanical Shift Flags
             if (clicking) {
                 if (clickingLvl > maxIntensity) maxIntensity = clickingLvl;
-                if (clickingLvl >= 7) triggersDoctorAdvisory = true; // Triggers review logic if severe catch occurs
+                if (clickingLvl >= 7) triggersDoctorAdvisory = true;
                 
                 insightsHTML += `
                     <div class="assessment-block" style="border-left-color: #e11d48;">
@@ -410,44 +450,35 @@
                         <p class="assessment-p">A sharp pinch or sudden click during pivoting implies an internal ring structure is getting caught or pinched between the ball and socket rim under load.</p>
                     </div>`;
 
-                exercisesHTML += `
-                    <div class="spec-card">
-                        <h5>Whole-Body Stance Rotation</h5>
-                        <div class="badge">Movement Modification Guide</div>
-                        <p style="color: #94a3b8; font-size: 16px;">When turning around, avoid planting your feet firmly and twisting your trunk alone. Instead, pick up your feet and turn your whole body in line like a solid pillar. This stops the ball from rotating under heavy stress right against the socket rim.</p>
-                    </div>`;
+                if (!loadedExercises.has('stance')) {
+                    exercisesHTML += `
+                        <div class="spec-card">
+                            <h5>Whole-Body Stance Rotation</h5>
+                            <div class="badge">Movement Modification Guide</div>
+                            <p style="color: #94a3b8; font-size: 16px;">When turning around, avoid planting your feet firmly and twisting your trunk alone. Instead, pick up your feet and turn your whole body in line like a solid pillar. This stops the ball from rotating under heavy stress right against the socket rim.</p>
+                        </div>`;
+                    loadedExercises.add('stance');
+                }
             }
 
-            // ----------------------------------------------------
-            // MEDICAL ADVISORY TRIGGER EVALUATIONS
-            // ----------------------------------------------------
+            // High Threshold Advisory Filter
             if (maxIntensity >= 8 || triggersDoctorAdvisory) {
                 const warningBox = document.getElementById('doctor-warning-box');
                 const warningText = document.getElementById('doctor-warning-text');
-                
                 warningText.innerHTML = `Notice: Some parameters logged show a high sensitivity threshold (${maxIntensity}/10) or a noticeable structural catch. Having a clinical orthopedic specialist or physical therapist run a manual diagnostic check during a routine check-up is a proactive and highly effective step to rule out deeper joint issues.`;
                 warningBox.style.display = 'flex';
             } else {
                 document.getElementById('doctor-warning-box').style.display = 'none';
             }
 
-            // Render output templates into target nodes
             document.getElementById('analysis-render-target').innerHTML = insightsHTML;
             document.getElementById('exercises-render-target').innerHTML = exercisesHTML;
 
-            // Collapse input deck drawer to focus his view on results
-            const formDrawer = document.getElementById('master-checklist-drawer');
-            const formHeader = document.getElementById('header-trigger');
-            formDrawer.style.display = 'none';
-            formHeader.style.borderRadius = '16px';
-            formHeader.style.borderColor = '#334155';
-            formHeader.querySelector('.toggle-arrow').innerText = '▼ Click to Expand Input Deck';
+            // Collapse input deck to bring focus onto results card
+            toggleDrawer('master-checklist-drawer', document.getElementById('header-trigger'));
 
-            // Smoothly display final layout report
             const resultsPanel = document.getElementById('output-diagnostic-panel');
             resultsPanel.style.display = 'block';
-            
-            // Scroll down smoothly to show him the generated text data
             resultsPanel.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
