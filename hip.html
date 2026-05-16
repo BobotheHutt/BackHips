@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hip System Frame</title>
+    <!-- Link the centralized exercise warehouse database -->
+    <script src="exercises.js"></script>
     <style>
         /* Tool-Shop Workspace Styles */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -49,7 +51,7 @@
         }
         .toggle-arrow { font-size: 16px; color: #38bdf8; }
         
-        /* Master Drawer Container (ALL CLOSED BY DEFAULT) */
+        /* Master Drawer Container (All Closed By Default) */
         .collapsible-drawer {
             display: none;
             background-color: #1e293b;
@@ -263,7 +265,7 @@
         </div>
 
 
-        <!-- MODULE 2: Collapsible Diagnostic Results Deck (Hidden until submit trigger clears) -->
+        <!-- MODULE 2: Collapsible Diagnostic Results Deck -->
         <button onclick="toggleDrawer('output-diagnostic-panel', this)" class="panel-header-btn" id="results-header-trigger" style="display: none;">
             <span class="panel-title">📋 Tailored Mobility Report</span>
             <span class="toggle-arrow">▼ Click to Expand</span>
@@ -287,7 +289,7 @@
         </div>
 
 
-        <!-- MODULE 3: Massive Collapsible Hip Knowledge Section (COLLAPSED BY DEFAULT) -->
+        <!-- MODULE 3: Massive Collapsible Hip Knowledge Section -->
         <button onclick="toggleDrawer('knowledge-base-drawer', this)" class="panel-header-btn">
             <span class="panel-title">📖 Deep Hip Knowledge Base</span>
             <span class="toggle-arrow">▼ Click to Expand</span>
@@ -377,7 +379,24 @@
             document.getElementById('output-diagnostic-panel').style.display = 'none';
         }
 
+        // Helper function to inject an exercise card string from the database
+        function buildExerciseCard(exerciseData) {
+            return `
+                <div class="spec-card">
+                    <h5>${exerciseData.title}</h5>
+                    <div class="badge">${exerciseData.badge}</div>
+                    <p style="color: #94a3b8; font-size: 16px;">${exerciseData.desc}</p>
+                    <a href="${exerciseData.video}" target="_blank" class="photo-link-btn">▶️ Watch Exercise Video</a>
+                </div>`;
+        }
+
         function runDiagnosticEngine() {
+            // Check if database loaded correctly
+            if (typeof MobilityDatabase === 'undefined') {
+                alert("Database Error: exercises.js was not found or failed to load.");
+                return;
+            }
+
             const groin = document.getElementById('symp-groin').checked;
             const stuck = document.getElementById('symp-stuck').checked;
             const morning = document.getElementById('symp-morning').checked;
@@ -403,6 +422,9 @@
             let triggersDoctorAdvisory = false;
             let loadedExercises = new Set();
 
+            const db = MobilityDatabase.hip;
+
+            // TRACK 1: Internal Socket Track
             if (groin || stuck || morning) {
                 let currentMax = Math.max(groin ? groinLvl : 0, stuck ? stuckLvl : 0, morning ? morningLvl : 0);
                 if (currentMax > maxIntensity) maxIntensity = currentMax;
@@ -413,29 +435,19 @@
                         <p class="assessment-p">Aches inside the groin crease or heavy waking stiffness usually mean the ball-and-socket space is compacting, causing bone-on-bone friction. The surrounding hip stabilizers automatically knot up like a protective shield to lock down the joint.</p>
                     </div>`;
 
-                if (!loadedExercises.has('swings')) {
-                    exercisesHTML += `
-                        <div class="spec-card">
-                            <h5>Standing Unweighted Leg Swings</h5>
-                            <div class="badge">20 Swings / Per Side</div>
-                            <p style="color: #94a3b8; font-size: 16px;">Stand tall on a step using one leg, letting the target leg hang free. Hold onto a rail or wall for balance. Slowly swing the free leg forward and backward like a pendulum. This unweighted motion coaxes the joint to pump protective lubrication fluid directly into the socket without grinding.</p>
-                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼️ View Exercise Pictures</a>
-                        </div>`;
-                    loadedExercises.add('swings');
-                }
-
-                if (!loadedExercises.has('bridges')) {
-                    exercisesHTML += `
-                        <div class="spec-card">
-                            <h5>Isometric Glute Bridges</h5>
-                            <div class="badge">10 Reps / 5 Second Hold</div>
-                            <p style="color: #94a3b8; font-size: 16px;">Lie on your back with knees bent and feet flat on the floor. Drive down through your heels to raise your hips until your thighs run inline with your trunk. Squeezing your glutes tells the deep, overworking hip flexors on the front to turn off and let go.</p>
-                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼️ View Exercise Pictures</a>
-                        </div>`;
-                    loadedExercises.add('bridges');
-                }
+                if (!loadedExercises.has('legSwings')) { exercisesHTML += buildExerciseCard(db.legSwings); loadedExercises.add('legSwings'); }
+                if (!loadedExercises.has('gluteBridges')) { exercisesHTML += buildExerciseCard(db.gluteBridges); loadedExercises.add('gluteBridges'); }
+                if (!loadedExercises.has('quadStretch')) { exercisesHTML += buildExerciseCard(db.quadStretch); loadedExercises.add('quadStretch'); }
             }
 
+            // TRACK 2: Tightness & Stiffness Track (Triggers if stiffness is moderate/high)
+            if (stuckLvl >= 5 || morningLvl >= 5) {
+                if (!loadedExercises.has('hipRotations')) { exercisesHTML += buildExerciseCard(db.hipRotations); loadedExercises.add('hipRotations'); }
+                if (!loadedExercises.has('psoasMarch')) { exercisesHTML += buildExerciseCard(db.psoasMarch); loadedExercises.add('psoasMarch'); }
+                if (!loadedExercises.has('frogStretch')) { exercisesHTML += buildExerciseCard(db.frogStretch); loadedExercises.add('frogStretch'); }
+            }
+
+            // TRACK 3: Outer Thigh Track
             if (outside) {
                 if (outsideLvl > maxIntensity) maxIntensity = outsideLvl;
                 
@@ -445,18 +457,12 @@
                         <p class="assessment-p">Discomfort on the hard outside bone at night occurs when the side hip tendons get squeezed against the bone framework, irritating the fluid protective sacs underneath.</p>
                     </div>`;
 
-                if (!loadedExercises.has('alignment')) {
-                    exercisesHTML += `
-                        <div class="spec-card">
-                            <h5>Side-Lying Pelvic Alignment Block</h5>
-                            <div class="badge">Night Routine Modification</div>
-                            <p style="color: #94a3b8; font-size: 16px;">When resting on your side in bed, position a firm, thick pillow securely between your knees and shins. This structural block stops your top leg from crossing over your body line, preventing the outer tendons from getting tightly stretched and rubbed across the hip bone all night.</p>
-                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼️ View Setup Pictures</a>
-                        </div>`;
-                    loadedExercises.add('alignment');
-                }
+                if (!loadedExercises.has('pillowBlock')) { exercisesHTML += buildExerciseCard(db.pillowBlock); loadedExercises.add('pillowBlock'); }
+                if (!loadedExercises.has('clamshells')) { exercisesHTML += buildExerciseCard(db.clamshells); loadedExercises.add('clamshells'); }
+                if (!loadedExercises.has('itBandRoll')) { exercisesHTML += buildExerciseCard(db.itBandRoll); loadedExercises.add('itBandRoll'); }
             }
 
+            // TRACK 4: Buttock & Rear Pocket Track
             if (buttock) {
                 if (buttockLvl > maxIntensity) maxIntensity = buttockLvl;
                 
@@ -466,18 +472,12 @@
                         <p class="assessment-p">A deep ache in the back pocket following sitting happens when the deep muscles underneath get overly squashed and strained by deep, soft chair bases.</p>
                     </div>`;
 
-                if (!loadedExercises.has('figure4')) {
-                    exercisesHTML += `
-                        <div class="spec-card">
-                            <h5>Seated Figure-4 Release</h5>
-                            <div class="badge">3 Sets / 30 Second Hold</div>
-                            <p style="color: #94a3b8; font-size: 16px;">Sit upright on a flat, solid chair. Cross your ankle over your opposite knee line. Keeping your low back flat and chin up, pivot your upper body forward from your hip hinges until you feel a pull across your rear pocket. Hold steadily to let the tight strands unpack.</p>
-                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼️ View Stretch Pictures</a>
-                        </div>`;
-                    loadedExercises.add('figure4');
-                }
+                if (!loadedExercises.has('figure4')) { exercisesHTML += buildExerciseCard(db.figure4); loadedExercises.add('figure4'); }
+                if (!loadedExercises.has('piriformisGun')) { exercisesHTML += buildExerciseCard(db.piriformisGun); loadedExercises.add('piriformisGun'); }
+                if (!loadedExercises.has('gluteStretch')) { exercisesHTML += buildExerciseCard(db.gluteStretch); loadedExercises.add('gluteStretch'); }
             }
 
+            // TRACK 5: Catching & Mechanical Pinches
             if (clicking) {
                 if (clickingLvl > maxIntensity) maxIntensity = clickingLvl;
                 if (clickingLvl >= 7) triggersDoctorAdvisory = true;
@@ -488,17 +488,10 @@
                         <p class="assessment-p">A sharp pinch or sudden click during pivoting implies an internal ring structure is getting caught or pinched between the ball and socket rim under load.</p>
                     </div>`;
 
-                if (!loadedExercises.has('stance')) {
-                    exercisesHTML += `
-                        <div class="spec-card">
-                            <h5>Whole-Body Stance Rotation</h5>
-                            <div class="badge">Movement Modification Guide</div>
-                            <p style="color: #94a3b8; font-size: 16px;">When turning around, avoid planting your feet firmly and twisting your trunk alone. Instead, pick up your feet and turn your whole body in line like a solid pillar. This stops the ball from rotating under heavy stress right against the socket rim.</p>
-                        </div>`;
-                    loadedExercises.add('stance');
-                }
+                if (!loadedExercises.has('stance')) { exercisesHTML += buildExerciseCard(db.stance); loadedExercises.add('stance'); }
             }
 
+            // High Intensity Advisory Filter
             if (maxIntensity >= 8 || triggersDoctorAdvisory) {
                 const warningBox = document.getElementById('doctor-warning-box');
                 const warningText = document.getElementById('doctor-warning-text');
