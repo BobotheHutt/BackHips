@@ -148,22 +148,26 @@
             margin-bottom: 12px;
         }
 
-        .photo-link-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+        /* Video Player Frame Container Style */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* Perfect 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border: 2px solid #334155;
+            border-radius: 10px;
             margin-top: 14px;
-            background-color: #0c4a6e;
-            border: 1px solid #0284c7;
-            color: #38bdf8;
-            font-size: 14px;
-            font-weight: 700;
-            padding: 8px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: all 0.15s ease;
+            background: #000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        .photo-link-btn:hover { background-color: #0284c7; color: #ffffff; }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
 
         /* Permanent Descriptive Typography */
         .content-subtitle { font-size: 20px; font-weight: 800; color: #ffffff; margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #243246; padding-bottom: 4px; }
@@ -379,14 +383,19 @@
             document.getElementById('output-diagnostic-panel').style.display = 'none';
         }
 
-        // TAILORED FIX: Forces link to clear the sandbox frame boundary completely using target="_top"
+        // TAILORED FIX: Extracts the clean 11-digit YouTube ID and drops a 100% stable mini-player player right inside the card
         function buildExerciseCard(exerciseData) {
+            // Isolates video string variables from the URL block
+            const videoId = exerciseData.video.split('v=')[1];
+            
             return `
                 <div class="spec-card">
                     <h5>${exerciseData.title}</h5>
                     <div class="badge">${exerciseData.badge}</div>
                     <p style="color: #94a3b8; font-size: 16px;">${exerciseData.desc}</p>
-                    <a href="${exerciseData.video}" target="_top" class="photo-link-btn">▶️ Watch Exercise Video</a>
+                    <div class="video-wrapper">
+                        <iframe src="https://youtube.com{videoId}" allowfullscreen></iframe>
+                    </div>
                 </div>`;
         }
 
