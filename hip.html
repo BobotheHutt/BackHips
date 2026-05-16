@@ -49,8 +49,9 @@
         }
         .toggle-arrow { font-size: 16px; color: #38bdf8; }
         
-        /* Master Drawer Container (Open by Default for Input) */
+        /* Master Drawer Container (ALL CLOSED BY DEFAULT) */
         .collapsible-drawer {
+            display: none;
             background-color: #1e293b;
             border: 2px solid #334155;
             border-top: none;
@@ -58,16 +59,6 @@
             padding: 24px;
             margin-top: -22px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-
-        /* Permanent Display Component Cards */
-        .panel-card {
-            background-color: #1e293b;
-            border: 2px solid #334155;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            width: 100%;
         }
 
         /* Action Controls */
@@ -110,7 +101,6 @@
         .checkbox-label { font-size: 16px; font-weight: 700; color: #f1f5f9; text-align: left; flex: 1; }
         .control-block input[type="checkbox"] { width: 26px; height: 26px; accent-color: #0284c7; cursor: pointer; flex-shrink: 0; }
         
-        /* Sliders Hidden by Default */
         .slider-area { margin-top: 14px; border-top: 1px solid #1e293b; padding-top: 12px; display: none; }
         .slider-labels { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 6px; }
         .control-block input[type="range"] { width: 100%; accent-color: #0284c7; cursor: pointer; }
@@ -174,9 +164,9 @@
         .photo-link-btn:hover { background-color: #0284c7; color: #ffffff; }
 
         /* Permanent Descriptive Typography */
-        .content-title { font-size: 26px; font-weight: 900; color: #ffffff; border-bottom: 2px solid #334155; padding-bottom: 8px; margin-bottom: 16px; }
-        .content-subtitle { font-size: 20px; font-weight: 800; color: #ffffff; margin-top: 20px; margin-bottom: 10px; }
+        .content-subtitle { font-size: 20px; font-weight: 800; color: #ffffff; margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #243246; padding-bottom: 4px; }
         .content-p { font-size: 17px; color: #cbd5e1; margin-bottom: 16px; line-height: 1.7; }
+        .knowledge-highlight { color: #38bdf8; font-weight: 700; }
     </style>
 </head>
 <body>
@@ -186,10 +176,10 @@
         <!-- MODULE 1: Clickable Symptom Checker Form Block -->
         <button onclick="toggleDrawer('master-checklist-drawer', this)" class="panel-header-btn" id="header-trigger">
             <span class="panel-title">📋 Hip Symptom Checker</span>
-            <span class="toggle-arrow">▲ Click to Collapse</span>
+            <span class="toggle-arrow">▼ Click to Expand</span>
         </button>
 
-        <div class="collapsible-drawer" id="master-checklist-drawer" style="display: block;">
+        <div class="collapsible-drawer" id="master-checklist-drawer">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #334155; padding-bottom: 12px;">
                 <span style="color: #94a3b8; font-size: 14px; font-weight: 600;">Log current physical parameters:</span>
                 <button type="button" onclick="resetInputForm()" class="reset-btn">Clear All</button>
@@ -276,10 +266,10 @@
         <!-- MODULE 2: Collapsible Diagnostic Results Deck (Hidden until submit trigger clears) -->
         <button onclick="toggleDrawer('output-diagnostic-panel', this)" class="panel-header-btn" id="results-header-trigger" style="display: none;">
             <span class="panel-title">📋 Tailored Mobility Report</span>
-            <span class="toggle-arrow">▲ Click to Collapse</span>
+            <span class="toggle-arrow">▼ Click to Expand</span>
         </button>
 
-        <div class="collapsible-drawer" id="output-diagnostic-panel" style="display: none;">
+        <div class="collapsible-drawer" id="output-diagnostic-panel">
             <!-- High Intensity Doctor Advisory Space -->
             <div class="doctor-callout" id="doctor-warning-box" style="display: none;">
                 <span style="font-size: 22px;">⚠️</span>
@@ -297,23 +287,53 @@
         </div>
 
 
-        <!-- MODULE 3: Permanent Non-Collapsible Knowledge Section Base -->
-        <section class="panel-card">
-            <h3 class="content-title">📖 Hip Joint Reference Base</h3>
-            
-            <h4 class="content-subtitle">How the Socket Operates</h4>
+        <!-- MODULE 3: Massive Collapsible Hip Knowledge Section (COLLAPSED BY DEFAULT) -->
+        <button onclick="toggleDrawer('knowledge-base-drawer', this)" class="panel-header-btn">
+            <span class="panel-title">📖 Deep Hip Knowledge Base</span>
+            <span class="toggle-arrow">▼ Click to Expand</span>
+        </button>
+
+        <div class="collapsible-drawer" id="knowledge-base-drawer">
+            <h4 class="content-subtitle">Blueprint of the Ball-and-Socket</h4>
             <p class="content-p">
-                Think of the hip joint like a heavy-duty ball-and-socket assembly designed to support your full upper body leverage. The ball of the thigh bone sits deep inside a curved pelvic cup, cushioned completely by a layer of slick padding tissue. This padding allows your leg to swing, pivot, and hinge smoothly under heavy loads without grinding.
+                The hip joint is the primary weight-bearing junction where your leg attaches to your pelvis. Think of it as a heavy-duty machinery ball sitting inside a round socket cup. In a healthy joint, this assembly is lined with a thick layer of slick cartilage and surrounded by lubricating fluid. This allows your upper body weight to be cleanly transferred down your legs while you walk, lift, or turn, without any metal-on-metal grinding.
             </p>
 
-            <h4 class="content-subtitle">Why Tightness Knots Up</h4>
+            <h4 class="content-subtitle">The Mechanics of "Muscle Guarding"</h4>
             <p class="content-p">
-                When that internal padding wears thin over time or experiences constant structural pressure, the joint mechanics experience higher friction. The brain recognizes this immediately as a mechanical vulnerability. To prevent further wear, it commands the deep surrounding muscle groups (like the flexors, quads, and deep glutes) to clamp down tightly like a biological splint. 
+                When the internal padding of the joint thins out, or when a muscle is severely strained, the brain recognizes that the mechanical parts are vulnerable. To prevent damage, your body engages a built-in safety mechanism called <span class="knowledge-highlight">muscle guarding</span>. The brain sends a rapid emergency signal telling all the surrounding muscle sheets—your quads, glutes, and inner hip flexors—to clamp down hard like an invisible biological splint.
             </p>
             <p class="content-p">
-                This clamping action is called "muscle guarding." While it protects the joint temporarily, it limits your range of motion and causes secondary aching. Performing rhythmic, unweighted exercises or gentle soft-tissue maintenance tells the nervous system it is safe to release that defensive shield.
+                While this lockdown protects the joint from moving into a bad position, it creates a massive side effect: stubborn muscle knots, constant aching, and a feeling that your joint is completely rusted or "stuck." To clear this, you cannot simply push through the pain. You have to use unweighted motion or specific tissue tools to convince the nervous system it is safe to release the clamp.
             </p>
-        </section>
+
+            <h4 class="content-subtitle">Common Issues Explained in Plain Talk</h4>
+            
+            <p class="instruction-step">1. Joint Cushion Wear (Osteoarthritis)</p>
+            <p class="content-p" style="color: #94a3b8; font-size: 16px; margin-bottom: 12px;">
+                This occurs when the protective slick padding inside the socket slowly grinds down over decades of work. As the padding thins, the bone blocks get closer together, causing an ache deep in the groin crease. It is typically most severe right after waking up because the joint fluid has settled and dried up overnight. Moving gently pumps lubrication back into the socket.
+            </p>
+
+            <p class="instruction-step">2. Irritated Outer Fluid Sacs (Bursitis)</p>
+            <p class="content-p" style="color: #94a3b8; font-size: 16px; margin-bottom: 12px;">
+                On the outside edge of your hip bone, there are tiny fluid-filled cushions meant to stop your large leg tendons from rubbing raw against the bone. If your pelvic alignment is slightly twisted, or if you sleep on a hard mattress, those tendons can tightly squash the fluid cushions, causing a sharp, throbbing ache directly on the side bone that flares up when lying down at night.
+            </p>
+
+            <p class="instruction-step">3. Deep Rotator Snags (Piriformis Strain)</p>
+            <p class="content-p" style="color: #94a3b8; font-size: 16px; margin-bottom: 12px;">
+                Deep in your rear pocket area sits a band of muscle responsible for pivoting your leg outward. Sitting in soft, deep couches forces your pelvis to tilt backward, overstretching and pinning this muscle against your chair. This constant pressure triggers a deep, burning ache in the buttock that makes you want to shift your weight or stand up frequently.
+            </p>
+
+            <p class="instruction-step">4. Socket Lip Pinches (Labral Tears & Impingement)</p>
+            <p class="content-p" style="color: #94a3b8; font-size: 16px; margin-bottom: 12px;">
+                The rim of your hip socket is lined with a rubbery ring of tissue that seals the ball in place. If the bone ball isn't perfectly round, or if you twist your hips sharply while your feet are firmly planted under a heavy load, that rubbery ring can get pinched against the socket edge. This causes a sudden, sharp "catch" or clicking sound when you try to pivot or step out of a car.
+            </p>
+
+            <h4 class="content-subtitle">The golden Rule of Hip Maintenance</h4>
+            <p class="content-p">
+                Never force a tight hip into a deep, painful stretch. If a routine makes you grit your teeth or hold your breath, the body thinks it is under attack and will tighten the defensive shield even harder. True shop maintenance requires slow, relaxed breathing and gentle, unloaded movements to convince the brain to lift the emergency lockdown.
+            </p>
+        </div>
 
     </div>
 
@@ -323,16 +343,16 @@
             const drawer = document.getElementById(drawerId);
             const arrow = headerElement.querySelector('.toggle-arrow');
 
-            if (drawer.style.display === 'none') {
-                drawer.style.display = 'block';
-                headerElement.style.borderRadius = '16px 16px 0 0';
-                headerElement.style.borderColor = '#0284c7';
-                arrow.innerText = '▲ Click to Collapse';
-            } else {
+            if (drawer.style.display === 'block') {
                 drawer.style.display = 'none';
                 headerElement.style.borderRadius = '16px';
                 headerElement.style.borderColor = '#334155';
                 arrow.innerText = '▼ Click to Expand';
+            } else {
+                drawer.style.display = 'block';
+                headerElement.style.borderRadius = '16px 16px 0 0';
+                headerElement.style.borderColor = '#0284c7';
+                arrow.innerText = '▲ Click to Collapse';
             }
         }
 
@@ -348,8 +368,6 @@
         function resetInputForm() {
             document.getElementById('hip-form').reset();
             toggleSliderVisibility();
-            
-            // Hide results container completely on form resets
             document.getElementById('results-header-trigger').style.display = 'none';
             document.getElementById('output-diagnostic-panel').style.display = 'none';
         }
@@ -386,7 +404,7 @@
                 
                 insightsHTML += `
                     <div class="assessment-block">
-                        <div class="assessment-title">⚙️ Joint Space Narrowing & Rub (Intensity Level: ${currentMax}/10)</div>
+                        <div class="assessment-title">⚙| Joint Space Narrowing & Rub (Intensity Level: ${currentMax}/10)</div>
                         <p class="assessment-p">Aches inside the groin crease or heavy waking stiffness usually mean the ball-and-socket space is compacting, causing bone-on-bone friction. The surrounding hip stabilizers automatically knot up like a protective shield to lock down the joint.</p>
                     </div>`;
 
@@ -396,7 +414,7 @@
                             <h5>Standing Unweighted Leg Swings</h5>
                             <div class="badge">20 Swings / Per Side</div>
                             <p style="color: #94a3b8; font-size: 16px;">Stand tall on a step using one leg, letting the target leg hang free. Hold onto a rail or wall for balance. Slowly swing the free leg forward and backward like a pendulum. This unweighted motion coaxes the joint to pump protective lubrication fluid directly into the socket without grinding.</p>
-                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼️ View Exercise Pictures</a>
+                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼| View Exercise Pictures</a>
                         </div>`;
                     loadedExercises.add('swings');
                 }
@@ -407,7 +425,7 @@
                             <h5>Isometric Glute Bridges</h5>
                             <div class="badge">10 Reps / 5 Second Hold</div>
                             <p style="color: #94a3b8; font-size: 16px;">Lie on your back with knees bent and feet flat on the floor. Drive down through your heels to raise your hips until your thighs run inline with your trunk. Squeezing your glutes tells the deep, overworking hip flexors on the front to turn off and let go.</p>
-                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼️ View Exercise Pictures</a>
+                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼| View Exercise Pictures</a>
                         </div>`;
                     loadedExercises.add('bridges');
                 }
@@ -418,7 +436,7 @@
                 
                 insightsHTML += `
                     <div class="assessment-block" style="border-left-color: #38bdf8;">
-                        <div class="assessment-title">⚙️ Outer Tendon Pressure (Intensity Level: ${outsideLvl}/10)</div>
+                        <div class="assessment-title">⚙| Outer Tendon Pressure (Intensity Level: ${outsideLvl}/10)</div>
                         <p class="assessment-p">Discomfort on the hard outside bone at night occurs when the side hip tendons get squeezed against the bone framework, irritating the fluid protective sacs underneath.</p>
                     </div>`;
 
@@ -428,7 +446,7 @@
                             <h5>Side-Lying Pelvic Alignment Block</h5>
                             <div class="badge">Night Routine Modification</div>
                             <p style="color: #94a3b8; font-size: 16px;">When resting on your side in bed, position a firm, thick pillow securely between your knees and shins. This structural block stops your top leg from crossing over your body line, preventing the outer tendons from getting tightly stretched and rubbed across the hip bone all night.</p>
-                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼️ View Setup Pictures</a>
+                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼| View Setup Pictures</a>
                         </div>`;
                     loadedExercises.add('alignment');
                 }
@@ -439,7 +457,7 @@
                 
                 insightsHTML += `
                     <div class="assessment-block" style="border-left-color: #a855f7;">
-                        <div class="assessment-title">⚙️ Deep Pocket Guarding Knot (Intensity Level: ${buttockLvl}/10)</div>
+                        <div class="assessment-title">⚙| Deep Pocket Guarding Knot (Intensity Level: ${buttockLvl}/10)</div>
                         <p class="assessment-p">A deep ache in the back pocket following sitting happens when the deep muscles underneath get overly squashed and strained by deep, soft chair bases.</p>
                     </div>`;
 
@@ -449,7 +467,7 @@
                             <h5>Seated Figure-4 Release</h5>
                             <div class="badge">3 Sets / 30 Second Hold</div>
                             <p style="color: #94a3b8; font-size: 16px;">Sit upright on a flat, solid chair. Cross your ankle over your opposite knee line. Keeping your low back flat and chin up, pivot your upper body forward from your hip hinges until you feel a pull across your rear pocket. Hold steadily to let the tight strands unpack.</p>
-                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼️ View Stretch Pictures</a>
+                            <a href="https://google.com" target="_blank" class="photo-link-btn">🖼| View Stretch Pictures</a>
                         </div>`;
                     loadedExercises.add('figure4');
                 }
@@ -461,7 +479,7 @@
                 
                 insightsHTML += `
                     <div class="assessment-block" style="border-left-color: #e11d48;">
-                        <div class="assessment-title">⚙️ Internal Catching Warning (Intensity Level: ${clickingLvl}/10)</div>
+                        <div class="assessment-title">⚙| Internal Catching Warning (Intensity Level: ${clickingLvl}/10)</div>
                         <p class="assessment-p">A sharp pinch or sudden click during pivoting implies an internal ring structure is getting caught or pinched between the ball and socket rim under load.</p>
                     </div>`;
 
@@ -476,7 +494,6 @@
                 }
             }
 
-            // High Intensity Advisory Trigger Evaluation
             if (maxIntensity >= 8 || triggersDoctorAdvisory) {
                 const warningBox = document.getElementById('doctor-warning-box');
                 const warningText = document.getElementById('doctor-warning-text');
@@ -486,11 +503,10 @@
                 document.getElementById('doctor-warning-box').style.display = 'none';
             }
 
-            // Bind generated layouts to nodes
             document.getElementById('analysis-render-target').innerHTML = insightsHTML;
             document.getElementById('exercises-render-target').innerHTML = exercisesHTML;
 
-            // Collapse input deck drawer to save vertical workspace height
+            // Collapse input deck drawer to focus on results
             const formDrawer = document.getElementById('master-checklist-drawer');
             const formHeader = document.getElementById('header-trigger');
             formDrawer.style.display = 'none';
@@ -498,14 +514,16 @@
             formHeader.style.borderColor = '#334155';
             formHeader.querySelector('.toggle-arrow').innerText = '▼ Click to Expand Input Deck';
 
-            // Reveal and reveal collapsible report header
+            // Show results collapsible container in a clean closed state
             const resultsHeader = document.getElementById('results-header-trigger');
             const resultsPanel = document.getElementById('output-diagnostic-panel');
             resultsHeader.style.display = 'flex';
-            resultsPanel.style.display = 'block';
+            resultsHeader.style.borderRadius = '16px';
+            resultsHeader.style.borderColor = '#334155';
+            resultsHeader.querySelector('.toggle-arrow').innerText = '▼ Click to Expand Report';
+            resultsPanel.style.display = 'none';
             
-            // Smoothly center laptop viewport onto fresh text blocks
-            resultsPanel.scrollIntoView({ behavior: 'smooth' });
+            resultsHeader.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
