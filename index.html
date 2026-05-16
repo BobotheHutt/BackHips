@@ -26,7 +26,7 @@
             flex-shrink: 0; /* Prevents the header from flattening down */
         }
         .header-container {
-            max-w: 1400px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 24px;
             display: flex;
@@ -117,26 +117,21 @@
         </div>
     </header>
 
-    <!-- Master Viewing Window (REMOVED RESTRICIVE SANDBOX BLOCKING) -->
+    <!-- Master Viewing Window (AUTHORIZED SYSTEM MEDIA SCROLL CONTROLS) -->
     <div class="workspace-container">
-        <iframe id="content-frame" src="hip.html" title="Mobility Content Window"></iframe>
+        <iframe id="content-frame" src="hip.html" title="Mobility Content Window" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
     </div>
 
     <!-- Central Script Controller -->
     <script>
         function loadContentFrame(targetPage, clickedTabId) {
-            // Adds a clean version tracker timestamp to bypass stubborn browser history cache issues
             const cacheBuster = "?v=" + new Date().getTime();
-            
-            // Update the source file of the core central frame instantly
             document.getElementById('content-frame').src = targetPage + cacheBuster;
             
-            // Clean active classes off all existing buttons
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active-tab');
             });
             
-            // Apply blue highlight style to the active selected tab button
             document.getElementById(clickedTabId).classList.add('active-tab');
         }
     </script>
