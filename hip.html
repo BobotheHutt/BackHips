@@ -132,21 +132,22 @@
             margin-bottom: 12px;
         }
 
-        /* Highly Stable Placeholder Display Boxes */
-        .photo-container {
+        /* 100% Reliable Embedded Vector Graphic Boxes */
+        .diagram-container {
             width: 100%;
-            height: 250px;
+            height: 200px;
             margin-top: 14px;
-            border: 2px solid #334155;
+            border: 1px solid #334155;
             border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            background-color: #0b111e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .photo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(10%) contrast(105%);
+        .diagram-container svg {
+            max-width: 100%;
+            max-height: 100%;
+            padding: 10px;
         }
     </style>
 </head>
@@ -261,16 +262,32 @@
                     <h5>Glute Bridges</h5>
                     <div class="badge">10 Reps / 3 Second Hold</div>
                     <p style="color: #94a3b8; font-size: 16px;">Lie flat on your back with knees bent. Push firmly through your heels to raise your hips until your body forms a straight line from your shoulders to your knees. Squeeze the muscles at the top to build stability around the joint socket.</p>
-                    <div class="photo-container">
-                        <img src="https://unsplash.com" alt="Rugged Floor Exercise Setup">
+                    <div class="diagram-container">
+                        <!-- Embedded Layout Vector for Bridge -->
+                        <svg viewBox="0 0 400 150" xmlns="http://w3.org">
+                            <line x1="20" y1="130" x2="380" y2="130" stroke="#334155" stroke-width="4"/>
+                            <path d="M 60 130 L 150 70 L 250 70 L 300 130" fill="none" stroke="#0284c7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="50" cy="130" r="10" fill="#1e293b" stroke="#38bdf8" stroke-width="3"/>
+                            <circle cx="150" cy="70" r="8" fill="#38bdf8"/>
+                            <text x="145" y="50" fill="#38bdf8" font-size="12" font-weight="bold">Raise Hips</text>
+                            <text x="25" y="115" fill="#94a3b8" font-size="11">Shoulders Flat</text>
+                            <text x="310" y="115" fill="#94a3b8" font-size="11">Feet Flat</text>
+                        </svg>
                     </div>
                 </div>
                 <div class="spec-card">
                     <h5>Seated Chair Stretch</h5>
                     <div class="badge">3 Sets / 30 Second Hold</div>
                     <p style="color: #94a3b8; font-size: 16px;">Sit upright in a solid, firm chair. Cross one ankle flat over the opposite knee to make a "figure 4". Keeping your back straight, lean your upper body slightly forward until you feel a comfortable pull in the outer hip muscle.</p>
-                    <div class="photo-container">
-                        <img src="https://unsplash.com" alt="Mobility Routine on Wooden Stool">
+                    <div class="diagram-container">
+                        <!-- Embedded Layout Vector for Chair Stretch -->
+                        <svg viewBox="0 0 400 150" xmlns="http://w3.org">
+                            <path d="M 160 30 L 160 90 L 220 90 L 220 130" fill="none" stroke="#475569" stroke-width="6" stroke-linecap="round"/>
+                            <path d="M 135 45 L 160 55 L 205 90 L 175 110" fill="none" stroke="#0284c7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="130" cy="40" r="8" fill="#38bdf8"/>
+                            <text x="180" y="45" fill="#38bdf8" font-size="12" font-weight="bold">Lean Forward</text>
+                            <text x="215" y="110" fill="#94a3b8" font-size="11">Cross Ankle</text>
+                        </svg>
                     </div>
                 </div>
             </div>
@@ -292,16 +309,36 @@
                     <h5>Massage Gun</h5>
                     <div class="badge">Low Speed Setting / 2 Minutes</div>
                     <p style="color: #94a3b8; font-size: 16px;">Float the gun head gently along the thick, fleshy muscle sheets on the outside of your thigh or the upper rear pocket. Do not press hard over any solid bone spots. Let the vibration work to loosen tight muscle shielding.</p>
-                    <div class="photo-container">
-                        <img src="https://unsplash.com" alt="Heavy Duty Mechanical Maintenance Tool">
+                    <div class="diagram-container">
+                        <!-- Embedded Layout Vector for Massage Gun -->
+                        <svg viewBox="0 0 400 150" xmlns="http://w3.org">
+                            <rect x="140" y="40" width="70" height="30" rx="6" fill="#1e293b" stroke="#475569" stroke-width="3"/>
+                            <rect x="180" y="65" width="25" height="50" rx="4" fill="#0f172a" stroke="#475569" stroke-width="3"/>
+                            <rect x="120" y="50" width="20" height="10" rx="2" fill="#38bdf8"/>
+                            <circle cx="110" cy="55" r="12" fill="#0284c7"/>
+                            <path d="M 85 45 L 95 55 L 85 65" fill="none" stroke="#e11d48" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M 75 50 L 82 55 L 75 60" fill="none" stroke="#e11d48" stroke-width="2" stroke-linecap="round"/>
+                            <text x="225" y="60" fill="#ffffff" font-size="13" font-weight="bold">Massage Gun Target</text>
+                            <text x="225" y="80" fill="#94a3b8" font-size="11">Apply to outer thigh sheets</text>
+                            <text x="225" y="95" fill="#94a3b8" font-size="11">Avoid direct hard bone</text>
+                        </svg>
                     </div>
                 </div>
                 <div class="spec-card">
                     <h5>Foam Roller Column</h5>
                     <div class="badge">Slow Passes / 90 Seconds</div>
                     <p style="color: #94a3b8; font-size: 16px;">Rest the side or rear of your hip right onto the roller tube. Use your arms to slowly roll over tight areas. When you hit a tender spot, hold still for a few seconds to let the pressure loosen up the knot.</p>
-                    <div class="photo-container">
-                        <img src="https://unsplash.com" alt="High Density Roller Setup on Floor">
+                    <div class="diagram-container">
+                        <!-- Embedded Layout Vector for Foam Roller -->
+                        <svg viewBox="0 0 400 150" xmlns="http://w3.org">
+                            <line x1="20" y1="130" x2="380" y2="130" stroke="#334155" stroke-width="4"/>
+                            <ellipse cx="160" cy="115" rx="18" ry="15" fill="#0f172a" stroke="#38bdf8" stroke-width="4"/>
+                            <path d="M 100 80 L 155 102 L 240 125" fill="none" stroke="#0284c7" stroke-width="8" stroke-linecap="round"/>
+                            <circle cx="95" cy="75" r="8" fill="#38bdf8"/>
+                            <text x="190" y="60" fill="#ffffff" font-size="13" font-weight="bold">Foam Roller Placement</text>
+                            <text x="190" y="80" fill="#94a3b8" font-size="11">Roll slowly over fleshy areas</text>
+                            <text x="190" y="95" fill="#94a3b8" font-size="11">Pause on tender spots</text>
+                        </svg>
                     </div>
                 </div>
             </div>
