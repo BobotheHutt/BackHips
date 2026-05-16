@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hip System Frame</title>
+    <title>Hip Garage Frame</title>
     <style>
         /* Tool-Shop Workspace Styles */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -59,6 +59,16 @@
             padding: 24px;
             margin-top: -22px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Permanent Display Component Cards */
+        .panel-card {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            width: 100%;
         }
 
         /* Action Controls */
@@ -129,6 +139,16 @@
         .doctor-callout p { color: #fef3c7; font-size: 15px; font-weight: 600; }
 
         /* Exercise Display Card Layouts */
+        .diagnostic-section-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: #38bdf8;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 6px;
+        }
         .routine-p { font-size: 16px; color: #94a3b8; margin-bottom: 16px; }
         .grid-cards { display: flex; flex-direction: column; gap: 16px; }
         .spec-card { background-color: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 20px; }
@@ -151,9 +171,9 @@
             align-items: center;
             gap: 6px;
             margin-top: 14px;
-            background-color: #0c4a6e;
-            border: 1px solid #0284c7;
-            color: #38bdf8;
+            background-color: #1e1b4b;
+            border: 1px solid #4338ca;
+            color: #c7d2fe;
             font-size: 14px;
             font-weight: 700;
             padding: 8px 16px;
@@ -161,7 +181,7 @@
             text-decoration: none;
             transition: all 0.15s ease;
         }
-        .video-link-btn:hover { background-color: #0284c7; color: #ffffff; }
+        .video-link-btn:hover { background-color: #4338ca; color: #ffffff; }
 
         /* Permanent Descriptive Typography */
         .content-subtitle { font-size: 20px; font-weight: 800; color: #ffffff; margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #243246; padding-bottom: 4px; }
@@ -333,11 +353,6 @@
             <p class="content-p" style="color: #94a3b8; font-size: 16px; margin-bottom: 12px;">
                 The rim of the hip socket is wrapped in a rubbery gasket ring that keeps the ball centered. If the bone structure has natural variations, or if the hip is twisted sharply while the foot is planted under a heavy load, that rubbery ring gets pinched directly against the socket edge. This creates a sudden, sharp "catch" or clicking sensation during quick structural turns.
             </p>
-
-            <h4 class="content-subtitle">The Core Rule of Maintenance</h4>
-            <p class="content-p">
-                Never force a tight hip joint into a painful, aggressive stretch. If a movement causes you to hold your breath or tighten your jaw, the brain interprets that pressure as a physical threat and will instantly increase muscle guarding to protect the area. Effective maintenance relies on smooth, relaxed breathing and gentle, unloaded movements to convince the body to lift the mechanical lockdown.
-            </p>
         </div>
 
     </div>
@@ -403,135 +418,105 @@
             let triggersDoctorAdvisory = false;
             let loadedExercises = new Set();
 
-            // ----------------------------------------------------
-            // 1. CONDITION ANALYSIS GENERATOR
-            // ----------------------------------------------------
+            // ----------------------------------------------------------------
+            // 1. ANATOMICAL INSIGHT CALCULATOR
+            // ----------------------------------------------------------------
             if (groin || stuck || morning) {
                 let currentMax = Math.max(groin ? groinLvl : 0, stuck ? stuckLvl : 0, morning ? morningLvl : 0);
                 if (currentMax > maxIntensity) maxIntensity = currentMax;
-                
                 insightsHTML += `
                     <div class="assessment-block">
                         <div class="assessment-title">⚙️ Joint Space Friction (Intensity Level: ${currentMax}/10)</div>
                         <p class="assessment-p">Aches inside the groin crease or heavy waking stiffness usually mean the ball-and-socket space is compacting, causing bone-on-bone friction. The surrounding hip stabilizers automatically knot up like a protective shield to lock down the joint.</p>
                     </div>`;
-
-                if (!loadedExercises.has('swings')) {
-                    exercisesHTML += `
-                        <div class="spec-card">
-                            <h5>Standing Unweighted Leg Swings</h5>
-                            <div class="badge">20 Swings / Per Side</div>
-                            <p style="color: #94a3b8; font-size: 16px;">Stand tall on a step using one leg, letting the target leg hang free. Hold onto a rail or wall for balance. Slowly swing the free leg forward and backward like a pendulum. This unweighted motion coaxes the joint to pump protective lubrication fluid directly into the socket without grinding.</p>
-                            <a href="https://youtube.com" target="_blank" class="video-link-btn">▶️ Watch Demonstration Video</a>
-                        </div>`;
-                    loadedExercises.add('swings');
-                }
-
-                if (!loadedExercises.has('bridges')) {
-                    exercisesHTML += `
-                        <div class="spec-card">
-                            <h5>Isometric Glute Bridges</h5>
-                            <div class="badge">10 Reps / 5 Second Hold</div>
-                            <p style="color: #94a3b8; font-size: 16px;">Lie on your back with knees bent and feet flat on the floor. Drive down through your heels to raise your hips until your thighs run inline with your trunk. Squeezing your glutes tells the deep, overworking hip flexors on the front to turn off and let go.</p>
-                            <a href="https://youtube.com" target="_blank" class="video-link-btn">▶️ Watch Demonstration Video</a>
-                        </div>`;
-                    loadedExercises.add('bridges');
-                }
             }
 
             if (outside) {
                 if (outsideLvl > maxIntensity) maxIntensity = outsideLvl;
-                
                 insightsHTML += `
                     <div class="assessment-block" style="border-left-color: #38bdf8;">
                         <div class="assessment-title">⚙️ Outer Tendon Pressure (Intensity Level: ${outsideLvl}/10)</div>
                         <p class="assessment-p">Discomfort on the hard outside bone at night occurs when the side hip tendons get squeezed against the bone framework, irritating the fluid protective sacs underneath.</p>
                     </div>`;
-
-                if (!loadedExercises.has('alignment')) {
-                    exercisesHTML += `
-                        <div class="spec-card">
-                            <h5>Side-Lying Pelvic Alignment Block</h5>
-                            <div class="badge">Night Routine Modification</div>
-                            <p style="color: #94a3b8; font-size: 16px;">When resting on your side in bed, position a firm, thick pillow securely between your knees and shins. This structural block stops your top leg from crossing over your body line, preventing the outer tendons from getting tightly stretched and rubbed across the hip bone all night.</p>
-                            <a href="https://youtube.com" target="_blank" class="video-link-btn">▶️ Watch Demonstration Video</a>
-                        </div>`;
-                    loadedExercises.add('alignment');
-                }
-
-                if (!loadedExercises.has('itband')) {
-                    exercisesHTML += `
-                        <div class="spec-card">
-                            <h5>Standing IT-Band & Side Trunk Lengthener</h5>
-                            <div class="badge">3 Sets / 20 Second Hold</div>
-                            <p style="color: #94a3b8; font-size: 16px;">Cross your painful leg behind your stable leg. Lean your upper body away from the painful side until you feel a comfortable, long pull down the lateral line of your hip and thigh. Relieves excessive tendon pressure pinning against the bone button.</p>
-                            <a href="https://youtube.com" target="_blank" class="video-link-btn">▶️ Watch Demonstration Video</a>
-                        </div>`;
-                    loadedExercises.add('itband');
-                }
             }
 
             if (buttock) {
                 if (buttockLvl > maxIntensity) maxIntensity = buttockLvl;
-                
                 insightsHTML += `
                     <div class="assessment-block" style="border-left-color: #a855f7;">
                         <div class="assessment-title">⚙️ Deep Pocket Guarding Knot (Intensity Level: ${buttockLvl}/10)</div>
                         <p class="assessment-p">A deep ache in the back pocket following sitting happens when the deep muscles underneath get overly squashed and strained by deep, soft chair bases.</p>
                     </div>`;
-
-                if (!loadedExercises.has('figure4')) {
-                    exercisesHTML += `
-                        <div class="spec-card">
-                            <h5>Seated Figure-4 Release</h5>
-                            <div class="badge">3 Sets / 30 Second Hold</div>
-                            <p style="color: #94a3b8; font-size: 16px;">Sit upright on a flat, solid chair. Cross your ankle over your opposite knee line. Keeping your low back flat and chin up, pivot your upper body forward from your hip hinges until you feel a pull across your rear pocket. Hold steadily to let the tight strands unpack.</p>
-                            <a href="https://youtube.com" target="_blank" class="video-link-btn">▶️ Watch Demonstration Video</a>
-                        </div>`;
-                    loadedExercises.add('figure4');
-                }
-
-                if (!loadedExercises.has('kneechest')) {
-                    exercisesHTML += `
-                        <div class="spec-card">
-                            <h5>Supine Knee-to-Opposite-Shoulder Draw</h5>
-                            <div class="badge">4 Reps / 20 Second Hold</div>
-                            <p style="color: #94a3b8; font-size: 16px;">Lie flat on your back. Pull the knee of the aching side up toward your chest, then gently use your hands to draw it diagonally across your torso toward your opposite shoulder. Targets the small external rotators deep beneath the glutes.</p>
-                            <a href="https://youtube.com" target="_blank" class="video-link-btn">▶️ Watch Demonstration Video</a>
-                        </div>`;
-                    loadedExercises.add('kneechest');
-                }
             }
 
             if (clicking) {
                 if (clickingLvl > maxIntensity) maxIntensity = clickingLvl;
                 if (clickingLvl >= 7) triggersDoctorAdvisory = true;
-                
                 insightsHTML += `
                     <div class="assessment-block" style="border-left-color: #e11d48;">
                         <div class="assessment-title">⚙️ Internal Catching Warning (Intensity Level: ${clickingLvl}/10)</div>
                         <p class="assessment-p">A sharp pinch or sudden click during pivoting implies an internal ring structure is getting caught or pinched between the ball and socket rim under load.</p>
                     </div>`;
-
-                if (!loadedExercises.has('stance')) {
-                    exercisesHTML += `
-                        <div class="spec-card">
-                            <h5>Whole-Body Stance Rotation</h5>
-                            <div class="badge">Movement Modification Guide</div>
-                            <p style="color: #94a3b8; font-size: 16px;">When turning around, avoid planting your feet firmly and twisting your trunk alone. Instead, pick up your feet and turn your whole body in line like a solid pillar. This stops the ball from rotating under heavy stress right against the socket rim.</p>
-                        </div>`;
-                    loadedExercises.add('stance');
-                }
             }
 
-            // ----------------------------------------------------
-            // 2. EXTRA SEVERITY-BASED PROTOCOLS (AUTOMATIC OVERRIDES)
-            // ----------------------------------------------------
+            // ----------------------------------------------------------------
+            // 2. MATRIX GENERATOR: CHOOSE FROM THE 12 EXERCISE pool
+            // ----------------------------------------------------------------
             
-            // If any slider intensity hits Moderate or high (>= 6), automatically pull tissue flusher routines
-            if (maxIntensity >= 6 && !loadedExercises.has('quadstretch')) {
+            // TARGET AREA 1: INTERNAL FRICTION & WAKING STIFFNESS (Routines 1-3)
+            if (groin || morning) {
                 exercisesHTML += `
-                    <div class="spec-card" style="border-color: #0284c7;">
-                        <h5>Chair-Assisted Hip Flexor Decompression</h5>
-                        <div class="badge">High Tension Add-On Protocol</div>
-                        <p style="color: #94a3b8; font-size: 16px;">Place one knee on a padded chair seat behind you while holding a wall for support.
+                    <div class="spec-card">
+                        <h5>1. Standing Pendulum Swings</h5>
+                        <div class="badge">Unloaded Fluid Pumper | 20 Swings Per Side</div>
+                        <p style="color: #94a3b8; font-size: 16px;">Stand tall on a step with one foot, letting the aching leg dangle completely free off the side. Gently swing the hanging leg forward and backward like a heavy clock pendulum. This unweighted trick breaks up overnight stasis and pumps fresh fluid into the deep cup without grinding the parts.</p>
+                        <a href="https://youtube.com" target="_blank" class="video-link-btn">▶️ Watch Exercise Video</a>
+                    </div>
+                    <div class="spec-card">
+                        <h5>2. Supine Heel Slides</h5>
+                        <div class="badge">Unloaded Fluid Pumper | 15 Controlled Reps</div>
+                        <p style="color: #94a3b8; font-size: 16px;">Lie flat on your back on a smooth surface or bed. Slowly slide your heel along the floor toward your tailbone, bending your knee as far as comfortable, then slide it straight back out. This zero-load tracking move lubricates the hinge track without carrying body weight.</p>
+                        <a href="https://youtube.com" target="_blank" class="video-link-btn">▶️ Watch Exercise Video</a>
+                    </div>`;
+            }
+            if (stuck) {
+                exercisesHTML += `
+                    <div class="spec-card">
+                        <h5>3. Quadruped Hip Rocking</h5>
+                        <div class="badge">Unloaded Fluid Pumper | 10 Slow Rocks</div>
+                        <p style="color: #94a3b8; font-size: 16px;">Get on your hands and knees with your knees spread wide. Keeping your spine flat like a tabletop, slowly rock your hips backward toward your heels until you feel a deep stretch in the groin, then return to base. Opens up structural capsule room.</p>
+                        <a href="https://youtube.com" target="_blank" class="video-link-btn">▶️ Watch Exercise Video</a>
+                    </div>`;
+            }
+
+            // TARGET AREA 2: JOINT MOBILITY & POSTERIOR TRACKING (Routines 4-6)
+            if (groin || stuck) {
+                exercisesHTML += `
+                    <div class="spec-card">
+                        <h5>4. Isometric Glute Bridges</h5>
+                        <div class="badge">Posterior Strength Track | 10 Reps / 5s Squeeze</div>
+                        <p style="color: #94a3b8; font-size: 16px;">Lie on your back with knees bent and feet flat. Drive weight directly down into your heels to hoist your waist upward until your torso forms a straight line. Squeezing your rear muscles forces the tight hip flexors on the front to turn off and drop their protective clamp.</p>
+                        <a href="https://youtube.com" target="_blank" class="video-link-btn">▶️ Watch Exercise Video</a>
+                    </div>
+                    <div class="spec-card">
+                        <h5>5. Supine Knee-To-Chest Hug</h5>
+                        <div class="badge">Posterior Strength Track | 3 Reps / 20s Hold</div>
+                        <p style="color: #94a3b8; font-size: 16px;">Lie flat on your back. Bring one knee up toward your trunk, lacing your fingers around your shin bone or the back of your thigh. Gently pull the knee toward your shoulder until a deep, comfortable release develops across your lower hip line.</p>
+                        <a href="https://youtube.com" target="_blank" class="video-link-btn">▶️ Watch Exercise Video</a>
+                    </div>
+                    <div class="spec-card">
+                        <h5>6. Lying Clamshell Controls</h5>
+                        <div class="badge">Posterior Strength Track | 12 Reps Per Side</div>
+                        <p style="color: #94a3b8; font-size: 16px;">Lie on your side with hips stacked and knees bent at 90 degrees. Keeping your feet pinned together, slowly raise your top knee upward like an opening shell without letting your pelvis roll backward. Wakes up the external rotators that hold the ball steady.</p>
+                        <a href="https://youtube.com" target="_blank" class="video-link-btn">▶️ Watch Exercise Video</a>
+                    </div>`;
+            }
+
+            // TARGET AREA 3: REAR POCKET ACHING & SOFT FURNITURE STRAIN (Routines 7-9)
+            if (buttock) {
+                exercisesHTML += `
+                    <div class="spec-card">
+                        <h5>7. Seated Figure-4 Release</h5>
+                        <div class="badge">Deep Pocket Rotator Tracker | 3 Sets / 30s Hold</div>
+                        <p style="color: #94a3b8; font-size: 16px;">Sit upright on a flat, firm shop chair. Cross your ankle over the opposite knee line. Keeping your lower back flat and chin high, hinge your entire upper body forward from the hips until you feel a pull across your rear pocket muscle sheets. Lengthens trapped layers.</p>
+                        <a href="https
