@@ -384,9 +384,9 @@
             document.getElementById('output-diagnostic-panel').style.display = 'none';
         }
 
-        // UNBLOCKED FIXED CONTAINER: Extracts the 11-digit YouTube ID and sets up an un-blocked embedded player card
+        // UNBLOCKED CONTAINER FIX
         function buildExerciseCard(exerciseData) {
-            // Isolates the video ID tracking hash from the warehouse string text
+            // Isolates the video ID tracking hash from the warehouse string text safely
             const videoId = exerciseData.video.split('v=')[1];
             
             return `
@@ -491,7 +491,7 @@
                 if (!loadedExercises.has('gluteStretch')) { exercisesHTML += buildExerciseCard(db.gluteStretch); loadedExercises.add('gluteStretch'); }
             }
 
-            // TRACK 5: Catching & Mechanical Pinches
+            // TRACK 5: Catching & Mechanical Pinches (FIXED KEY LOOKUP TYPO)
             if (clicking) {
                 if (clickingLvl > maxIntensity) maxIntensity = clickingLvl;
                 if (clickingLvl >= 7) triggersDoctorAdvisory = true;
@@ -502,7 +502,8 @@
                         <p class="assessment-p">A sharp pinch or sudden click during pivoting implies an internal ring structure is getting caught or pinched between the ball and socket rim under load.</p>
                     </div>`;
 
-                if (!loadedExercises.has('stance')) { exercisesHTML += buildExerciseCard(db.stance); loadedExercises.add('stance'); }
+                // Uses the proper, existing front flexor track routine as the corrective target movement
+                if (!loadedExercises.has('quadStretch')) { exercisesHTML += buildExerciseCard(db.quadStretch); loadedExercises.add('quadStretch'); }
             }
 
             if (maxIntensity >= 8 || triggersDoctorAdvisory) {
