@@ -384,21 +384,31 @@
             document.getElementById('output-diagnostic-panel').style.display = 'none';
         }
 
-        // REWRIITEN FIX: Eliminates variables, hardcodes the folder layout with pure string addition math
+        // STRICT PARSER FIX: Forces the browser to output a clean URL path object
         function buildExerciseCard(exerciseData) {
             if (!exerciseData || !exerciseData.ytId) {
-                return ''; // Safely catches empty properties from running a crash
+                return ''; 
             }
+            
+            // Build a solid, un-smashable native browser URL object
+            var nativeUrl = new URL("https://youtube.com");
+            nativeUrl.pathname = "/embed/" + exerciseData.ytId;
+            nativeUrl.searchParams.set("rel", "0");
+            nativeUrl.searchParams.set("modestbranding", "1");
+            
+            // Convert it safely to a string for the player frame source
+            var playerSourceUrl = nativeUrl.toString();
             
             return '<div class="spec-card">' +
                    '<h5>' + exerciseData.title + '</h5>' +
                    '<div class="badge">' + exerciseData.badge + '</div>' +
                    '<p style="color: #94a3b8; font-size: 16px;">' + exerciseData.desc + '</p>' +
                    '<div class="video-player-box">' +
-                   '<iframe src="https://youtube.com' + exerciseData.ytId + '?rel=0&modestbranding=1" title="' + exerciseData.title + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' +
+                   '<iframe src="' + playerSourceUrl + '" title="' + exerciseData.title + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' +
                    '</div>' +
                    '</div>';
         }
+
 
         function runDiagnosticEngine() {
             if (typeof MobilityDatabase === 'undefined') {
