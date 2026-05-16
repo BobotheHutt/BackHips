@@ -85,9 +85,9 @@
             z-index: 10;
         }
 
-        /* Central Frame Workspace Window (Acts like an automatic spring) */
+        /* Central Frame Workspace Window */
         .workspace-container {
-            flex-grow: 1; /* Automatically forces container to expand and fill his entire laptop monitor window */
+            flex-grow: 1; /* Automatically forces container to expand and fill the entire monitor view */
             width: 100%;
             background-color: #121824;
         }
@@ -109,15 +109,15 @@
                 <p class="subtitle">Reference & Reading Console</p>
             </div>
             <nav>
-                <button onclick="loadContentFrame('hip.html', 'tab-hip')" id="tab-hip" class="tab-btn active-tab">🦿 Hip System</button>
-                <button onclick="loadContentFrame('back.html', 'tab-back')" id="tab-back" class="tab-btn">⚙️ Back System</button>
+                <button onclick="loadContentFrame('hip.html', 'tab-hip')" id="tab-hip" class="tab-btn active-tab">🦿 Hip Garage</button>
+                <button onclick="loadContentFrame('back.html', 'tab-back')" id="tab-back" class="tab-btn">⚙️ Back Garage</button>
                 <button onclick="loadContentFrame('tools.html', 'tab-tools')" id="tab-tools" class="tab-btn">🧰 Maintenance Tools</button>
                 <button onclick="loadContentFrame('summarizer.html', 'tab-summarizer')" id="tab-summarizer" class="tab-btn">⚡ Reading Summarizer</button>
             </nav>
         </div>
     </header>
 
-    <!-- Master Viewing Window (Stretches perfectly to fill up the laptop screen view) -->
+    <!-- Master Viewing Window -->
     <div class="workspace-container">
         <iframe id="content-frame" src="hip.html" title="Mobility Content Window"></iframe>
     </div>
