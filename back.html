@@ -3,62 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobility Hub - Back System</title>
-    <link rel="stylesheet" href="https://googleapis.com">
+    <title>Back System Frame</title>
     <style>
-        /* Reuses exact same styling layout parameters for design continuity */
+        /* Tool-Shop Workspace Styles */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: #121824; color: #e2e8f0; font-family: "Segoe UI", sans-serif; min-height: 100vh; line-height: 1.6; }
-        header { background-color: #1e293b; border-bottom: 3px solid #334155; padding-top: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
-        .header-container { max-w: 1200px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; justify-content: space-between; }
-        .logo-area h1 { color: #ffffff; font-size: 32px; font-weight: 900; display: flex; align-items: center; gap: 12px; }
-        .logo-icon { background-color: #0284c7; padding: 6px 12px; border-radius: 8px; font-size: 20px; }
-        .subtitle { color: #94a3b8; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; margin-bottom: 20px; }
-        nav { display: flex; gap: 8px; margin-bottom: -3px; }
-        .tab-btn { background-color: #0f172a; color: #64748b; border: 3px solid #334155; border-bottom: none; padding: 14px 28px; font-size: 18px; font-weight: 800; border-radius: 12px 12px 0 0; cursor: pointer; transition: all 0.15s ease; text-decoration: none; display: flex; align-items: center; gap: 8px; }
-        .tab-btn:hover { color: #f8fafc; background-color: #1e293b; }
-        .active-tab { background-color: #1e293b !important; color: #38bdf8 !important; border-color: #0284c7 !important; border-bottom: 3px solid #1e293b !important; box-shadow: 0 -4px 15px rgba(2, 132, 199, 0.2); z-index: 10; }
-        main { max-w: 1200px; margin: 0 auto; padding: 32px 24px; display: grid; grid-template-columns: 1fr; gap: 32px; }
-        @media (min-width: 1024px) { main { grid-template-columns: repeat(12, minmax(0, 1fr)); } .col-left { grid-column: span 5 / span 5; } .col-right { grid-column: span 7 / span 7; } }
-        .panel-card { background-color: #1e293b; border: 2px solid #334155; border-radius: 16px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        .panel-title { font-size: 24px; font-weight: 900; color: #ffffff; padding-bottom: 4px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        body { 
+            background-color: #121824; 
+            color: #e2e8f0; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 24px;
+            line-height: 1.6;
+        }
+
+        /* Two-Column Grid for Laptop Screens */
+        .workspace-grid {
+            max-width: 1350px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        @media (min-width: 1024px) {
+            .workspace-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+            .col-left { grid-column: span 5 / span 5; }
+            .col-right { grid-column: span 7 / span 7; }
+        }
+
+        /* Shop Dashboard Component Cards */
+        .panel-card {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            height: fit-content;
+        }
+        .panel-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: #ffffff;
+            padding-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
         .panel-desc { color: #94a3b8; font-size: 14px; margin-bottom: 20px; border-bottom: 2px solid #334155; padding-bottom: 12px; }
-        .reset-btn { background-color: #334155; color: #cbd5e1; border: none; padding: 4px 10px; font-size: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; }
+
+        /* Clear Button */
+        .reset-btn {
+            background-color: #334155;
+            color: #cbd5e1;
+            border: none;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+        }
         .reset-btn:hover { background-color: #475569; color: #ffffff; }
-        .control-block { background-color: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 16px; margin-bottom: 14px; }
-        .checkbox-row { display: flex; justify-content: space-between; align-items: center; cursor: pointer; gap: 12px; }
+
+        /* Heavy-Duty Checkbox Blocks */
+        .control-block {
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 14px;
+        }
+        .checkbox-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            gap: 12px;
+        }
         .checkbox-label { font-size: 17px; font-weight: 700; color: #f1f5f9; text-align: left; flex: 1; }
-        .control-block input[type="checkbox"] { width: 26px; height: 26px; accent-color: #0284c7; cursor: pointer; flex-shrink: 0; }
+        .control-block input[type="checkbox"] {
+            width: 26px;
+            height: 26px;
+            accent-color: #0284c7;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
         .slider-area { margin-top: 14px; border-top: 1px solid #1e293b; padding-top: 12px; display: none; }
         .slider-labels { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 6px; }
-        .control-block input[type="range"] { width: 100%; accent-color: #0284c7; cursor: pointer; }
-        .alert-box { background-color: #2a1b10; border: 1px solid #b45309; border-left: 5px solid #d97706; border-radius: 12px; padding: 16px; margin-top: 24px; display: flex; gap: 12px; }
+        .control-block input[type="range"] {
+            width: 100%;
+            accent-color: #0284c7;
+            cursor: pointer;
+        }
+
+        /* Caution Alert Callout Box */
+        .alert-box {
+            background-color: #2a1b10;
+            border: 1px solid #b45309;
+            border-left: 5px solid #d97706;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+        }
         .alert-box p { color: #fef3c7; font-size: 14px; font-weight: 500; }
-        .dynamic-banner { background: linear-gradient(135deg, #0c4a6e 0%, #1e1b4b 100%); border: 2px solid #0284c7; border-left: 6px solid #0284c7; padding: 20px; border-radius: 12px; margin-bottom: 24px; display: none; }
-        .dynamic-banner h3 { font-size: 14px; font-weight: 900; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+
+        /* Dynamic Blueprint Information Panel */
+        .dynamic-banner {
+            background: linear-gradient(135deg, #0c4a6e 0%, #1e1b4b 100%);
+            border: 2px solid #0284c7;
+            border-left: 6px solid #0284c7;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            display: none;
+        }
+        .dynamic-banner h3 { font-size: 14px; font-weight: 900; color: #38bdf8; text-transform: uppercase; tracking-spacing: 0.5px; margin-bottom: 12px; }
         .dynamic-text-content { font-size: 16px; color: #f1f5f9; display: flex; flex-direction: column; gap: 16px; }
+
+        /* Text Reading Presentation Rules */
         .content-title { font-size: 28px; font-weight: 900; color: #ffffff; border-bottom: 2px solid #334155; padding-bottom: 8px; margin-bottom: 16px; }
         .content-p { font-size: 17px; color: #94a3b8; margin-bottom: 24px; line-height: 1.7; }
+        
         .grid-cards { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 20px; }
         .spec-card { background-color: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 20px; }
         .spec-card h5 { font-size: 19px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
-        .badge { display: inline-block; background-color: #1e293b; border: 1px solid #475569; color: #38bdf8; font-size: 12px; font-weight: 800; padding: 3px 12px; border-radius: 20px; margin-bottom: 12px; }
+        .badge {
+            display: inline-block;
+            background-color: #1e293b;
+            border: 1px solid #475569;
+            color: #38bdf8;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 3px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
     </style>
 </head>
 <body>
 
-    <header id="shared-header"></header>
-
-    <main>
-        <!-- Left Side: Back Symptoms Only -->
+    <div class="workspace-grid">
+        
+        <!-- Left Side: Back Symptom Selector Column -->
         <section class="col-left panel-card">
             <div class="panel-title">
                 <span>Back Symptom Checker</span>
-                <button type="button" onclick="clearAllSymptoms()" class="reset-btn">Clear All</button>
+                <button type="button" onclick="clearBackSymptoms()" class="reset-btn">Clear All</button>
             </div>
-            <p class="panel-desc">Check the boxes that describe how your spine or lower back feels.</p>
+            <p class="panel-desc">Check the boxes below that describe how your lower back feels right now.</p>
             
-            <form id="symptom-form">
+            <form id="back-form" onchange="evaluateBackState()">
+                <!-- Shooting Leg Pain -->
                 <div class="control-block">
                     <label class="checkbox-row">
                         <span class="checkbox-label">Sharp or burning pain shooting down the back of the leg</span>
@@ -70,6 +164,7 @@
                     </div>
                 </div>
 
+                <!-- Standing/Walking Pain -->
                 <div class="control-block">
                     <label class="checkbox-row">
                         <span class="checkbox-label">Lower back hurts more when standing straight or walking downhill</span>
@@ -81,6 +176,7 @@
                     </div>
                 </div>
 
+                <!-- Numbness/Tingling -->
                 <div class="control-block">
                     <label class="checkbox-row">
                         <span class="checkbox-label">Pins-and-needles or numbness in the legs, thighs, or feet</span>
@@ -94,18 +190,20 @@
             </form>
 
             <div class="alert-box">
-                <span>⚠️</span>
-                <p>Tracking these patterns helps gather good information. Sharing this list at your next regular check-up helps configure personalized exercises alongside a physical specialist.</p>
+                <span style="font-size: 20px;">⚠️</span>
+                <p>Tracking these patterns helps you gather good information about your movement. Bringing a quick list of these notes to your next regular check-up is a helpful way to work with a physical specialist on a personalized exercise routine.</p>
             </div>
         </section>
 
-        <!-- Right Side: Back Management Content -->
-        <div class="col-right panel-card">
-            <div id="dynamic-insight-banner" class="dynamic-banner">
+        <!-- Right Side: Informational Sheets & Live Notes Column -->
+        <section class="col-right panel-card">
+            <!-- Dynamic Alert Feed Box -->
+            <div id="back-alert-banner" class="dynamic-banner">
                 <h3>Live Notes Based on Your Selections</h3>
-                <div id="dynamic-insight-text" class="dynamic-text-content"></div>
+                <div id="back-alert-text" class="dynamic-text-content"></div>
             </div>
 
+            <!-- Core Knowledge Base -->
             <h3 class="content-title">Lower Back Basics</h3>
             <p class="content-p">
                 The lower spine is supported by small bone blocks separated by rubbery, fluid-filled shock absorbers called discs. When these spaces experience heavy, constant pressure from sitting or standing out of alignment, it can squeeze the nearby nerve roots that travel from your spine down into your legs.
@@ -124,27 +222,45 @@
                     <p style="color: #94a3b8; font-size: 16px;">On hands and knees, tighten your midsection. Slowly raise and straighten your right arm straight ahead while pushing your left leg straight back behind you. Hold for 2 seconds, drop down, and switch sides to brace the core.</p>
                 </div>
             </div>
-        </div>
-    </main>
+        </section>
 
-    <script src="tabs.js"></script>
+    </div>
+
+    <!-- UI State Pipeline -->
     <script>
-        function runAnalysisPipeline() {
+        function clearBackSymptoms() {
+            document.getElementById('back-form').reset();
+            evaluateBackState();
+        }
+
+        function evaluateBackState() {
             const shooting = document.getElementById('symp-shooting').checked;
             const standing = document.getElementById('symp-standing').checked;
             const numb = document.getElementById('symp-numb').checked;
 
-            let alerts = [];
-            if (shooting) alerts.push("⚙️ <strong>Shooting Leg Pain Note:</strong> Pain that acts like an electric shock traveling down the back of your leg or into your calf means a nerve root in your lower spine is likely getting pinched or irritated. Try to avoid deep forward bends or touching your toes, which can push spinal discs backward against the nerve.");
-            if (standing) alerts.push("⚙️ <strong>Standing/Walking Pain Note:</strong> If your lower back hurts more when standing straight or walking downhill, but feels much better when you lean forward over a shopping cart or sit down, focus on exercises that strengthen the abdominal wall to help keep the lower back flatter.");
-            if (numb) alerts.push("⚙️ <strong>Numbness Note:</strong> A pins-and-needles sensation or dead weight feeling in the leg or foot means the nerve signal is being physically compressed. Keep track of what activities make this tingling spread or disappear so you can tell your physical therapist.");
+            // Toggle slide meters visibility
+            document.getElementById('scale-shooting').style.display = shooting ? 'block' : 'none';
+            document.getElementById('scale-standing').style.display = standing ? 'block' : 'none';
+            document.getElementById('scale-numb').style.display = numb ? 'block' : 'none';
 
-            const banner = document.getElementById('dynamic-insight-banner');
-            const outputText = document.getElementById('dynamic-insight-text');
+            let updates = [];
 
-            if (alerts.length > 0) {
+            if (shooting) {
+                updates.push("⚙️ <strong>Shooting Leg Pain Note:</strong> Pain that acts like an electric shock traveling down the back of your leg or into your calf means a nerve root in your lower spine is likely getting pinched or irritated. Try to avoid deep forward bends or touching your toes, which can push spinal discs backward against the nerve.");
+            }
+            if (standing) {
+                updates.push("⚙️ <strong>Standing/Walking Pain Note:</strong> If your lower back hurts more when standing straight or walking downhill, but feels much better when you lean forward over a shopping cart or sit down, the nerve pathways have less room when your back is arched. Focus on exercises that strengthen the abdominal wall to help keep the lower back flatter.");
+            }
+            if (numb) {
+                updates.push("⚙️ <strong>Numbness Note:</strong> A pins-and-needles sensation or dead weight feeling in the leg or foot means the nerve signal is being physically compressed. Keep track of what activities make this tingling spread or disappear so you can tell your physical specialist.");
+            }
+
+            const banner = document.getElementById('back-alert-banner');
+            const outputText = document.getElementById('back-alert-text');
+
+            if (updates.length > 0) {
                 banner.style.display = 'block';
-                outputText.innerHTML = "<div>" + alerts.join("</div><div style='margin-top:16px; border-top:1px solid #334155; padding-top:16px;'>") + "</div>";
+                outputText.innerHTML = "<div>" + updates.join("</div><div style='margin-top:16px; border-top:2px solid #334155; padding-top:16px;'>") + "</div>";
             } else {
                 banner.style.display = 'none';
             }
