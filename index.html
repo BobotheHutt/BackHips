@@ -14,7 +14,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* Keeps the main page solid while the frames scroll */
+            overflow: hidden;
         }
 
         /* Top Industrial Header Box */
@@ -59,14 +59,14 @@
         }
 
         /* Heavy Machinery Navigation Tabs */
-        nav { display: flex; gap: 8px; margin-bottom: -3px; }
+        nav { display: flex; gap: 8px; margin-bottom: -3px; flex-wrap: wrap; }
         .tab-btn {
             background-color: #0f172a;
             color: #64748b;
             border: 3px solid #334155;
             border-bottom: none;
-            padding: 14px 28px;
-            font-size: 18px;
+            padding: 14px 24px;
+            font-size: 17px;
             font-weight: 800;
             border-radius: 12px 12px 0 0;
             cursor: pointer;
@@ -77,8 +77,8 @@
         }
         .tab-btn:hover { color: #f8fafc; background-color: #1e293b; }
         .active-tab {
-            background-color: #121824 !important; /* Matches body background color */
-            color: #38bdf8 !important; /* Industrial Blue Accent */
+            background-color: #121824 !important;
+            color: #38bdf8 !important;
             border-color: #0284c7 !important;
             border-bottom: 3px solid #121824 !important;
             box-shadow: 0 -4px 15px rgba(2, 132, 199, 0.2);
@@ -87,9 +87,9 @@
 
         /* Central Frame Workspace Window */
         .workspace-container {
-            flex-1: 1;
+            flex: 1;
             width: 100%;
-            height: calc(100vh - 125px); /* Dynamically scales to fit remaining laptop screen height */
+            height: calc(100vh - 125px);
             background-color: #121824;
         }
         iframe {
@@ -112,35 +112,29 @@
             <nav>
                 <button onclick="loadContentFrame('hip.html', 'tab-hip')" id="tab-hip" class="tab-btn active-tab">🦿 Hip System</button>
                 <button onclick="loadContentFrame('back.html', 'tab-back')" id="tab-back" class="tab-btn">⚙️ Back System</button>
+                <button onclick="loadContentFrame('tools.html', 'tab-tools')" id="tab-tools" class="tab-btn">🧰 Maintenance Tools</button>
                 <button onclick="loadContentFrame('summarizer.html', 'tab-summarizer')" id="tab-summarizer" class="tab-btn">⚡ Reading Summarizer</button>
             </nav>
         </div>
     </header>
 
-    <!-- Master Viewing Window (Pulls files from repository into view dynamically) -->
+    <!-- Master Viewing Window -->
     <div class="workspace-container">
         <iframe id="content-frame" src="hip.html" title="Mobility Content Window"></iframe>
     </div>
 
     <!-- Central Script Controller -->
-    <!-- Central Script Controller -->
     <script>
         function loadContentFrame(targetPage, clickedTabId) {
-            // Generates a unique number based on the exact time to trick the browser into clearing cache
             const cacheBuster = "?v=" + new Date().getTime();
-            
-            // Update the source file of the core central frame with the fresh timestamp
             document.getElementById('content-frame').src = targetPage + cacheBuster;
             
-            // Clean active classes off all existing buttons
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active-tab');
             });
             
-            // Apply blue highlight style to the active selected tab button
             document.getElementById(clickedTabId).classList.add('active-tab');
         }
     </script>
-
 </body>
 </html>
