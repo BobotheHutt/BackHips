@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mobility Hub Portal</title>
-    <!-- Tailwind CSS for modern component styling -->
+    <!-- Tailwind CSS for high-end component styling -->
     <script src="https://tailwindcss.com"></script>
     <!-- Free WebGPU/WASM In-Browser AI Engine -->
     <script type="module">
@@ -12,231 +12,231 @@
         window.pipeline = pipeline;
     </script>
     <style>
-        /* Custom layout rule to anchor the active tab directly to the white container */
+        /* Modern Glowing Active Tab Style */
         .active-tab {
-            background-color: #ffffff !important;
-            color: #1e1b4b !important; /* indigo-950 */
-            border-bottom-color: #ffffff !important;
-            margin-bottom: -2px;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%) !important;
+            color: #38bdf8 !important; /* Sky blue neon text */
+            border-color: #0284c7 !important; /* Sky blue glowing border */
+            box-shadow: 0 0 15px rgba(2, 132, 199, 0.3);
             z-index: 30;
         }
+        /* Custom scrollbar to keep up with the tech dashboard look */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-900 font-sans min-h-screen flex flex-col antialiased">
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-sky-500 selection:text-white">
 
-    <!-- Top Premium Dashboard Header -->
-    <header class="bg-indigo-950 text-white pt-6 shadow-md z-40">
-        <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <!-- Cyber-Grid Background Effect Overlay -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-25 pointer-events-none"></div>
+
+    <!-- Top Dashboard Navigation Bar -->
+    <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 pt-6 shadow-2xl relative z-40">
+        <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
-                <h1 class="text-3xl font-black tracking-tight text-white flex items-center gap-2">
-                    <span class="bg-indigo-600 p-2 rounded-lg text-xl">🛡️</span> Mobility Hub
+                <h1 class="text-3xl font-black tracking-tight text-white flex items-center gap-3">
+                    <span class="bg-gradient-to-tr from-sky-500 to-indigo-600 p-2.5 rounded-xl text-xl shadow-lg shadow-sky-500/20">🛡️</span> 
+                    <span class="bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">Mobility Hub</span>
                 </h1>
-                <p class="text-indigo-200 text-sm mt-1 mb-4 md:mb-0">Evidence-Based Musculoskeletal Reference Engine</p>
+                <p class="text-sky-400 font-semibold text-sm mt-1 mb-4 md:mb-0 tracking-wide uppercase">Biomechanics Support Portal</p>
             </div>
             
-            <!-- Structural Tab Navigation Row -->
-            <nav class="flex gap-2 align-bottom self-end">
-                <button onclick="switchTab('hip')" id="tab-hip" class="active-tab text-slate-300 hover:text-white px-8 py-4 rounded-t-xl text-xl font-bold transition-all border-2 border-transparent border-b-0 duration-150 flex items-center gap-2">
+            <!-- Structural Modern Tab Options -->
+            <nav class="flex gap-3 align-bottom self-end">
+                <button onclick="switchTab('hip')" id="tab-hip" class="active-tab text-slate-400 hover:text-slate-200 bg-slate-800/50 px-8 py-4 rounded-t-2xl text-xl font-bold transition-all border border-b-0 border-slate-700/60 duration-200 flex items-center gap-2">
                     <span>🦿</span> Hip Support
                 </button>
-                <button onclick="switchTab('back')" id="tab-back" class="text-slate-300 hover:text-white px-8 py-4 rounded-t-xl text-xl font-bold transition-all border-2 border-transparent border-b-0 duration-150 flex items-center gap-2">
+                <button onclick="switchTab('back')" id="tab-back" class="text-slate-400 hover:text-slate-200 bg-slate-800/50 px-8 py-4 rounded-t-2xl text-xl font-bold transition-all border border-b-0 border-slate-700/60 duration-200 flex items-center gap-2">
                     <span>脊</span> Back Support
                 </button>
-                <button onclick="switchTab('summarizer')" id="tab-summarizer" class="text-slate-300 hover:text-white px-8 py-4 rounded-t-xl text-xl font-bold transition-all border-2 border-transparent border-b-0 duration-150 flex items-center gap-2">
+                <button onclick="switchTab('summarizer')" id="tab-summarizer" class="text-slate-400 hover:text-slate-200 bg-slate-800/50 px-8 py-4 rounded-t-2xl text-xl font-bold transition-all border border-b-0 border-slate-700/60 duration-200 flex items-center gap-2">
                     <span>⚡</span> Reading Summarizer
                 </button>
             </nav>
         </div>
     </header>
 
-    <!-- Unified Dashboard Workplace Area -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-6 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <!-- Main Content Workspace Grid -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-6 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-30">
         
-        <!-- Left Wing Component: Symptom Configuration Engine -->
-        <section id="sidebar-component" class="lg:col-span-4 bg-white p-6 rounded-2xl shadow-md border border-slate-200/80 sticky top-8">
-            <div class="border-b border-slate-100 pb-4 mb-6">
-                <h2 class="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2 text-indigo-950">
+        <!-- Left Sidebar: Symptom Profiler -->
+        <section id="sidebar-component" class="lg:col-span-4 bg-slate-900/80 backdrop-blur-md p-6 rounded-2xl shadow-2xl border border-slate-800 sticky top-8">
+            <div class="border-b border-slate-800 pb-4 mb-6">
+                <h2 class="text-2xl font-black text-white tracking-tight flex items-center gap-2">
                     Symptom Profiler
                 </h2>
-                <p class="text-sm text-slate-500 mt-1">Check active flags to filter dynamic data streams.</p>
+                <p class="text-sm text-slate-400 mt-1">Check active flags to unlock localized data streams.</p>
             </div>
             
             <form id="symptom-form" onchange="processDynamicInsights()">
-                <!-- Joint Flag Card -->
-                <div class="mb-4 p-4 bg-slate-50 hover:bg-slate-100/70 rounded-xl border border-slate-200/60 transition-all">
-                    <label class="flex items-center justify-between cursor-pointer group">
-                        <span class="text-lg font-bold text-slate-700 group-hover:text-indigo-950 transition-colors">Deep Joint / Groin Pain</span>
-                        <input type="checkbox" id="symp-joint" class="w-6 h-6 rounded-md border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all cursor-pointer">
+                <!-- Joint Card -->
+                <div class="mb-4 p-4 bg-slate-950/60 hover:bg-slate-800/40 rounded-xl border border-slate-800 transition-all group">
+                    <label class="flex items-center justify-between cursor-pointer">
+                        <span class="text-lg font-bold text-slate-300 group-hover:text-sky-400 transition-colors">Deep Joint / Groin Pain</span>
+                        <input type="checkbox" id="symp-joint" class="w-6 h-6 rounded border-slate-700 bg-slate-900 text-sky-500 focus:ring-sky-500/50 focus:ring-2 transition-all cursor-pointer">
                     </label>
-                    <div id="scale-joint" class="mt-4 hidden border-t border-slate-200/60 pt-3">
-                        <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1"><span>Mild Intensity</span><span>Severe</span></div>
-                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                    <div id="scale-joint" class="mt-4 hidden border-t border-slate-800 pt-3">
+                        <div class="flex justify-between text-xs font-bold text-slate-400 mb-2"><span>Mild Intensity</span><span class="text-sky-400">Severe</span></div>
+                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500">
                     </div>
                 </div>
 
-                <!-- Nerve Flag Card -->
-                <div class="mb-4 p-4 bg-slate-50 hover:bg-slate-100/70 rounded-xl border border-slate-200/60 transition-all">
-                    <label class="flex items-center justify-between cursor-pointer group">
-                        <span class="text-lg font-bold text-slate-700 group-hover:text-indigo-950 transition-colors">Shooting Radiation Down Leg</span>
-                        <input type="checkbox" id="symp-nerve" class="w-6 h-6 rounded-md border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all cursor-pointer">
+                <!-- Nerve Card -->
+                <div class="mb-4 p-4 bg-slate-950/60 hover:bg-slate-800/40 rounded-xl border border-slate-800 transition-all group">
+                    <label class="flex items-center justify-between cursor-pointer">
+                        <span class="text-lg font-bold text-slate-300 group-hover:text-sky-400 transition-colors">Shooting Nerve Radiation</span>
+                        <input type="checkbox" id="symp-nerve" class="w-6 h-6 rounded border-slate-700 bg-slate-900 text-sky-500 focus:ring-sky-500/50 focus:ring-2 transition-all cursor-pointer">
                     </label>
-                    <div id="scale-nerve" class="mt-4 hidden border-t border-slate-200/60 pt-3">
-                        <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1"><span>Mild Intensity</span><span>Severe</span></div>
-                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                    <div id="scale-nerve" class="mt-4 hidden border-t border-slate-800 pt-3">
+                        <div class="flex justify-between text-xs font-bold text-slate-400 mb-2"><span>Mild Intensity</span><span class="text-sky-400">Severe</span></div>
+                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500">
                     </div>
                 </div>
 
-                <!-- Stiffness Flag Card -->
-                <div class="mb-6 p-4 bg-slate-50 hover:bg-slate-100/70 rounded-xl border border-slate-200/60 transition-all">
-                    <label class="flex items-center justify-between cursor-pointer group">
-                        <span class="text-lg font-bold text-slate-700 group-hover:text-indigo-950 transition-colors">Morning Stiffness / Aching</span>
-                        <input type="checkbox" id="symp-stiff" class="w-6 h-6 rounded-md border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all cursor-pointer">
+                <!-- Stiffness Card -->
+                <div class="mb-6 p-4 bg-slate-950/60 hover:bg-slate-800/40 rounded-xl border border-slate-800 transition-all group">
+                    <label class="flex items-center justify-between cursor-pointer">
+                        <span class="text-lg font-bold text-slate-300 group-hover:text-sky-400 transition-colors">Morning Stiffness / Aching</span>
+                        <input type="checkbox" id="symp-stiff" class="w-6 h-6 rounded border-slate-700 bg-slate-900 text-sky-500 focus:ring-sky-500/50 focus:ring-2 transition-all cursor-pointer">
                     </label>
-                    <div id="scale-stiff" class="mt-4 hidden border-t border-slate-200/60 pt-3">
-                        <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1"><span>Mild Intensity</span><span>Severe</span></div>
-                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                    <div id="scale-stiff" class="mt-4 hidden border-t border-slate-800 pt-3">
+                        <div class="flex justify-between text-xs font-bold text-slate-400 mb-2"><span>Mild Intensity</span><span class="text-sky-400">Severe</span></div>
+                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500">
                     </div>
                 </div>
             </form>
 
-            <!-- Refined Medical Advisory Context -->
-            <div class="p-4 bg-amber-50 rounded-xl border border-amber-200/70 flex items-start gap-3 shadow-inner">
-                <span class="text-amber-600 text-xl font-bold">ℹ️</span>
-                <p class="text-sm text-amber-900/90 leading-relaxed font-medium">
-                    Tracking periodic biometric fluctuations provides useful baseline indicators. Presenting compiled trends helps optimize collaborative assessment vectors when mapping long-term movement modifications with an orthopaedic clinical technician.
+            <!-- Disclaimers Notice Block -->
+            <div class="p-4 bg-amber-950/30 rounded-xl border border-amber-800/40 flex items-start gap-3 shadow-inner">
+                <span class="text-amber-500 text-xl font-bold">ℹ️</span>
+                <p class="text-sm text-amber-200/80 leading-relaxed font-medium">
+                    Tracking biometric fluctuations provides baseline indicators. Presenting compiled patterns helps optimize assessments when detailing movement modifications during regular visits with a certified medical provider.
                 </p>
             </div>
         </section>
 
-        <!-- Right Wing Component: Main Data Stream Window -->
-        <div id="content-container" class="lg:col-span-8 flex flex-col gap-6 bg-white p-8 rounded-2xl shadow-md border border-slate-200/80 min-h-[600px]">
+        <!-- Right Content Window -->
+        <div id="content-container" class="lg:col-span-8 flex flex-col gap-6 bg-slate-900/60 backdrop-blur-md p-8 rounded-2xl shadow-2xl border border-slate-800 min-h-[600px]">
             
-            <!-- DYNAMIC LIVE ASSESSMENTS BANNER -->
-            <div id="dynamic-insight-banner" class="bg-indigo-50 border-l-4 border-indigo-600 p-6 rounded-r-xl hidden transition-all duration-300">
-                <h3 class="text-lg font-black text-indigo-950 tracking-tight mb-2 uppercase tracking-wide text-xs">Live Cross-Reference Alerts</h3>
-                <div id="dynamic-insight-text" class="text-base text-indigo-900 font-medium space-y-3"></div>
+            <!-- DYNAMIC ALERT BANNER -->
+            <div id="dynamic-insight-banner" class="bg-gradient-to-r from-sky-950 to-indigo-950 border-l-4 border-sky-500 p-6 rounded-r-xl hidden transition-all duration-300 shadow-lg shadow-sky-500/5">
+                <h3 class="text-xs font-black text-sky-400 tracking-wider uppercase mb-2">Live Cross-Reference Alerts</h3>
+                <div id="dynamic-insight-text" class="text-base text-slate-300 font-medium space-y-3"></div>
             </div>
 
-            <!-- TAB DATA: HIP REGIME -->
-            <div id="view-hip" class="tab-view space-y-8 animate-fadeIn">
+            <!-- TAB VIEW: HIP -->
+            <div id="view-hip" class="tab-view space-y-8">
                 <div>
-                    <h3 class="text-3xl font-black text-slate-800 border-b-2 border-slate-100 pb-3 flex items-center gap-3">
-                        <span class="w-2.5 h-7 bg-indigo-600 rounded-full inline-block"></span> Hip Joint Bio-Mechanics
+                    <h3 class="text-3xl font-black text-white border-b border-slate-800 pb-3 flex items-center gap-3">
+                        <span class="w-2.5 h-7 bg-gradient-to-b from-sky-400 to-indigo-600 rounded-full inline-block"></span> Hip Joint Bio-Mechanics
                     </h3>
-                    <p class="text-lg text-slate-600 leading-relaxed mt-4">
+                    <p class="text-lg text-slate-400 leading-relaxed mt-4 font-medium">
                         The human acetabulofemoral hip configuration functions as a load-bearing ball-and-socket assembly engineered to handle complex compression vectors. Structural wear across the protective cartilage layer down-regulates shock dissipation, inducing adaptive muscle guarding.
                     </p>
                 </div>
 
                 <div class="space-y-4">
-                    <h4 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                    <h4 class="text-xl font-bold text-slate-200 flex items-center gap-2">
                         🔧 Targeted Physical Therapy Protocols
                     </h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl hover:shadow-md transition-all">
-                            <h5 class="text-lg font-bold text-indigo-950 mb-1">Isometric Glute Bridges</h5>
-                            <span class="inline-block bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-0.5 rounded-full mb-3">10 Reps / 3s Hold</span>
-                            <p class="text-slate-600 text-base leading-relaxed">Supine positioning. Drive down through posterior heel planes to align pelvic and lumbar angles. Recruits deep gluteal stabilizers to relieve internal joint capsules.</p>
+                        <div class="p-5 bg-slate-950/80 border border-slate-800/80 rounded-xl hover:border-slate-700 transition-all shadow-xl">
+                            <h5 class="text-lg font-bold text-white mb-1">Isometric Glute Bridges</h5>
+                            <span class="inline-block bg-sky-950 border border-sky-800 text-sky-400 text-xs font-extrabold px-2.5 py-0.5 rounded-full mb-3">10 Reps / 3s Hold</span>
+                            <p class="text-slate-400 text-base leading-relaxed font-medium">Supine positioning. Drive down through posterior heel planes to align pelvic and lumbar angles. Recruits deep gluteal stabilizers to relieve internal joint capsules.</p>
                         </div>
-                        <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl hover:shadow-md transition-all">
-                            <h5 class="text-lg font-bold text-indigo-950 mb-1">Seated Piriformis Stretch</h5>
-                            <span class="inline-block bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded-full mb-3">3 Sets / 30s Hold</span>
-                            <p class="text-slate-600 text-base leading-relaxed">Cross affected limb in a fixed figure-4 alignment on a stable chair base. Pivot forward from lumbar hinges to safely lengthen deep external rotators.</p>
+                        <div class="p-5 bg-slate-950/80 border border-slate-800/80 rounded-xl hover:border-slate-700 transition-all shadow-xl">
+                            <h5 class="text-lg font-bold text-white mb-1">Seated Piriformis Stretch</h5>
+                            <span class="inline-block bg-indigo-950 border border-indigo-800 text-indigo-400 text-xs font-extrabold px-2.5 py-0.5 rounded-full mb-3">3 Sets / 30s Hold</span>
+                            <p class="text-slate-400 text-base leading-relaxed font-medium">Cross affected limb in a fixed figure-4 alignment on a stable chair base. Pivot forward from lumbar hinges to safely lengthen deep external rotators.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB DATA: BACK REGIME -->
-            <div id="view-back" class="tab-view space-y-8 hidden animate-fadeIn">
+            <!-- TAB VIEW: BACK -->
+            <div id="view-back" class="tab-view space-y-8 hidden">
                 <div>
-                    <h3 class="text-3xl font-black text-slate-800 border-b-2 border-slate-100 pb-3 flex items-center gap-3">
-                        <span class="w-2.5 h-7 bg-indigo-600 rounded-full inline-block"></span> Lumbar Spine Dynamics
+                    <h3 class="text-3xl font-black text-white border-b border-slate-800 pb-3 flex items-center gap-3">
+                        <span class="w-2.5 h-7 bg-gradient-to-b from-sky-400 to-indigo-600 rounded-full inline-block"></span> Lumbar Spine Dynamics
                     </h3>
-                    <p class="text-lg text-slate-600 leading-relaxed mt-4">
+                    <p class="text-lg text-slate-400 leading-relaxed mt-4 font-medium">
                         The lower lumbar spine uses a sequence of vertebral bodies and cushioning hydro-elastic intervertebral discs. Unaligned compression from static sitting forces can strain surrounding supporting tissue networks.
                     </p>
                 </div>
 
                 <div class="space-y-4">
-                    <h4 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                    <h4 class="text-xl font-bold text-slate-200 flex items-center gap-2">
                         🔧 Stabilizing Core Operations
                     </h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl hover:shadow-md transition-all">
-                            <h5 class="text-lg font-bold text-indigo-950 mb-1">Controlled Cat-Cow Drill</h5>
-                            <span class="inline-block bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-0.5 rounded-full mb-3">10 Fluid Cycles</span>
-                            <p class="text-slate-600 text-base leading-relaxed">Quadruped posture. Alternately flex and extend the neural column within painless boundaries to stimulate spinal disc nutrition through motion.</p>
+                        <div class="p-5 bg-slate-950/80 border border-slate-800/80 rounded-xl hover:border-slate-700 transition-all shadow-xl">
+                            <h5 class="text-lg font-bold text-white mb-1">Controlled Cat-Cow Drill</h5>
+                            <span class="inline-block bg-sky-950 border border-sky-800 text-sky-400 text-xs font-extrabold px-2.5 py-0.5 rounded-full mb-3">10 Fluid Cycles</span>
+                            <p class="text-slate-400 text-base leading-relaxed font-medium">Quadruped posture. Alternately flex and extend the neural column within painless boundaries to stimulate spinal disc nutrition through motion.</p>
                         </div>
-                        <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl hover:shadow-md transition-all">
-                            <h5 class="text-lg font-bold text-indigo-950 mb-1">Contralateral Bird-Dog</h5>
-                            <span class="inline-block bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded-full mb-3">12 Alternating Reps</span>
-                            <p class="text-slate-600 text-base leading-relaxed">Brace deep transverse abdominal walls. Simultaneously drive opposite upper and lower limbs outward to build a solid anti-rotation stability wall.</p>
+                        <div class="p-5 bg-slate-950/80 border border-slate-800/80 rounded-xl hover:border-slate-700 transition-all shadow-xl">
+                            <h5 class="text-lg font-bold text-white mb-1">Contralateral Bird-Dog</h5>
+                            <span class="inline-block bg-indigo-950 border border-indigo-800 text-indigo-400 text-xs font-extrabold px-2.5 py-0.5 rounded-full mb-3">12 Alternating Reps</span>
+                            <p class="text-slate-400 text-base leading-relaxed font-medium">Brace deep transverse abdominal walls. Simultaneously drive opposite upper and lower limbs outward to build a solid anti-rotation stability wall.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB DATA: SUMMARIZER UTILITY -->
-            <div id="view-summarizer" class="tab-view space-y-6 hidden animate-fadeIn">
+            <!-- TAB VIEW: SUMMARIZER -->
+            <div id="view-summarizer" class="tab-view space-y-6 hidden">
                 <div>
-                    <h3 class="text-3xl font-black text-slate-800 border-b-2 border-slate-100 pb-3 flex items-center gap-3">
-                        <span class="w-2.5 h-7 bg-emerald-600 rounded-full inline-block"></span> Intelligent Reading Condenser
+                    <h3 class="text-3xl font-black text-white border-b border-slate-800 pb-3 flex items-center gap-3">
+                        <span class="w-2.5 h-7 bg-gradient-to-b from-emerald-400 to-teal-600 rounded-full inline-block"></span> Intelligent Reading Condenser
                     </h3>
-                    <p class="text-base text-slate-500 mt-2">Paste intricate diagnostic summaries, clinical articles, or therapeutic write-ups below to distill core high-yield findings instantly.</p>
+                    <p class="text-base text-slate-400 mt-2 font-medium">Paste intricate diagnostic summaries, clinical articles, or therapeutic write-ups below to distill core high-yield findings instantly.</p>
                 </div>
 
                 <div class="space-y-4">
-                    <textarea id="text-input" class="w-full h-64 p-4 border-2 border-slate-200 rounded-2xl text-lg focus:border-indigo-600 focus:ring-0 shadow-inner bg-slate-50 text-slate-800 font-medium placeholder-slate-400" placeholder="Right-click and select Paste to drop long reference documentation here..."></textarea>
+                    <textarea id="text-input" class="w-full h-64 p-5 bg-slate-950/90 border border-slate-800 focus:border-sky-500 rounded-2xl text-lg focus:ring-2 focus:ring-sky-500/20 shadow-inner text-slate-200 font-medium placeholder-slate-600 outline-none transition-all" placeholder="Right-click and select Paste to drop long reference documentation here..."></textarea>
                     
-                    <button onclick="executeBrowserAILogic()" id="sum-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xl py-4 px-8 rounded-xl shadow-lg transition-all active:scale-[0.99] duration-150 flex items-center justify-center gap-3">
+                    <button onclick="executeBrowserAILogic()" id="sum-btn" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xl py-4 px-8 rounded-xl shadow-xl shadow-emerald-950/30 transition-all active:scale-[0.99] duration-150 flex items-center justify-center gap-3">
                         ⚡ Synthesize Source Text
                     </button>
                 </div>
 
                 <!-- Processing Feedback State Panel -->
-                <div id="processing-status-panel" class="p-4 bg-slate-100 rounded-xl hidden items-center gap-4 border border-slate-200 shadow-sm animate-pulse">
-                    <div class="w-6 h-6 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div>
-                    <span id="processing-status-text" class="text-base text-slate-700 font-bold">Awaiting Input Stream...</span>
+                <div id="processing-status-panel" class="p-4 bg-slate-950/80 rounded-xl hidden items-center gap-4 border border-slate-800 shadow-inner">
+                    <div class="w-6 h-6 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+                    <span id="processing-status-text" class="text-base text-slate-300 font-bold">Awaiting Input Stream...</span>
                 </div>
 
-                <!-- Synthesized Text Render Block -->
-                <div id="processing-output-panel" class="p-6 bg-emerald-50/70 rounded-2xl border border-emerald-200/80 hidden shadow-sm">
-                    <h4 class="text-lg font-black text-emerald-950 uppercase tracking-wide text-xs mb-3 flex items-center gap-2">
+                <!-- Synthesized Output Render Box -->
+                <div id="processing-output-panel" class="p-6 bg-gradient-to-br from-slate-950 to-slate-900 rounded-2xl border border-emerald-500/30 hidden shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-emerald-500/10 px-4 py-1 text-emerald-400 text-xs font-black rounded-bl-xl tracking-widest uppercase">AI Core Summary</div>
+                    <h4 class="text-sm font-black text-emerald-400 uppercase tracking-wider mb-3 flex items-center gap-2">
                         📋 Extracted Core Insights
                     </h4>
-                    <div id="processing-output-text" class="text-lg text-emerald-900 leading-relaxed font-semibold whitespace-pre-line space-y-2"></div>
+                    <div id="processing-output-text" class="text-lg text-slate-300 leading-relaxed font-medium whitespace-pre-line space-y-2"></div>
                 </div>
             </div>
 
         </div>
     </main>
 
-    <!-- Unified Framework Controller -->
+    <!-- Unified UI State Logic -->
     <script>
         let localModelPipeline = null;
 
-        // True Component Switching Engine
         function switchTab(targetView) {
-            // Hide view panes
             document.querySelectorAll('.tab-view').forEach(el => el.classList.add('hidden'));
-            
-            // Clear styles across buttons
-            document.querySelectorAll('nav button').forEach(btn => {
-                btn.classList.remove('active-tab');
-            });
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-tab'));
 
-            // Isolate container targets
             const sidebar = document.getElementById('sidebar-component');
             const mainContainer = document.getElementById('content-container');
             const gridLayout = document.querySelector('main');
 
-            // Render matching tab target
             if (targetView === 'summarizer') {
                 document.getElementById('view-summarizer').classList.remove('hidden');
                 document.getElementById('tab-summarizer').classList.add('active-tab');
-                
-                // Expand summarizer space to full screen
                 sidebar.classList.add('hidden');
                 gridLayout.classList.remove('lg:grid-cols-12');
                 gridLayout.classList.add('max-w-4xl');
@@ -245,8 +245,6 @@
             } else {
                 document.getElementById(`view-${targetView}`).classList.remove('hidden');
                 document.getElementById(`tab-${targetView}`).classList.add('active-tab');
-                
-                // Return to structural side-by-side dashboard
                 sidebar.classList.remove('hidden');
                 gridLayout.classList.remove('max-w-4xl');
                 gridLayout.classList.add('lg:grid-cols-12');
@@ -255,41 +253,31 @@
             }
         }
 
-        // Central Symptom Processing Pipeline
         function processDynamicInsights() {
             const hasJoint = document.getElementById('symp-joint').checked;
             const hasNerve = document.getElementById('symp-nerve').checked;
             const hasStiff = document.getElementById('symp-stiff').checked;
 
-            // Toggle sub-sliders on active checkboxes
             document.getElementById('scale-joint').style.display = hasJoint ? 'block' : 'none';
             document.getElementById('scale-nerve').style.display = hasNerve ? 'block' : 'none';
             document.getElementById('scale-stiff').style.display = hasStiff ? 'block' : 'none';
 
             let aggregatedInsights = [];
-
-            if (hasJoint) {
-                aggregatedInsights.push("⚠️ <strong>Anatomical Groin Mapping:</strong> Micro-friction deep within the internal capsule structure frequently points to structural joint-space narrowing. Prioritize non-weightbearing mobility to keep the joint lubricated.");
-            }
-            if (hasNerve) {
-                aggregatedInsights.push("⚠️ <strong>Neural Column Compression:</strong> Distal radiation pointing past the hamstring boundary suggests irritation along the lower lumbar roots. Restrict lumbar rounding or flexion forces.");
-            }
-            if (hasStiff) {
-                aggregatedInsights.push("⚠️ <strong>Fluid Mechanics Delay:</strong> Pronounced morning stiffness indicates sluggish intra-articular fluid turnover. Utilize unloaded rhythmic mobility drills right after waking up to distribute joint lubrication.");
-            }
+            if (hasJoint) aggregatedInsights.push("🔹 <strong>Anatomical Groin Mapping:</strong> Micro-friction deep within the internal capsule structure frequently points to joint-space narrowing. Prioritize non-weightbearing mobility to keep the joint lubricated.");
+            if (hasNerve) aggregatedInsights.push("🔹 <strong>Neural Column Compression:</strong> Distal radiation pointing past the hamstring boundary suggests irritation along the lower lumbar roots. Restrict deep lumbar rounding actions.");
+            if (hasStiff) aggregatedInsights.push("🔹 <strong>Fluid Mechanics Delay:</strong> Pronounced morning stiffness indicates sluggish intra-articular fluid turnover. Utilize unloaded rhythmic mobility drills right after waking up to distribute joint lubrication.");
 
             const dynamicBanner = document.getElementById('dynamic-insight-banner');
             const dynamicText = document.getElementById('dynamic-insight-text');
 
             if (aggregatedInsights.length > 0) {
                 dynamicBanner.classList.remove('hidden');
-                dynamicText.innerHTML = "<div>" + aggregatedInsights.join("</div><div class='mt-2 border-t border-indigo-200/40 pt-2'>") + "</div>";
+                dynamicText.innerHTML = "<div>" + aggregatedInsights.join("</div><div class='mt-3 border-t border-slate-800 pt-3'>") + "</div>";
             } else {
                 dynamicBanner.classList.add('hidden');
             }
         }
 
-        // WebGPU/WASM-Powered Web AI Summarization Execution
         async function executeBrowserAILogic() {
             const srcText = document.getElementById('text-input').value.trim();
             const actionBtn = document.getElementById('sum-btn');
@@ -319,10 +307,7 @@
                     max_length: 90, min_length: 30, length_penalty: 2.0, num_beams: 2
                 });
 
-                let parsedString = inferencePayload.summary_text
-                    .replace(/\s+([.,!?:])/g, '$1')
-                    .replace(/\. /g, '.\n• ');
-
+                let parsedString = inferencePayload.summary_text.replace(/\s+([.,!?:])/g, '$1').replace(/\. /g, '.\n• ');
                 outputLabel.innerHTML = "• " + parsedString;
                 outputBox.classList.remove('hidden');
             } catch (runtimeError) {
@@ -334,82 +319,6 @@
                 statusBox.classList.remove('flex');
             }
         }
-    </script>
-</body>
-</html>
-
-        <!-- Right Content Section: Hip Data -->
-        <div class="lg:col-span-8 flex flex-col gap-8">
-            <div id="hip-dynamic-box" class="bg-indigo-50 border border-indigo-100 p-6 rounded-2xl hidden">
-                <h3 class="text-2xl font-bold text-indigo-900 mb-3">Live Assessment Insights</h3>
-                <div id="hip-dynamic-text" class="text-lg text-indigo-950 space-y-2"></div>
-            </div>
-
-            <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-                <h3 class="text-3xl font-extrabold text-slate-800 mb-4 border-b pb-2">1. Hip Anatomy & Physiology</h3>
-                <p class="text-lg text-slate-600 leading-relaxed mb-4">
-                    The hip is a robust ball-and-socket joint designed to bear body weight and handle wide ranges of movement. Over time, the protective cartilage cushioning the femoral head can wear down, leading to increased friction, mild localized inflammation, or structural mechanical vulnerabilities.
-                </p>
-                <p class="text-lg text-slate-600 leading-relaxed">
-                    Supporting muscles—such as the gluteus medius, tensor fasciae latae, and deep hip rotators—often tighten up defensively to stabilize a vulnerable joint. Keeping these surrounding muscle groups balanced and long is vital to alleviating excessive compression inside the hip capsule itself.
-                </p>
-            </section>
-
-            <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-                <h3 class="text-3xl font-extrabold text-slate-800 mb-4 border-b pb-2">2. Physical Therapy & Management</h3>
-                <div class="space-y-6">
-                    <div class="p-4 hover:bg-slate-50 rounded-xl transition-colors">
-                        <h4 class="text-2xl font-bold text-indigo-900 mb-2">Glute Bridges</h4>
-                        <p class="text-lg text-slate-600">Lying on your back with knees bent, press down firmly through your heels to raise your hips until your body forms a straight line from your shoulders to your knees. Hold for 3 seconds, then lower smoothly. Complete 10 repetitions to wake up the posterior stabilizing muscles.</p>
-                    </div>
-                    <div class="p-4 hover:bg-slate-50 rounded-xl transition-colors">
-                        <h4 class="text-2xl font-bold text-indigo-900 mb-2">Seated Figure-4 Stretch</h4>
-                        <p class="text-lg text-slate-600">Sit upright on a stable chair. Cross your right ankle over your left knee. Keeping your chest high and back tall, gently hinge forward from the hips until you feel a deep, comfortable stretch across the outer hip and glute. Hold for 20-30 seconds per side.</p>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <script>
-        // Shared state manager across local files using localStorage
-        function updateSymptomInsights() {
-            const state = {
-                joint: document.getElementById('symp-joint').checked,
-                nerve: document.getElementById('symp-nerve').checked,
-                stiff: document.getElementById('symp-stiff').checked
-            };
-            localStorage.setItem('hub_symptoms', JSON.stringify(state));
-            renderInsights(state);
-        }
-
-        function renderInsights(state) {
-            document.getElementById('scale-joint').style.display = state.joint ? 'block' : 'none';
-            document.getElementById('scale-nerve').style.display = state.nerve ? 'block' : 'none';
-            document.getElementById('scale-stiff').style.display = state.stiff ? 'block' : 'none';
-
-            let hipInsights = [];
-            if (state.joint) hipInsights.push("• <strong>Deep Capsule Friction:</strong> Pain localized within the groin frequently hints at mechanical cartilage thinning inside the ball-and-socket setup. Emphasize low-impact lubrication moves like unweighted leg swings over heavy stepping routines.");
-            if (state.nerve) hipInsights.push("• <strong>Piriformis Shielding:</strong> True lower spinal issues regularly spark massive secondary contraction bands directly across deep rear hip muscles.");
-            if (state.stiff) hipInsights.push("• <strong>Joint Fluid Distribution:</strong> Morning stiffness typically implies the natural lubrication fluid has temporarily thickened up. Gentle, unweighted motion distributes this protective fluid throughout the joint cavity.");
-
-            const hipBox = document.getElementById('hip-dynamic-box');
-            if (hipInsights.length > 0) {
-                hipBox.classList.remove('hidden');
-                document.getElementById('hip-dynamic-text').innerHTML = hipInsights.join("<br><br>");
-            } else {
-                hipBox.classList.add('hidden');
-            }
-        }
-
-        // Initialize checkboxes based on saved selections across pages
-        window.addEventListener('DOMContentLoaded', () => {
-            const saved = JSON.parse(localStorage.getItem('hub_symptoms')) || {joint:false, nerve:false, stiff:false};
-            document.getElementById('symp-joint').checked = saved.joint;
-            document.getElementById('symp-nerve').checked = saved.nerve;
-            document.getElementById('symp-stiff').checked = saved.stiff;
-            renderInsights(saved);
-        });
     </script>
 </body>
 </html>
