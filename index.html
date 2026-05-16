@@ -123,10 +123,14 @@
     </div>
 
     <!-- Central Script Controller -->
+    <!-- Central Script Controller -->
     <script>
         function loadContentFrame(targetPage, clickedTabId) {
-            // Update the source file of the core central frame instantly
-            document.getElementById('content-frame').src = targetPage;
+            // Generates a unique number based on the exact time to trick the browser into clearing cache
+            const cacheBuster = "?v=" + new Date().getTime();
+            
+            // Update the source file of the core central frame with the fresh timestamp
+            document.getElementById('content-frame').src = targetPage + cacheBuster;
             
             // Clean active classes off all existing buttons
             document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -137,5 +141,6 @@
             document.getElementById(clickedTabId).classList.add('active-tab');
         }
     </script>
+
 </body>
 </html>
