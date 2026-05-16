@@ -3,146 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobility Hub - Back Support</title>
-    <script src="https://tailwindcss.com"></script>
+    <title>Mobility Hub - Back System</title>
+    <link rel="stylesheet" href="https://googleapis.com">
+    <style>
+        /* Reuses exact same styling layout parameters for design continuity */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #121824; color: #e2e8f0; font-family: "Segoe UI", sans-serif; min-height: 100vh; line-height: 1.6; }
+        header { background-color: #1e293b; border-bottom: 3px solid #334155; padding-top: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+        .header-container { max-w: 1200px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; justify-content: space-between; }
+        .logo-area h1 { color: #ffffff; font-size: 32px; font-weight: 900; display: flex; align-items: center; gap: 12px; }
+        .logo-icon { background-color: #0284c7; padding: 6px 12px; border-radius: 8px; font-size: 20px; }
+        .subtitle { color: #94a3b8; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; margin-bottom: 20px; }
+        nav { display: flex; gap: 8px; margin-bottom: -3px; }
+        .tab-btn { background-color: #0f172a; color: #64748b; border: 3px solid #334155; border-bottom: none; padding: 14px 28px; font-size: 18px; font-weight: 800; border-radius: 12px 12px 0 0; cursor: pointer; transition: all 0.15s ease; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .tab-btn:hover { color: #f8fafc; background-color: #1e293b; }
+        .active-tab { background-color: #1e293b !important; color: #38bdf8 !important; border-color: #0284c7 !important; border-bottom: 3px solid #1e293b !important; box-shadow: 0 -4px 15px rgba(2, 132, 199, 0.2); z-index: 10; }
+        main { max-w: 1200px; margin: 0 auto; padding: 32px 24px; display: grid; grid-template-columns: 1fr; gap: 32px; }
+        @media (min-width: 1024px) { main { grid-template-columns: repeat(12, minmax(0, 1fr)); } .col-left { grid-column: span 5 / span 5; } .col-right { grid-column: span 7 / span 7; } }
+        .panel-card { background-color: #1e293b; border: 2px solid #334155; border-radius: 16px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .panel-title { font-size: 24px; font-weight: 900; color: #ffffff; padding-bottom: 4px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        .panel-desc { color: #94a3b8; font-size: 14px; margin-bottom: 20px; border-bottom: 2px solid #334155; padding-bottom: 12px; }
+        .reset-btn { background-color: #334155; color: #cbd5e1; border: none; padding: 4px 10px; font-size: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; }
+        .reset-btn:hover { background-color: #475569; color: #ffffff; }
+        .control-block { background-color: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+        .checkbox-row { display: flex; justify-content: space-between; align-items: center; cursor: pointer; gap: 12px; }
+        .checkbox-label { font-size: 17px; font-weight: 700; color: #f1f5f9; text-align: left; flex: 1; }
+        .control-block input[type="checkbox"] { width: 26px; height: 26px; accent-color: #0284c7; cursor: pointer; flex-shrink: 0; }
+        .slider-area { margin-top: 14px; border-top: 1px solid #1e293b; padding-top: 12px; display: none; }
+        .slider-labels { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 6px; }
+        .control-block input[type="range"] { width: 100%; accent-color: #0284c7; cursor: pointer; }
+        .alert-box { background-color: #2a1b10; border: 1px solid #b45309; border-left: 5px solid #d97706; border-radius: 12px; padding: 16px; margin-top: 24px; display: flex; gap: 12px; }
+        .alert-box p { color: #fef3c7; font-size: 14px; font-weight: 500; }
+        .dynamic-banner { background: linear-gradient(135deg, #0c4a6e 0%, #1e1b4b 100%); border: 2px solid #0284c7; border-left: 6px solid #0284c7; padding: 20px; border-radius: 12px; margin-bottom: 24px; display: none; }
+        .dynamic-banner h3 { font-size: 14px; font-weight: 900; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+        .dynamic-text-content { font-size: 16px; color: #f1f5f9; display: flex; flex-direction: column; gap: 16px; }
+        .content-title { font-size: 28px; font-weight: 900; color: #ffffff; border-bottom: 2px solid #334155; padding-bottom: 8px; margin-bottom: 16px; }
+        .content-p { font-size: 17px; color: #94a3b8; margin-bottom: 24px; line-height: 1.7; }
+        .grid-cards { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 20px; }
+        .spec-card { background-color: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 20px; }
+        .spec-card h5 { font-size: 19px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
+        .badge { display: inline-block; background-color: #1e293b; border: 1px solid #475569; color: #38bdf8; font-size: 12px; font-weight: 800; padding: 3px 12px; border-radius: 20px; margin-bottom: 12px; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans min-h-screen flex flex-col">
+<body>
 
-    <!-- Top Navigation Tabs -->
-    <header class="bg-indigo-900 text-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <h1 class="text-3xl font-extrabold tracking-tight py-4">Mobility Hub</h1>
-            <nav class="flex h-full align-bottom self-end">
-                <a href="index.html" class="hover:bg-indigo-800 text-slate-300 hover:text-white px-6 py-4 rounded-t-xl text-xl font-bold transition-all">Hip Support</a>
-                <a href="back.html" class="bg-slate-50 text-indigo-900 px-6 py-4 rounded-t-xl text-xl font-bold transition-all border-b-2 border-slate-50">Back Support</a>
-                <a href="summarizer.html" class="hover:bg-indigo-800 text-slate-300 hover:text-white px-6 py-4 rounded-t-xl text-xl font-bold transition-all">Reading Summarizer</a>
-            </nav>
-        </div>
-    </header>
+    <header id="shared-header"></header>
 
-    <!-- Main Content Grid -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
-        
-        <!-- Left Sidebar: Identical Symptom Checker Layout -->
-        <div class="lg:col-span-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200 h-fit sticky top-24">
-            <h2 class="text-2xl font-bold text-slate-800 mb-2">Symptom Checker</h2>
-            <p class="text-sm text-slate-500 mb-6">Select current observations to reveal targeted insights and anatomical correlations across tabs.</p>
+    <main>
+        <!-- Left Side: Back Symptoms Only -->
+        <section class="col-left panel-card">
+            <div class="panel-title">
+                <span>Back Symptom Checker</span>
+                <button type="button" onclick="clearAllSymptoms()" class="reset-btn">Clear All</button>
+            </div>
+            <p class="panel-desc">Check the boxes that describe how your spine or lower back feels.</p>
             
-            <form id="symptom-form" onchange="updateSymptomInsights()">
-                <div class="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-100">
-                    <label class="flex items-center gap-3 cursor-pointer">
-                        <input type="checkbox" id="symp-joint" class="w-6 h-6 rounded text-indigo-600 focus:ring-indigo-500">
-                        <span class="text-xl font-semibold text-slate-700">Deep Joint / Groin Pain</span>
+            <form id="symptom-form">
+                <div class="control-block">
+                    <label class="checkbox-row">
+                        <span class="checkbox-label">Sharp or burning pain shooting down the back of the leg</span>
+                        <input type="checkbox" id="symp-shooting">
                     </label>
-                    <div id="scale-joint" class="mt-3 hidden pl-9">
-                        <label class="block text-sm font-medium text-slate-600 mb-1">Intensity Level:</label>
-                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
-                        <div class="flex justify-between text-xs text-slate-400 px-1 mt-1"><span>Mild</span><span>Moderate</span><span>Severe</span></div>
+                    <div id="scale-shooting" class="slider-area">
+                        <div class="slider-labels"><span>Dull twinge</span><span>Sharp shock</span></div>
+                        <input type="range" min="1" max="10" value="5">
                     </div>
                 </div>
 
-                <div class="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-100">
-                    <label class="flex items-center gap-3 cursor-pointer">
-                        <input type="checkbox" id="symp-nerve" class="w-6 h-6 rounded text-indigo-600 focus:ring-indigo-500">
-                        <span class="text-xl font-semibold text-slate-700">Shooting Pain Down Leg</span>
+                <div class="control-block">
+                    <label class="checkbox-row">
+                        <span class="checkbox-label">Lower back hurts more when standing straight or walking downhill</span>
+                        <input type="checkbox" id="symp-standing">
                     </label>
-                    <div id="scale-nerve" class="mt-3 hidden pl-9">
-                        <label class="block text-sm font-medium text-slate-600 mb-1">Intensity Level:</label>
-                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
-                        <div class="flex justify-between text-xs text-slate-400 px-1 mt-1"><span>Mild</span><span>Moderate</span><span>Severe</span></div>
+                    <div id="scale-standing" class="slider-area">
+                        <div class="slider-labels"><span>Mild ache</span><span>Must sit down</span></div>
+                        <input type="range" min="1" max="10" value="5">
                     </div>
                 </div>
 
-                <div class="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-100">
-                    <label class="flex items-center gap-3 cursor-pointer">
-                        <input type="checkbox" id="symp-stiff" class="w-6 h-6 rounded text-indigo-600 focus:ring-indigo-500">
-                        <span class="text-xl font-semibold text-slate-700">Morning Stiffness / Aching</span>
+                <div class="control-block">
+                    <label class="checkbox-row">
+                        <span class="checkbox-label">Pins-and-needles or numbness in the legs, thighs, or feet</span>
+                        <input type="checkbox" id="symp-numb">
                     </label>
-                    <div id="scale-stiff" class="mt-3 hidden pl-9">
-                        <label class="block text-sm font-medium text-slate-600 mb-1">Intensity Level:</label>
-                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
-                        <div class="flex justify-between text-xs text-slate-400 px-1 mt-1"><span>Mild</span><span>Moderate</span><span>Severe</span></div>
+                    <div id="scale-numb" class="slider-area">
+                        <div class="slider-labels"><span>Faint tingling</span><span>Loss of feeling</span></div>
+                        <input type="range" min="1" max="10" value="5">
                     </div>
                 </div>
             </form>
 
-            <div class="mt-8 p-4 bg-amber-50 rounded-xl border border-amber-200 flex items-start gap-3">
-                <span class="text-amber-600 text-xl font-bold">ℹ️</span>
-                <p class="text-sm text-amber-800 leading-relaxed">
-                    Tracking patterns in structural comfort levels offers valuable data. Documenting these observations helps facilitate highly optimized, collaborative care planning during regular evaluations with a clinical physical therapist.
-                </p>
+            <div class="alert-box">
+                <span>⚠️</span>
+                <p>Tracking these patterns helps gather good information. Sharing this list at your next regular check-up helps configure personalized exercises alongside a physical specialist.</p>
             </div>
-        </div>
+        </section>
 
-        <!-- Right Content Section: Back Data -->
-        <div class="lg:col-span-8 flex flex-col gap-8">
-            <div id="back-dynamic-box" class="bg-indigo-50 border border-indigo-100 p-6 rounded-2xl hidden">
-                <h3 class="text-2xl font-bold text-indigo-900 mb-3">Live Assessment Insights</h3>
-                <div id="back-dynamic-text" class="text-lg text-indigo-950 space-y-2"></div>
+        <!-- Right Side: Back Management Content -->
+        <div class="col-right panel-card">
+            <div id="dynamic-insight-banner" class="dynamic-banner">
+                <h3>Live Notes Based on Your Selections</h3>
+                <div id="dynamic-insight-text" class="dynamic-text-content"></div>
             </div>
 
-            <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-                <h3 class="text-3xl font-extrabold text-slate-800 mb-4 border-b pb-2">1. Spinal Mechanics & Support</h3>
-                <p class="text-lg text-slate-600 leading-relaxed mb-4">
-                    The human spine relies on complex structural coordination across spinal vertebrae, intervertebral spinal discs, and deep structural muscle chains. Poor sitting mechanics or sedentary habits place heavy, unaligned forces on the lower lumbar curves.
-                </p>
-                <p class="text-lg text-slate-600 leading-relaxed">
-                    Rather than treating the spine as an isolated column, modern physical therapy recognizes that building strong, active core muscles (the transverse abdominis and multifidus) acts like a biological corset, significantly relieving structural strain off the lower spinal discs.
-                </p>
-            </section>
+            <h3 class="content-title">Lower Back Basics</h3>
+            <p class="content-p">
+                The lower spine is supported by small bone blocks separated by rubbery, fluid-filled shock absorbers called discs. When these spaces experience heavy, constant pressure from sitting or standing out of alignment, it can squeeze the nearby nerve roots that travel from your spine down into your legs.
+            </p>
 
-            <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-                <h3 class="text-3xl font-extrabold text-slate-800 mb-4 border-b pb-2">2. Physical Therapy & Management</h3>
-                <div class="space-y-6">
-                    <div class="p-4 hover:bg-slate-50 rounded-xl transition-colors">
-                        <h4 class="text-2xl font-bold text-indigo-900 mb-2">Cat-Cow Mobility Drill</h4>
-                        <p class="text-lg text-slate-600">On hands and knees, slowly drop your belly toward the floor while lifting your gaze toward the ceiling. Then, smoothly round your spine up toward the ceiling like an arching cat while tucking your chin. Alternate between these forms smoothly for 10 fluid cycles.</p>
-                    </div>
-                    <div class="p-4 hover:bg-slate-50 rounded-xl transition-colors">
-                        <h4 class="text-2xl font-bold text-indigo-900 mb-2">Bird-Dog Core Stabilization</h4>
-                        <p class="text-lg text-slate-600">From an all-fours position, brace your torso. Extend your right arm straight ahead while simultaneously reaching your left leg straight back. Hold for 2 seconds, maintaining a perfectly level tabletop back, then return to base. Alternate sides for 10 controlled reps.</p>
-                    </div>
+            <h4 style="font-size: 20px; font-weight: 800; color: #ffffff;">🔧 Standard Back Routines</h4>
+            <div class="grid-cards">
+                <div class="spec-card">
+                    <h5>Cat-Cow Mobility Drill</h5>
+                    <div class="badge">10 Movements</div>
+                    <p style="color: #94a3b8; font-size: 16px;">Get on your hands and knees. Slowly let your stomach sink down toward the floor while looking up slightly. Then, gently round your back up toward the ceiling like an arching cat while tucking your chin. Keep it fluid and smooth.</p>
                 </div>
-            </section>
+                <div class="spec-card">
+                    <h5>Bird-Dog Core Stability</h5>
+                    <div class="badge">12 Alternating Reps</div>
+                    <p style="color: #94a3b8; font-size: 16px;">On hands and knees, tighten your midsection. Slowly raise and straighten your right arm straight ahead while pushing your left leg straight back behind you. Hold for 2 seconds, drop down, and switch sides to brace the core.</p>
+                </div>
+            </div>
         </div>
     </main>
 
+    <script src="tabs.js"></script>
     <script>
-        function updateSymptomInsights() {
-            const state = {
-                joint: document.getElementById('symp-joint').checked,
-                nerve: document.getElementById('symp-nerve').checked,
-                stiff: document.getElementById('symp-stiff').checked
-            };
-            localStorage.setItem('hub_symptoms', JSON.stringify(state));
-            renderInsights(state);
-        }
+        function runAnalysisPipeline() {
+            const shooting = document.getElementById('symp-shooting').checked;
+            const standing = document.getElementById('symp-standing').checked;
+            const numb = document.getElementById('symp-numb').checked;
 
-        function renderInsights(state) {
-            document.getElementById('scale-joint').style.display = state.joint ? 'block' : 'none';
-            document.getElementById('scale-nerve').style.display = state.nerve ? 'block' : 'none';
-            document.getElementById('scale-stiff').style.display = state.stiff ? 'block' : 'none';
+            let alerts = [];
+            if (shooting) alerts.push("⚙️ <strong>Shooting Leg Pain Note:</strong> Pain that acts like an electric shock traveling down the back of your leg or into your calf means a nerve root in your lower spine is likely getting pinched or irritated. Try to avoid deep forward bends or touching your toes, which can push spinal discs backward against the nerve.");
+            if (standing) alerts.push("⚙️ <strong>Standing/Walking Pain Note:</strong> If your lower back hurts more when standing straight or walking downhill, but feels much better when you lean forward over a shopping cart or sit down, focus on exercises that strengthen the abdominal wall to help keep the lower back flatter.");
+            if (numb) alerts.push("⚙️ <strong>Numbness Note:</strong> A pins-and-needles sensation or dead weight feeling in the leg or foot means the nerve signal is being physically compressed. Keep track of what activities make this tingling spread or disappear so you can tell your physical therapist.");
 
-            let backInsights = [];
-            if (state.nerve) backInsights.push("• <strong>Neural Pathway Compressions:</strong> Sensations travelling downward past the lower knee lines point directly toward nerve root crowd spaces in the lower spinal column. Avoid deep forward bending motions which can push disc rings rearward.");
-            if (state.stiff) backInsights.push("• <strong>Structural Fluid Set:</strong> Waking with a deep achy rigidity that clears up cleanly with gentle movements points to classic localized spinal environment slowdowns. Prioritize the gentle Cat-Cow cycle before rising.");
+            const banner = document.getElementById('dynamic-insight-banner');
+            const outputText = document.getElementById('dynamic-insight-text');
 
-            const backBox = document.getElementById('back-dynamic-box');
-            if (backInsights.length > 0) {
-                backBox.classList.remove('hidden');
-                document.getElementById('back-dynamic-text').innerHTML = backInsights.join("<br><br>");
+            if (alerts.length > 0) {
+                banner.style.display = 'block';
+                outputText.innerHTML = "<div>" + alerts.join("</div><div style='margin-top:16px; border-top:1px solid #334155; padding-top:16px;'>") + "</div>";
             } else {
-                backBox.classList.add('hidden');
+                banner.style.display = 'none';
             }
         }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const saved = JSON.parse(localStorage.getItem('hub_symptoms')) || {joint:false, nerve:false, stiff:false};
-            document.getElementById('symp-joint').checked = saved.joint;
-            document.getElementById('symp-nerve').checked = saved.nerve;
-            document.getElementById('symp-stiff').checked = saved.stiff;
-            renderInsights(saved);
-        });
     </script>
 </body>
 </html>
