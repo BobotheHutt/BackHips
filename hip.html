@@ -49,6 +49,32 @@
         }
         .panel-desc { color: #94a3b8; font-size: 14px; margin-bottom: 20px; border-bottom: 2px solid #334155; padding-bottom: 12px; }
 
+        /* Collapsible Toggle Header Button */
+        .collapse-toggle-btn {
+            w-full: 100%;
+            width: 100%;
+            background-color: #0f172a;
+            border: 2px solid #334155;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 800;
+            padding: 14px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            transition: all 0.15s ease;
+        }
+        .collapse-toggle-btn:hover { background-color: #1a2333; border-color: #475569; }
+        .toggle-arrow { font-size: 14px; color: #38bdf8; transition: transform 0.2s ease; }
+        
+        /* Hidden Container by Default */
+        .collapsible-content {
+            display: none;
+        }
+
         /* Clear Button */
         .reset-btn {
             background-color: #334155;
@@ -77,7 +103,7 @@
             cursor: pointer;
             gap: 12px;
         }
-        .checkbox-label { font-size: 17px; font-weight: 700; color: #f1f5f9; text-align: left; flex: 1; }
+        .checkbox-label { font-size: 16px; font-weight: 700; color: #f1f5f9; text-align: left; flex: 1; }
         .control-block input[type="checkbox"] {
             width: 26px;
             height: 26px;
@@ -143,51 +169,99 @@
 
     <div class="workspace-grid">
         
-        <!-- Left Side: Hip Symptom Selector Column -->
+        <!-- Left Side: Hip Selector Column -->
         <section class="col-left panel-card">
-            <div class="panel-title">
-                <span>Hip Symptom Checker</span>
-                <button type="button" onclick="clearHipSymptoms()" class="reset-btn">Clear All</button>
+            <div class="panel-title" style="margin-bottom: 12px;">
+                <span>Hip Checklists</span>
             </div>
-            <p class="panel-desc">Check the boxes below that describe how your hip feels right now.</p>
             
-            <form id="hip-form" onchange="evaluateHipState()">
-                <!-- Groin Pain -->
-                <div class="control-block">
-                    <label class="checkbox-row">
-                        <span class="checkbox-label">Deep pain inside the groin or front hip joint</span>
-                        <input type="checkbox" id="symp-groin">
-                    </label>
-                    <div id="scale-groin" class="slider-area">
-                        <div class="slider-labels"><span>Mild ache</span><span>Severe pain</span></div>
-                        <input type="range" min="1" max="10" value="5">
-                    </div>
+            <!-- Collapsible Master Header Button -->
+            <button onclick="toggleHipSymptomPanel()" class="collapse-toggle-btn" id="toggle-trigger">
+                <span>📋 Open Hip Symptom Checker</span>
+                <span class="toggle-arrow" id="arrow-indicator">▼</span>
+            </button>
+
+            <!-- Hidden Content Section By Default -->
+            <div class="collapsible-content" id="hip-checker-drawer">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <span style="color: #94a3b8; font-size: 13.5px; font-weight: 600;">Select active symptoms:</span>
+                    <button type="button" onclick="clearHipSymptoms()" class="reset-btn">Clear All</button>
                 </div>
 
-                <!-- Tight / Stuck Joint -->
-                <div class="control-block">
-                    <label class="checkbox-row">
-                        <span class="checkbox-label">Hip feels tight or "stuck" when tying shoes or getting out of cars</span>
-                        <input type="checkbox" id="symp-stuck">
-                    </label>
-                    <div id="scale-stuck" class="slider-area">
-                        <div class="slider-labels"><span>Slightly stiff</span><span>Hard to bend</span></div>
-                        <input type="range" min="1" max="10" value="5">
+                <form id="hip-form" onchange="evaluateHipState()">
+                    <!-- Symptom 1: Groin Pain -->
+                    <div class="control-block">
+                        <label class="checkbox-row">
+                            <span class="checkbox-label">Deep pain inside the groin or front hip joint</span>
+                            <input type="checkbox" id="symp-groin">
+                        </label>
+                        <div id="scale-groin" class="slider-area">
+                            <div class="slider-labels"><span>Mild ache</span><span>Severe pain</span></div>
+                            <input type="range" min="1" max="10" value="5">
+                        </div>
                     </div>
-                </div>
 
-                <!-- Morning Hip Stiffness -->
-                <div class="control-block">
-                    <label class="checkbox-row">
-                        <span class="checkbox-label">Heavy aching and stiffness right after waking up in the morning</span>
-                        <input type="checkbox" id="symp-morning">
-                    </label>
-                    <div id="scale-morning" class="slider-area">
-                        <div class="slider-labels"><span>Loosens quickly</span><span>Lasts a long time</span></div>
-                        <input type="range" min="1" max="10" value="5">
+                    <!-- Symptom 2: Tight / Stuck Joint -->
+                    <div class="control-block">
+                        <label class="checkbox-row">
+                            <span class="checkbox-label">Hip feels tight or "stuck" when tying shoes or getting out of cars</span>
+                            <input type="checkbox" id="symp-stuck">
+                        </label>
+                        <div id="scale-stuck" class="slider-area">
+                            <div class="slider-labels"><span>Slightly stiff</span><span>Hard to bend</span></div>
+                            <input type="range" min="1" max="10" value="5">
+                        </div>
                     </div>
-                </div>
-            </form>
+
+                    <!-- Symptom 3: Morning Hip Stiffness -->
+                    <div class="control-block">
+                        <label class="checkbox-row">
+                            <span class="checkbox-label">Heavy aching and stiffness right after waking up in the morning</span>
+                            <input type="checkbox" id="symp-morning">
+                        </label>
+                        <div id="scale-morning" class="slider-area">
+                            <div class="slider-labels"><span>Loosens quickly</span><span>Lasts a long time</span></div>
+                            <input type="range" min="1" max="10" value="5">
+                        </div>
+                    </div>
+
+                    <!-- Symptom 4: Outer Hip Pain Lying Down -->
+                    <div class="control-block">
+                        <label class="checkbox-row">
+                            <span class="checkbox-label">Pain on the outside of the hip when lying down on that side at night</span>
+                            <input type="checkbox" id="symp-outside">
+                        </label>
+                        <div id="scale-outside" class="slider-area">
+                            <div class="slider-labels"><span>Dull pressure</span><span>Sharp throbbing</span></div>
+                            <input type="range" min="1" max="10" value="5">
+                        </div>
+                    </div>
+
+                    <!-- Symptom 5: Buttock Ache After Sitting -->
+                    <div class="control-block">
+                        <label class="checkbox-row">
+                            <span class="checkbox-label">A deep ache in the buttock or hip after sitting in a soft chair for too long</span>
+                            <input type="checkbox" id="symp-buttock">
+                        </label>
+                        <div id="scale-buttock" class="slider-area">
+                            <div class="slider-labels"><span>Mild ache</span><span>Deep burning</span></div>
+                            <input type="range" min="1" max="10" value="5">
+                        </div>
+                    </div>
+
+                    <!-- Symptom 6: Catching / Clicking on Twisting -->
+                    <div class="control-block">
+                        <label class="checkbox-row">
+                            <span class="checkbox-label">A sharp catch or clicking feeling in the hip when twisting or turning around</span>
+                            <input type="checkbox" id="symp-clicking">
+                        </label>
+                        <div id="scale-clicking" class="slider-area">
+                            <div class="slider-labels"><span>Mild pop</span><span>Sharp catch</span></div>
+                            <input type="range" min="1" max="10" value="5">
+                        </div>
+                    </div>
+                </form>
+            </div>
 
             <div class="alert-box">
                 <span style="font-size: 20px;">⚠️</span>
@@ -228,6 +302,26 @@
 
     <!-- UI State Pipeline -->
     <script>
+        // Collapsible Drawer Trigger Function
+        function toggleHipSymptomPanel() {
+            const drawer = document.getElementById('hip-checker-drawer');
+            const trigger = document.getElementById('toggle-trigger');
+            const arrow = document.getElementById('arrow-indicator');
+
+            if (drawer.style.display === 'block') {
+                drawer.style.display = 'none';
+                trigger.style.borderColor = '#334155';
+                trigger.querySelector('span').innerText = '📋 Open Hip Symptom Checker';
+                arrow.style.transform = 'rotate(0deg)';
+                arrow.innerText = '▼';
+            } else {
+                drawer.style.display = 'block';
+                trigger.style.borderColor = '#0284c7'; // Glow Blue border when active
+                trigger.querySelector('span').innerText = '📂 Hide Hip Symptom Checker';
+                arrow.innerText = '▲';
+            }
+        }
+
         function clearHipSymptoms() {
             document.getElementById('hip-form').reset();
             evaluateHipState();
@@ -237,11 +331,17 @@
             const groin = document.getElementById('symp-groin').checked;
             const stuck = document.getElementById('symp-stuck').checked;
             const morning = document.getElementById('symp-morning').checked;
+            const outside = document.getElementById('symp-outside').checked;
+            const buttock = document.getElementById('symp-buttock').checked;
+            const clicking = document.getElementById('symp-clicking').checked;
 
             // Toggle slide meters visibility
             document.getElementById('scale-groin').style.display = groin ? 'block' : 'none';
             document.getElementById('scale-stuck').style.display = stuck ? 'block' : 'none';
             document.getElementById('scale-morning').style.display = morning ? 'block' : 'none';
+            document.getElementById('scale-outside').style.display = outside ? 'block' : 'none';
+            document.getElementById('scale-buttock').style.display = buttock ? 'block' : 'none';
+            document.getElementById('scale-clicking').style.display = clicking ? 'block' : 'none';
 
             let updates = [];
 
@@ -253,6 +353,15 @@
             }
             if (morning) {
                 updates.push("⚙️ <strong>Morning Ache Note:</strong> Waking up with heavy stiffness that begins to clear up after 20-30 minutes of moving around is very common. It means the natural joint fluids are stagnant overnight. Moving gently as soon as you wake up helps pump that protective lubrication back through the joint socket.");
+            }
+            if (outside) {
+                updates.push("⚙️ <strong>Outer Hip Pressure Note:</strong> Pain directly on the side bone that flares up while lying in bed often points to irritation of the fluid sacs cushioning the side hip tendons. Try sleeping with a thick pillow positioned securely between your knees to help take the direct pulling stress off that outer side bone.");
+            }
+            if (buttock) {
+                updates.push("⚙️ <strong>Buttock Pressure Note:</strong> Deep, nagging pain in the rear pocket area after sitting down in deep, soft furniture or low couches usually occurs because the muscle groups are compressed and overstretched. Try sticking to firm chairs or adding a solid foam pad cushion to sit on.");
+            }
+            if (clicking) {
+                updates.push("⚙️ <strong>Catch/Clicking Note:</strong> Feeling a sudden restriction or sharp pop during pivoting movements hints at a small internal shift or catch in the cushioning ring. Focus on keeping your feet flat and turning your whole trunk in line, instead of planting your feet firmly and twisting your hips alone.");
             }
 
             const banner = document.getElementById('hip-alert-banner');
