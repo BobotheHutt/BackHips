@@ -117,14 +117,9 @@
         </div>
     </header>
 
-    <!-- Master Viewing Window (ADDED SANDBOX PERMISSIONS TO ALLOW OUTSIDE POPUPS) -->
+    <!-- Master Viewing Window (REMOVED RESTRICIVE SANDBOX BLOCKING) -->
     <div class="workspace-container">
-        <iframe 
-            id="content-frame" 
-            src="hip.html" 
-            title="Mobility Content Window"
-            sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms">
-        </iframe>
+        <iframe id="content-frame" src="hip.html" title="Mobility Content Window"></iframe>
     </div>
 
     <!-- Central Script Controller -->
