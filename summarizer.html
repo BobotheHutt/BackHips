@@ -4,92 +4,181 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mobility Hub - Reading Summarizer</title>
-    <script src="https://tailwindcss.com"></script>
+    <!-- Free WebGPU/WASM In-Browser AI Engine -->
     <script type="module">
         import { pipeline } from 'https://jsdelivr.net';
         window.pipeline = pipeline;
     </script>
-</head>
-<body class="bg-slate-50 text-slate-900 font-sans min-h-screen flex flex-col">
+    <style>
+        /* Shared Tool-Shop Core Styling */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background-color: #121824; 
+            color: #e2e8f0; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #1e293b;
+            border-bottom: 3px solid #334155;
+            padding-top: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+        .header-container { max-w: 1200px; margin: 0 auto; padding: 0 24px; }
+        .logo-area h1 { color: #ffffff; font-size: 32px; font-weight: 900; display: flex; align-items: center; gap: 12px; }
+        .logo-icon { background-color: #0284c7; padding: 6px 12px; border-radius: 8px; font-size: 20px; }
+        .subtitle { color: #94a3b8; font-size: 14px; font-weight: 600; text-transform: uppercase; margin-top: 4px; margin-bottom: 20px; }
+        
+        nav { display: flex; gap: 8px; margin-bottom: -3px; }
+        .tab-link {
+            background-color: #0f172a;
+            color: #64748b;
+            border: 3px solid #334155;
+            border-bottom: none;
+            padding: 14px 28px;
+            font-size: 18px;
+            font-weight: 800;
+            border-radius: 12px 12px 0 0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tab-link:hover { color: #f8fafc; background-color: #1e293b; }
+        .active-tab {
+            background-color: #1e293b !important;
+            color: #38bdf8 !important;
+            border-color: #0284c7 !important;
+            border-bottom: 3px solid #1e293b !important;
+            z-index: 10;
+        }
 
-    <!-- Top Navigation Tabs -->
-    <header class="bg-indigo-900 text-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <h1 class="text-3xl font-extrabold tracking-tight py-4">Mobility Hub</h1>
-            <nav class="flex h-full align-bottom self-end">
-                <a href="index.html" class="hover:bg-indigo-800 text-slate-300 hover:text-white px-6 py-4 rounded-t-xl text-xl font-bold transition-all">Hip Support</a>
-                <a href="back.html" class="hover:bg-indigo-800 text-slate-300 hover:text-white px-6 py-4 rounded-t-xl text-xl font-bold transition-all">Back Support</a>
-                <a href="summarizer.html" class="bg-slate-50 text-indigo-900 px-6 py-4 rounded-t-xl text-xl font-bold transition-all border-b-2 border-slate-50">Reading Summarizer</a>
+        main { max-w: 800px; margin: 0 auto; padding: 32px 24px; }
+        .panel-card {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .content-title { font-size: 28px; font-weight: 900; color: #ffffff; border-bottom: 2px solid #334155; padding-bottom: 8px; margin-bottom: 16px; }
+        .content-p { font-size: 17px; color: #94a3b8; margin-bottom: 24px; }
+
+        /* Form Inputs */
+        textarea {
+            width: 100%;
+            height: 260px;
+            background-color: #0f172a;
+            border: 2px solid #334155;
+            border-radius: 12px;
+            padding: 16px;
+            color: #ffffff;
+            font-size: 18px;
+            outline: none;
+            resize: vertical;
+        }
+        textarea:focus { border-color: #0284c7; }
+        
+        .action-btn {
+            width: 100%;
+            background: linear-gradient(180deg, #059669 0%, #047857 100%); 
+            border: none;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 900;
+            padding: 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(4, 120, 87, 0.3);
+            margin-top: 16px;
+        }
+        .action-btn:active { transform: scale(0.99); }
+        .action-btn:disabled { background: #334155; color: #64748b; cursor: not-allowed; box-shadow: none; }
+
+        .status-panel { background-color: #0f172a; padding: 16px; border-radius: 12px; margin-top: 16px; display: none; align-items: center; gap: 12px; font-weight: 700; color: #cbd5e1; }
+        .output-panel { background-color: #0f172a; border-left: 4px solid #059669; padding: 24px; border-radius: 0 12px 12px 0; margin-top: 24px; display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Row -->
+    <header>
+        <div class="header-container">
+            <div class="logo-area">
+                <h1><span class="logo-icon">🔧</span> Mobility Hub</h1>
+                <p class="subtitle">Reference & Reading Console</p>
+            </div>
+            <nav>
+                <a href="index.html" class="tab-link">🦿 Hip System</a>
+                <a href="back.html" class="tab-link">⚙️ Back System</a>
+                <a href="summarizer.html" class="tab-link active-tab">⚡ Reading Summarizer</a>
             </nav>
         </div>
     </header>
 
-    <!-- Main Content Window -->
-    <main class="flex-1 max-w-4xl w-full mx-auto p-6 flex flex-col gap-6">
-        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-            <h3 class="text-3xl font-extrabold text-slate-800 mb-2">Free Browser-Based AI Summarizer</h3>
-            <p class="text-lg text-slate-500 mb-6">Paste long research articles, medical papers, or informational text to isolate key functional takeaways instantly.</p>
+    <!-- Main Text Processor Window -->
+    <main>
+        <div class="panel-card">
+            <h3 class="content-title">Information Summarizer</h3>
+            <p class="content-p">Paste long articles, printed exercises, or internet health guides here. The tool will automatically strip out technical fluff and give you simple, direct bullet points instantly.</p>
             
-            <textarea id="text-input" class="w-full h-64 p-4 border-2 border-slate-300 rounded-xl text-xl focus:border-indigo-500 focus:ring-0 mb-4" placeholder="Right-click here and paste your reading text..."></textarea>
-            
-            <button onclick="runBrowserSummary()" id="sum-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-2xl py-5 px-8 rounded-xl shadow transition-all active:scale-[0.99]">
-                ⚡ Summarize Now
-            </button>
+            <textarea id="text-input" placeholder="Right-click here and select Paste to drop long reading text..."></textarea>
+            <button onclick="executeBrowserAILogic()" id="sum-btn" class="action-btn">⚡ Summarize Text Now</button>
 
-            <!-- Status Box -->
-            <div id="status-box" class="mt-6 p-4 bg-slate-100 rounded-xl text-lg text-slate-700 font-medium hidden flex items-center gap-3">
-                <span class="animate-spin text-xl">⏳</span>
-                <span id="status-text">Processing...</span>
+            <!-- Loading Indicator Panel -->
+            <div id="processing-status-panel" class="status-panel">
+                <span id="processing-status-text">Awaiting text input...</span>
             </div>
 
-            <!-- Output Box -->
-            <div id="summary-output-box" class="mt-8 p-6 bg-slate-50 rounded-xl border border-slate-200 hidden">
-                <h4 class="text-2xl font-bold text-slate-800 mb-3">Your Condensed Summary:</h4>
-                <div id="summary-text" class="text-xl text-slate-700 leading-relaxed whitespace-pre-line font-medium"></div>
+            <!-- Output Panel -->
+            <div id="processing-output-panel" class="output-panel">
+                <h4 style="font-size: 14px; font-weight: 900; color: #059669; text-transform: uppercase; margin-bottom: 8px;">Main Takeaways</h4>
+                <div id="processing-output-text" style="font-size: 18px; color: #e2e8f0; font-weight: 600; white-space: pre-line;"></div>
             </div>
         </div>
     </main>
 
     <script>
-        let summarizerPipeline = null;
+        let localModelPipeline = null;
 
-        async function runBrowserSummary() {
-            const text = document.getElementById('text-input').value.trim();
-            const btn = document.getElementById('sum-btn');
-            const statusBox = document.getElementById('status-box');
-            const statusText = document.getElementById('status-text');
-            const outputBox = document.getElementById('summary-output-box');
-            const outputText = document.getElementById('summary-text');
+        async function executeBrowserAILogic() {
+            const srcText = document.getElementById('text-input').value.trim();
+            const actionBtn = document.getElementById('sum-btn');
+            const statusBox = document.getElementById('processing-status-panel');
+            const statusLabel = document.getElementById('processing-status-text');
+            const outputBox = document.getElementById('processing-output-panel');
+            const outputLabel = document.getElementById('processing-output-text');
 
-            if (!text) {
-                alert("Please paste text before requesting a summary.");
+            if (!srcText) {
+                alert("Please input text inside the text area first.");
                 return;
             }
 
-            btn.disabled = true;
-            statusBox.classList.remove('hidden');
-            outputBox.classList.add('hidden');
+            actionBtn.disabled = true;
+            statusBox.style.display = 'flex';
+            outputBox.style.display = 'none';
 
             try {
-                if (!summarizerPipeline) {
-                    statusText.innerText = "Initializing processing framework directly in browser cache (Initial launch takes ~30 seconds)...";
-                    summarizerPipeline = await window.pipeline('summarization', 'Xenova/distilbart-cnn-6-6');
+                if (!localModelPipeline) {
+                    statusLabel.innerText = "Setting up the local summary tool (First time takes about 30 seconds)...";
+                    localModelPipeline = await window.pipeline('summarization', 'Xenova/distilbart-cnn-6-6');
                 }
 
-                statusText.innerText = "Analyzing source material text patterns locally...";
-                const result = await summarizerPipeline(text, {
-                    max_length: 90, min_length: 25, length_penalty: 2.0, num_beams: 2
+                statusLabel.innerText = "Analyzing text and creating short points...";
+                const inference = await localModelPipeline(srcText, {
+                    max_length: 90, min_length: 30, length_penalty: 2.0, num_beams: 2
                 });
 
-                let cleanOutput = result.summary_text.replace(/\s+([.,!?:])/g, '$1').replace(/\. /g, '.\n• ');
-                outputText.innerHTML = "• " + cleanOutput;
-                outputBox.classList.remove('hidden');
+                let parsed = inference.summary_text.replace(/\s+([.,!?:])/g, '$1').replace(/\. /g, '.\n• ');
+                outputLabel.innerHTML = "• " + parsed;
+                outputBox.style.display = 'block';
             } catch (err) {
                 console.error(err);
-                alert("Processing Exception: " + err.message);
+                alert("Error processing text: " + err.message);
             } finally {
-                btn.disabled = false;
-                statusBox.classList.add('hidden');
+                actionBtn.disabled = false;
+                statusBox.style.display = 'none';
             }
         }
     </script>
