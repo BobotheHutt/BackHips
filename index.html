@@ -11,10 +11,10 @@
             background-color: #121824; 
             color: #e2e8f0; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow: hidden; /* Keeps the main master page completely solid */
         }
 
         /* Top Industrial Header Box */
@@ -23,7 +23,7 @@
             border-bottom: 3px solid #334155;
             padding-top: 20px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-            flex-shrink: 0;
+            flex-shrink: 0; /* Prevents the header from flattening down */
         }
         .header-container {
             max-w: 1400px;
@@ -66,7 +66,7 @@
             border: 3px solid #334155;
             border-bottom: none;
             padding: 14px 24px;
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 800;
             border-radius: 12px 12px 0 0;
             cursor: pointer;
@@ -77,19 +77,18 @@
         }
         .tab-btn:hover { color: #f8fafc; background-color: #1e293b; }
         .active-tab {
-            background-color: #121824 !important;
-            color: #38bdf8 !important;
+            background-color: #121824 !important; /* Matches body background color */
+            color: #38bdf8 !important; /* Industrial Blue Accent */
             border-color: #0284c7 !important;
             border-bottom: 3px solid #121824 !important;
             box-shadow: 0 -4px 15px rgba(2, 132, 199, 0.2);
             z-index: 10;
         }
 
-        /* Central Frame Workspace Window */
+        /* Central Frame Workspace Window (Acts like an automatic spring) */
         .workspace-container {
-            flex: 1;
+            flex-grow: 1; /* Automatically forces container to expand and fill his entire laptop monitor window */
             width: 100%;
-            height: calc(100vh - 125px);
             background-color: #121824;
         }
         iframe {
@@ -118,7 +117,7 @@
         </div>
     </header>
 
-    <!-- Master Viewing Window -->
+    <!-- Master Viewing Window (Stretches perfectly to fill up the laptop screen view) -->
     <div class="workspace-container">
         <iframe id="content-frame" src="hip.html" title="Mobility Content Window"></iframe>
     </div>
@@ -126,13 +125,18 @@
     <!-- Central Script Controller -->
     <script>
         function loadContentFrame(targetPage, clickedTabId) {
+            // Adds a clean version tracker timestamp to bypass stubborn browser history cache issues
             const cacheBuster = "?v=" + new Date().getTime();
+            
+            // Update the source file of the core central frame instantly
             document.getElementById('content-frame').src = targetPage + cacheBuster;
             
+            // Clean active classes off all existing buttons
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active-tab');
             });
             
+            // Apply blue highlight style to the active selected tab button
             document.getElementById(clickedTabId).classList.add('active-tab');
         }
     </script>
