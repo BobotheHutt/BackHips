@@ -92,7 +92,7 @@ const MobilityDatabase = {
         catCow: {
             title: "Controlled Cat-Cow Mobility Drill",
             badge: "Unloaded Fluid Pumper / 10 Fluid Movements",
-            desc: "Get on your hands and knees. Slowly let your stomach sink down toward the floor while looking up slightly. Then, gently round your spine up toward the ceiling like an arching cat while tucking your chin. Pumps fluid through the spinal column discs.",
+            desc: "Get on your hands and knees. Slowly let your stomach sink down toward the floor while looking up slightly. Then, gently round your spine up toward the ceiling like an arching cat while ticking the movement parameters. Pumps fluid through the spinal column discs.",
             ytId: "kqnua4rV_IE"
         },
         cobraPress: {
