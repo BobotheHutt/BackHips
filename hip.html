@@ -384,7 +384,7 @@
             document.getElementById('output-diagnostic-panel').style.display = 'none';
         }
 
-        // NO-SPLIT LOOKUP FIX: Directly feeds the clean 11-digit video key into the embed code frame
+        // BINDING REFIX: Corrected template string evaluation to drop the string variable securely inside backticks
         function buildExerciseCard(exerciseData) {
             const exactVideoId = exerciseData.video;
             
