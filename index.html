@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dad's Mobility Support Center</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://tailwindcss.com"></script>
+    <!-- Hugging Face Transformers.js for browser-based free AI -->
+    <script type="module">
+        import { pipeline } from 'https://jsdelivr.net';
+        window.pipeline = pipeline;
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans min-h-screen flex flex-col">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-indigo-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold tracking-tight">Mobility Hub</h1>
+            <nav class="flex gap-4">
+                <button onclick="switchTab('hip')" id="tab-hip" class="nav-btn bg-indigo-700 px-6 py-3 rounded-lg text-xl font-bold transition-all border-b-4 border-white">Hip Support</button>
+                <button onclick="switchTab('back')" id="tab-back" class="nav-btn hover:bg-indigo-800 px-6 py-3 rounded-lg text-xl font-bold transition-all">Back Support</button>
+                <button onclick="switchTab('summarizer')" id="tab-summarizer" class="nav-btn hover:bg-indigo-800 px-6 py-3 rounded-lg text-xl font-bold transition-all">Reading Summarizer</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left Sidebar: Interactive Symptom Analyzer (Always visible on Hip/Back tabs) -->
+        <div id="sidebar-panel" class="lg:col-span-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200 h-fit sticky top-24">
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">Symptom Checker</h2>
+            <p class="text-sm text-slate-500 mb-6">Select your current issues to explore relevant biological details and common relief practices below.</p>
+            
+            <form id="symptom-form" onchange="updateSymptomInsights()">
+                <!-- Joint/Bone Pain Area -->
+                <div class="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="symp-joint" class="w-6 h-6 rounded text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-xl font-semibold text-slate-700">Deep Joint / Groin Pain</span>
+                    </label>
+                    <div id="scale-joint" class="mt-3 hidden pl-9">
+                        <label class="block text-sm font-medium text-slate-600 mb-1">Pain Intensity:</label>
+                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                        <div class="flex justify-between text-xs text-slate-400 px-1 mt-1"><span>Mild</span><span>Moderate</span><span>Severe</span></div>
+                    </div>
+                </div>
+
+                <!-- Nerve Pain Area -->
+                <div class="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="symp-nerve" class="w-6 h-6 rounded text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-xl font-semibold text-slate-700">Shooting Pain Down Leg</span>
+                    </label>
+                    <div id="scale-nerve" class="mt-3 hidden pl-9">
+                        <label class="block text-sm font-medium text-slate-600 mb-1">Pain Intensity:</label>
+                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                        <div class="flex justify-between text-xs text-slate-400 px-1 mt-1"><span>Mild</span><span>Moderate</span><span>Severe</span></div>
+                    </div>
+                </div>
+
+                <!-- Muscle Stiffness Area -->
+                <div class="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="symp-stiff" class="w-6 h-6 rounded text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-xl font-semibold text-slate-700">Morning Stiffness / Aching</span>
+                    </label>
+                    <div id="scale-stiff" class="mt-3 hidden pl-9">
+                        <label class="block text-sm font-medium text-slate-600 mb-1">Pain Intensity:</label>
+                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                        <div class="flex justify-between text-xs text-slate-400 px-1 mt-1"><span>Mild</span><span>Moderate</span><span>Severe</span></div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Subtle Guidance Note -->
+            <div class="mt-8 p-4 bg-amber-50 rounded-xl border border-amber-200 flex items-start gap-3">
+                <span class="text-amber-600 text-xl font-bold">ℹ️</span>
+                <p class="text-sm text-amber-800 leading-relaxed">
+                    Tracking patterns in your comfort levels can be highly informative. Sharing these notes with a physical therapist or clinical specialist during your next routine visit is an excellent way to co-design a highly optimized mobility path.
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Content Windows -->
+        <div class="lg:col-span-8 flex flex-col gap-8">
+            
+            <!-- HIP TAB CONTENT -->
+            <div id="panel-hip" class="tab-content flex flex-col gap-8">
+                <!-- Section 1: Dynamic Insights -->
+                <div id="hip-dynamic-box" class="bg-indigo-50 border border-indigo-100 p-6 rounded-2xl hidden">
+                    <h3 class="text-2xl font-bold text-indigo-900 mb-3">Live Assessment Insights</h3>
+                    <div id="hip-dynamic-text" class="text-lg text-indigo-950 space-y-2"></div>
+                </div>
+
+                <!-- Section 2: Core Knowledge -->
+                <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-3xl font-extrabold text-slate-800 mb-4 border-b pb-2">1. Hip Anatomy & Physiology</h3>
+                    <p class="text-lg text-slate-600 leading-relaxed mb-4">
+                        The hip is a robust ball-and-socket joint designed to bear body weight and handle wide ranges of movement. Over time, the protective cartilage cushioning the femoral head can wear down, leading to increased friction, mild localized inflammation, or structural mechanical vulnerabilities.
+                    </p>
+                    <p class="text-lg text-slate-600 leading-relaxed">
+                        Supporting muscles—such as the gluteus medius, tensor fasciae latae, and deep hip rotators—often tighten up defensively to stabilize a vulnerable joint. Keeping these surrounding muscle groups balanced and long is vital to alleviating excessive compression inside the hip capsule itself.
+                    </p>
+                </section>
+
+                <!-- Section 3: Treatment & Physical Therapy -->
+                <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-3xl font-extrabold text-slate-800 mb-4 border-b pb-2">2. Physical Therapy & Management</h3>
+                    <div class="space-y-6">
+                        <div class="p-4 hover:bg-slate-50 rounded-xl transition-colors">
+                            <h4 class="text-2xl font-bold text-indigo-900 mb-2">Glute Bridges</h4>
+                            <p class="text-lg text-slate-600">Lying on your back with knees bent, press down firmly through your heels to raise your hips until your body forms a straight line from your shoulders to your knees. Hold for 3 seconds, then lower smoothly. Complete 10 repetitions to wake up the posterior stabilizing muscles.</p>
+                        </div>
+                        <div class="p-4 hover:bg-slate-50 rounded-xl transition-colors">
+                            <h4 class="text-2xl font-bold text-indigo-900 mb-2">Seated Figure-4 Stretch</h4>
+                            <p class="text-lg text-slate-600">Sit upright on a stable chair. Cross your right ankle over your left knee. Keeping your chest high and back tall, gently hinge forward from the hips until you feel a deep, comfortable stretch across the outer hip and glute. Hold for 20-30 seconds per side.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- BACK TAB CONTENT -->
+            <div id="panel-back" class="tab-content flex flex-col gap-8 hidden">
+                <!-- Section 1: Dynamic Insights -->
+                <div id="back-dynamic-box" class="bg-indigo-50 border border-indigo-100 p-6 rounded-2xl hidden">
+                    <h3 class="text-2xl font-bold text-indigo-900 mb-3">Live Assessment Insights</h3>
+                    <div id="back-dynamic-text" class="text-lg text-indigo-950 space-y-2"></div>
+                </div>
+
+                <!-- Section 2: Core Knowledge -->
+                <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-3xl font-extrabold text-slate-800 mb-4 border-b pb-2">1. Spinal Mechanics & Support</h3>
+                    <p class="text-lg text-slate-600 leading-relaxed mb-4">
+                        The human spine relies on complex structural coordination across spinal vertebrae, intervertebral spinal discs, and deep structural muscle chains. Poor sitting mechanics or sedentary habits place heavy, unaligned forces on the lower lumbar curves.
+                    </p>
+                    <p class="text-lg text-slate-600 leading-relaxed">
+                        Rather than treating the spine as an isolated column, modern physical therapy recognizes that building strong, active core muscles (the transverse abdominis and multifidus) acts like a biological corset, significantly relieving structural strain off the lower spinal discs.
+                    </p>
+                </section>
+
+                <!-- Section 3: Treatment & Physical Therapy -->
+                <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-3xl font-extrabold text-slate-800 mb-4 border-b pb-2">2. Physical Therapy & Management</h3>
+                    <div class="space-y-6">
+                        <div class="p-4 hover:bg-slate-50 rounded-xl transition-colors">
+                            <h4 class="text-2xl font-bold text-indigo-900 mb-2">Cat-Cow Mobility Drill</h4>
+                            <p class="text-lg text-slate-600">On hands and knees, slowly drop your belly toward the floor while lifting your gaze toward the ceiling. Then, smoothly round your spine up toward the ceiling like an arching cat while tucking your chin. Alternate between these forms smoothly for 10 fluid cycles.</p>
+                        </div>
+                        <div class="p-4 hover:bg-slate-50 rounded-xl transition-colors">
+                            <h4 class="text-2xl font-bold text-indigo-900 mb-2">Bird-Dog Core Stabilization</h4>
+                            <p class="text-lg text-slate-600">From an all-fours position, brace your torso. Extend your right arm straight ahead while simultaneously reaching your left leg straight back. Hold for 2 seconds, maintaining a perfectly level tabletop back, then return to base. Alternate sides for 10 controlled reps.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- SUMMARIZER TAB CONTENT -->
+            <div id="panel-summarizer" class="tab-content bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hidden lg:col-span-12">
+                <h3 class="text-3xl font-extrabold text-slate-800 mb-2">Free Browser-Based AI Summarizer</h3>
+                <p class="text-lg text-slate-500 mb-6">Paste long articles, medical newsletters, or text descriptions here to condense them into brief, easy-to-read takeaways instantly.</p>
+                
+                <textarea id="text-input" class="w-full h-64 p-4 border-2 border-slate-300 rounded-xl text-xl focus:border-indigo-500 focus:ring-0 mb-4" placeholder="Right-click here and paste your text..."></textarea>
+                
+                <button onclick="runBrowserSummary()" id="sum-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-2xl py-5 px-8 rounded-xl shadow transition-all active:scale-[0.99]">
+                    ⚡ Summarize Now
+                </button>
+
+                <!-- Status Update Box -->
+                <div id="status-box" class="mt-6 p-4 bg-slate-100 rounded-xl text-lg text-slate-700 font-medium hidden flex items-center gap-3">
+                    <span class="animate-spin text-xl">⏳</span>
+                    <span id="status-text">Ready...</span>
+                </div>
+
+                <!-- Output Box -->
+                <div id="summary-output-box" class="mt-8 p-6 bg-slate-50 rounded-xl border border-slate-200 hidden">
+                    <h4 class="text-2xl font-bold text-slate-800 mb-3">Your Condensed Summary:</h4>
+                    <div id="summary-text" class="text-xl text-slate-700 leading-relaxed whitespace-pre-line font-medium"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Core App Logic Script -->
+    <script>
+        let summarizerPipeline = null;
+
+        // Simple Navigation Engine
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('bg-indigo-700', 'border-b-4', 'border-white'));
+            
+            const sidebar = document.getElementById('sidebar-panel');
+            const mainGrid = document.querySelector('main');
+            
+            if (tabName === 'summarizer') {
+                document.getElementById('panel-summarizer').classList.remove('hidden');
+                document.getElementById('tab-summarizer').classList.add('bg-indigo-700', 'border-b-4', 'border-white');
+                sidebar.classList.add('hidden');
+                mainGrid.classList.remove('lg:grid-cols-12');
+                mainGrid.classList.add('max-w-4xl');
+            } else {
+                document.getElementById(`panel-${tabName}`).classList.remove('hidden');
+                document.getElementById(`tab-${tabName}`).classList.add('bg-indigo-700', 'border-b-4', 'border-white');
+                sidebar.classList.remove('hidden');
+                mainGrid.classList.remove('max-w-4xl');
+                mainGrid.classList.add('lg:grid-cols-12');
+            }
+        }
+
+        // Live Symptom Mapping Logic
+        function updateSymptomInsights() {
+            const joint = document.getElementById('symp-joint').checked;
+            const nerve = document.getElementById('symp-nerve').checked;
+            const stiff = document.getElementById('symp-stiff').checked;
+
+            // Manage visible slider adjustments
+            document.getElementById('scale-joint').style.display = joint ? 'block' : 'none';
+            document.getElementById('scale-nerve').style.display = nerve ? 'block' : 'none';
+            document.getElementById('scale-stiff').style.display = stiff ? 'block' : 'none';
+
+            let hipInsights = [];
+            let backInsights = [];
+
+            if (joint) {
+                hipInsights.push("• <strong>Deep Capsule Friction:</strong> Pain localized within the groin frequently hints at mechanical cartilage thinning inside the ball-and-socket setup. Emphasize low-impact lubrication moves like unweighted leg swings over heavy stepping routines.");
+            }
+            if (nerve) {
+                backInsights.push("• <strong>Neural Pathway Pathway Compressions:</strong> Sensations travelling downward past the lower knee lines point directly toward nerve root crowd spaces in the lower spinal column. Avoid deep forward bending motions which can push disc rings rearward.");
+                hipInsights.push("• <strong>Piriformis Shielding:</strong> True lower spinal issues regularly spark massive secondary contraction bands directly across deep rear hip muscles.");
+            }
+            if (stiff) {
+                backInsights.push("• <strong>Structural Fluid Set:</strong> Waking with a deep achy rigidity that clears up cleanly with gentle movements points to classic localized spinal environment slowdowns. Prioritize the gentle Cat-Cow cycle before rising.");
+                hipInsights.push("• <strong>Joint Fluid Distribution:</strong> Morning stiffness typically implies the natural lubrication fluid has temporarily thickened up. Gentle, unweighted motion distributes this protective fluid throughout the joint cavity.");
+            }
+
+            // Render to Hip Box
+            const hipBox = document.getElementById('hip-dynamic-box');
+            if (hipInsights.length > 0) {
+                hipBox.classList.remove('hidden');
+                document.getElementById('hip-dynamic-text').innerHTML = hipInsights.join("<br><br>");
+            } else {
+                hipBox.classList.add('hidden');
+            }
+
+            // Render to Back Box
+            const backBox = document.getElementById('back-dynamic-box');
+            if (backInsights.length > 0) {
+                backBox.classList.remove('hidden');
+                document.getElementById('back-dynamic-text').innerHTML = backInsights.join("<br><br>");
+            } else {
+                backBox.classList.add('hidden');
+            }
+        }
+
+        // In-Browser AI Processing Logic
+        async function runBrowserSummary() {
+            const text = document.getElementById('text-input').value.trim();
+            const btn = document.getElementById('sum-btn');
+            const statusBox = document.getElementById('status-box');
+            const statusText = document.getElementById('status-text');
+            const outputBox = document.getElementById('summary-output-box');
+            const outputText = document.getElementById('summary-text');
+
+            if (!text) {
+                alert("Please paste some text first before clicking the summarize button.");
+                return;
+            }
+
+            btn.disabled = true;
+            statusBox.classList.remove('hidden');
+            outputBox.classList.add('hidden');
+
+            try {
+                if (!summarizerPipeline) {
+                    statusText.innerText = "Downloading small AI brain directly to your browser (First-time only, takes ~30 seconds)...";
+                    // Using a tiny, lightweight, hyper-optimized web model
+                    summarizerPipeline = await window.pipeline('summarization', 'Xenova/distilbart-cnn-6-6');
+                }
+
+                statusText.innerText = "Analyzing text and extracting key points directly inside your laptop...";
+                
+                const result = await summarizerPipeline(text, {
+                    max_length: 90,
+                    min_length: 25,
+                    length_penalty: 2.0,
+                    num_beams: 2
+                });
+
+                let cleanOutput = result[0].summary_text
+                    .replace(/\s+([.,!?:])/g, '$1') // Clean up punctuation spaces
+                    .replace(/\. /g, '.\n• '); // Split into easy-to-read points
+
+                outputText.innerHTML = "• " + cleanOutput;
+                outputBox.classList.remove('hidden');
+            } catch (err) {
+                console.error(err);
+                alert("An error occurred running the browser-based AI: " + err.message);
+            } finally {
+                btn.disabled = false;
+                statusBox.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
