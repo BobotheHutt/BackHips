@@ -49,15 +49,14 @@
         }
         .toggle-arrow { font-size: 16px; color: #38bdf8; }
         
-        /* Master Drawer Container (Hidden by Default) */
+        /* Master Drawer Container (Open by Default for Input) */
         .collapsible-drawer {
-            display: none;
             background-color: #1e293b;
             border: 2px solid #334155;
             border-top: none;
             border-radius: 0 0 16px 16px;
             padding: 24px;
-            margin-top: -22px; /* Seamlessly connects block to the header above */
+            margin-top: -22px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
 
@@ -74,6 +73,22 @@
         }
         .reset-btn:hover { background-color: #475569; color: #ffffff; }
 
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 900;
+            padding: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+            margin-top: 10px;
+            transition: all 0.15s ease;
+        }
+        .submit-btn:hover { background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%); }
+
         .control-block {
             background-color: #0f172a;
             border: 1px solid #334155;
@@ -85,41 +100,57 @@
         .checkbox-label { font-size: 16px; font-weight: 700; color: #f1f5f9; text-align: left; flex: 1; }
         .control-block input[type="checkbox"] { width: 26px; height: 26px; accent-color: #0284c7; cursor: pointer; flex-shrink: 0; }
         
-        .slider-area { margin-top: 14px; border-top: 1px solid #1e293b; padding-top: 12px; display: none; }
+        .slider-area { margin-top: 14px; border-top: 1px solid #1e293b; padding-top: 12px; }
         .slider-labels { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 6px; }
         .control-block input[type="range"] { width: 100%; accent-color: #0284c7; cursor: pointer; }
 
-        /* Output Notifications Box */
-        .dynamic-banner {
-            background: linear-gradient(135deg, #0c4a6e 0%, #1e1b4b 100%);
-            border: 2px solid #0284c7;
-            border-left: 6px solid #0284c7;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 8px;
-            margin-bottom: 16px;
+        /* Dynamic Output Diagnostics Panel */
+        .diagnostic-card {
             display: none;
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
-        .dynamic-banner h3 { font-size: 14px; font-weight: 900; color: #38bdf8; text-transform: uppercase; margin-bottom: 12px; }
-        .dynamic-text-content { font-size: 16px; color: #f1f5f9; display: flex; flex-direction: column; gap: 16px; }
+        .diagnostic-section-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: #38bdf8;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 6px;
+        }
 
-        .alert-box {
+        .assessment-block {
+            background-color: #0f172a;
+            border-left: 4px solid #0284c7;
+            padding: 16px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 16px;
+        }
+        .assessment-title { font-size: 18px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
+        .assessment-p { font-size: 16px; color: #cbd5e1; }
+
+        .doctor-callout {
             background-color: #2a1b10;
             border: 1px solid #b45309;
             border-left: 5px solid #d97706;
             border-radius: 12px;
             padding: 16px;
+            margin-bottom: 24px;
             display: flex;
             gap: 12px;
         }
-        .alert-box p { color: #fef3c7; font-size: 14px; font-weight: 500; }
+        .doctor-callout p { color: #fef3c7; font-size: 15px; font-weight: 600; }
 
-        /* Permanent Descriptive Text Typography */
-        .content-p { font-size: 17px; color: #cbd5e1; margin-bottom: 16px; line-height: 1.7; }
-        
+        /* Exercise Display Layout */
+        .routine-p { font-size: 16px; color: #94a3b8; margin-bottom: 16px; }
         .grid-cards { display: flex; flex-direction: column; gap: 16px; }
         .spec-card { background-color: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 20px; }
-        .spec-card h5 { font-size: 20px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
+        .spec-card h5 { font-size: 19px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
         .badge {
             display: inline-block;
             background-color: #1e293b;
@@ -131,246 +162,152 @@
             border-radius: 20px;
             margin-bottom: 12px;
         }
-
-        /* 100% Reliable Embedded Vector Graphic Boxes */
-        .diagram-container {
-            width: 100%;
-            height: 200px;
-            margin-top: 14px;
-            border: 1px solid #334155;
-            border-radius: 10px;
-            background-color: #0b111e;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .diagram-container svg {
-            max-width: 100%;
-            max-height: 100%;
-            padding: 10px;
-        }
     </style>
 </head>
 <body>
 
     <div class="workspace-container">
         
-        <!-- SECTION 1: Clickable Symptom Checker -->
-        <button onclick="toggleDrawer('master-checklist-drawer', this)" class="panel-header-btn">
-            <span class="panel-title">📋 Hip Symptom Checker</span>
-            <span class="toggle-arrow">▼ Click to Expand</span>
+        <!-- SECTION 1: Clickable Symptom Checker Form -->
+        <button onclick="toggleDrawer('master-checklist-drawer', this)" class="panel-header-btn" id="header-trigger">
+            <span class="panel-title">📋 Hip Symptom Input Deck</span>
+            <span class="toggle-arrow">▲ Click to Collapse</span>
         </button>
 
-        <div class="collapsible-drawer" id="master-checklist-drawer">
+        <div class="collapsible-drawer" id="master-checklist-drawer" style="display: block;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #334155; padding-bottom: 12px;">
-                <span style="color: #94a3b8; font-size: 14px; font-weight: 600;">Check how your hip feels right now:</span>
-                <button type="button" onclick="clearHipSymptoms()" class="reset-btn">Clear Selections</button>
+                <span style="color: #94a3b8; font-size: 14px; font-weight: 600;">Log current physical parameters:</span>
+                <button type="button" onclick="resetInputForm()" class="reset-btn">Clear All</button>
             </div>
 
-            <form id="hip-form" onchange="evaluateHipState()">
+            <form id="hip-form">
+                <!-- Groin Pain -->
                 <div class="control-block">
                     <label class="checkbox-row">
-                        <span class="checkbox-label">Deep pain inside the groin or front hip joint</span>
+                        <span class="checkbox-label">Deep pain inside the groin crease or front hip socket</span>
                         <input type="checkbox" id="symp-groin">
                     </label>
-                    <div id="scale-groin" class="slider-area">
-                        <div class="slider-labels"><span>Mild ache</span><span>Severe pain</span></div>
-                        <input type="range" min="1" max="10" value="5">
+                    <div class="slider-area">
+                        <div class="slider-labels"><span>Mild twinge</span><span>Severe rub</span></div>
+                        <input type="range" id="scale-groin" min="1" max="10" value="5">
                     </div>
                 </div>
 
+                <!-- Tight / Stuck Joint -->
                 <div class="control-block">
                     <label class="checkbox-row">
-                        <span class="checkbox-label">Hip feels tight or "stuck" when tying shoes or getting out of cars</span>
+                        <span class="checkbox-label">Hip feels tight or "stuck" when bending down or getting out of cars</span>
                         <input type="checkbox" id="symp-stuck">
                     </label>
-                    <div id="scale-stuck" class="slider-area">
+                    <div class="slider-area">
                         <div class="slider-labels"><span>Slightly stiff</span><span>Hard to bend</span></div>
-                        <input type="range" min="1" max="10" value="5">
+                        <input type="range" id="scale-stuck" min="1" max="10" value="5">
                     </div>
                 </div>
 
+                <!-- Morning Hip Stiffness -->
                 <div class="control-block">
                     <label class="checkbox-row">
                         <span class="checkbox-label">Heavy aching and stiffness right after waking up in the morning</span>
                         <input type="checkbox" id="symp-morning">
                     </label>
-                    <div id="scale-morning" class="slider-area">
-                        <div class="slider-labels"><span>Loosens quickly</span><span>Lasts a long time</span></div>
-                        <input type="range" min="1" max="10" value="5">
+                    <div class="slider-area">
+                        <div class="slider-labels"><span>Loosens quickly</span><span>Lasts an hour+</span></div>
+                        <input type="range" id="scale-morning" min="1" max="10" value="5">
                     </div>
                 </div>
 
+                <!-- Outer Hip Pain -->
                 <div class="control-block">
                     <label class="checkbox-row">
-                        <span class="checkbox-label">Pain on the outside of the hip when lying down on that side at night</span>
+                        <span class="checkbox-label">Pain on the outside bone when lying down on your side at night</span>
                         <input type="checkbox" id="symp-outside">
                     </label>
-                    <div id="scale-outside" class="slider-area">
-                        <div class="slider-labels"><span>Dull pressure</span><span>Sharp throbbing</span></div>
-                        <input type="range" min="1" max="10" value="5">
+                    <div class="slider-area">
+                        <div class="slider-labels"><span>Dull pressure</span><span>Sharp throb</span></div>
+                        <input type="range" id="scale-outside" min="1" max="10" value="5">
                     </div>
                 </div>
 
+                <!-- Buttock Ache -->
                 <div class="control-block">
                     <label class="checkbox-row">
-                        <span class="checkbox-label">A deep ache in the buttock or hip after sitting in a soft chair for too long</span>
+                        <span class="checkbox-label">Deep ache in the rear pocket area after sitting in soft couches or deep chairs</span>
                         <input type="checkbox" id="symp-buttock">
                     </label>
-                    <div id="scale-buttock" class="slider-area">
-                        <div class="slider-labels"><span>Mild ache</span><span>Deep burning</span></div>
-                        <input type="range" min="1" max="10" value="5">
+                    <div class="slider-area">
+                        <div class="slider-labels"><span>Dull ache</span><span>Deep burn</span></div>
+                        <input type="range" id="scale-buttock" min="1" max="10" value="5">
                     </div>
                 </div>
 
+                <!-- Catching / Clicking -->
                 <div class="control-block">
                     <label class="checkbox-row">
-                        <span class="checkbox-label">A sharp catch or clicking feeling in the hip when twisting or turning around</span>
+                        <span class="checkbox-label">A sharp catch, pinch, or click inside the hip when twisting around</span>
                         <input type="checkbox" id="symp-clicking">
                     </label>
-                    <div id="scale-clicking" class="slider-area">
+                    <div class="slider-area">
                         <div class="slider-labels"><span>Mild pop</span><span>Sharp catch</span></div>
-                        <input type="range" min="1" max="10" value="5">
+                        <input type="range" id="scale-clicking" min="1" max="10" value="5">
                     </div>
                 </div>
             </form>
 
-            <div id="hip-alert-banner" class="dynamic-banner">
-                <h3>Live Notes Based on Your Selections</h3>
-                <div id="hip-alert-text" class="dynamic-text-content"></div>
-            </div>
-
-            <div class="alert-box">
-                <span style="font-size: 20px;">⚠️</span>
-                <p>Tracking these patterns helps you gather good information about your movement. Bringing a quick list of these notes to your next regular check-up is a helpful way to work with a physical specialist on a personalized exercise routine.</p>
-            </div>
+            <button type="button" onclick="runDiagnosticEngine()" class="submit-btn">⚡ Run Mobility Diagnostic</button>
         </div>
 
 
-        <!-- SECTION 2: Clickable Physical Therapy Stretching Routines -->
-        <button onclick="toggleDrawer('stretches-content-drawer', this)" class="panel-header-btn">
-            <span class="panel-title">🏃 Stretches & Exercises</span>
-            <span class="toggle-arrow">▼ Click to Expand</span>
-        </button>
+        <!-- SECTION 2: Dynamic Diagnostic Results Display (Generated by JavaScript) -->
+        <section class="diagnostic-card" id="output-diagnostic-panel">
+            <h3 style="font-size: 26px; font-weight: 900; color: #ffffff; border-bottom: 2px solid #334155; padding-bottom: 8px; margin-bottom: 20px;">
+                📋 Tailored Mobility Report
+            </h3>
 
-        <div class="collapsible-drawer" id="stretches-content-drawer">
-            <p class="content-p">
-                Think of the hip joint like a heavy load-bearing ball-and-socket setup. When the joint gets tight or loses its natural cushioning, the surrounding muscles freeze up like a defensive shield to protect it. These exercises help unlock that tightness.
-            </p>
-            <div class="grid-cards">
-                <div class="spec-card">
-                    <h5>Glute Bridges</h5>
-                    <div class="badge">10 Reps / 3 Second Hold</div>
-                    <p style="color: #94a3b8; font-size: 16px;">Lie flat on your back with knees bent. Push firmly through your heels to raise your hips until your body forms a straight line from your shoulders to your knees. Squeeze the muscles at the top to build stability around the joint socket.</p>
-                    <div class="diagram-container">
-                        <!-- Embedded Layout Vector for Bridge -->
-                        <svg viewBox="0 0 400 150" xmlns="http://w3.org">
-                            <line x1="20" y1="130" x2="380" y2="130" stroke="#334155" stroke-width="4"/>
-                            <path d="M 60 130 L 150 70 L 250 70 L 300 130" fill="none" stroke="#0284c7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                            <circle cx="50" cy="130" r="10" fill="#1e293b" stroke="#38bdf8" stroke-width="3"/>
-                            <circle cx="150" cy="70" r="8" fill="#38bdf8"/>
-                            <text x="145" y="50" fill="#38bdf8" font-size="12" font-weight="bold">Raise Hips</text>
-                            <text x="25" y="115" fill="#94a3b8" font-size="11">Shoulders Flat</text>
-                            <text x="310" y="115" fill="#94a3b8" font-size="11">Feet Flat</text>
-                        </svg>
-                    </div>
-                </div>
-                <div class="spec-card">
-                    <h5>Seated Chair Stretch</h5>
-                    <div class="badge">3 Sets / 30 Second Hold</div>
-                    <p style="color: #94a3b8; font-size: 16px;">Sit upright in a solid, firm chair. Cross one ankle flat over the opposite knee to make a "figure 4". Keeping your back straight, lean your upper body slightly forward until you feel a comfortable pull in the outer hip muscle.</p>
-                    <div class="diagram-container">
-                        <!-- Embedded Layout Vector for Chair Stretch -->
-                        <svg viewBox="0 0 400 150" xmlns="http://w3.org">
-                            <path d="M 160 30 L 160 90 L 220 90 L 220 130" fill="none" stroke="#475569" stroke-width="6" stroke-linecap="round"/>
-                            <path d="M 135 45 L 160 55 L 205 90 L 175 110" fill="none" stroke="#0284c7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                            <circle cx="130" cy="40" r="8" fill="#38bdf8"/>
-                            <text x="180" y="45" fill="#38bdf8" font-size="12" font-weight="bold">Lean Forward</text>
-                            <text x="215" y="110" fill="#94a3b8" font-size="11">Cross Ankle</text>
-                        </svg>
-                    </div>
-                </div>
+            <!-- High Intensity Doctor Advisory Space -->
+            <div class="doctor-callout" id="doctor-warning-box" style="display: none;">
+                <span style="font-size: 22px;">⚠️</span>
+                <p id="doctor-warning-text"></p>
             </div>
-        </div>
 
+            <!-- Part A: Calculated Insights -->
+            <div class="diagnostic-section-title">1. Mechanical Analysis</div>
+            <div id="analysis-render-target" style="margin-bottom: 24px;"></div>
 
-        <!-- SECTION 3: Clickable Maintenance Tools & Shop Hardware Guidelines -->
-        <button onclick="toggleDrawer('tools-content-drawer', this)" class="panel-header-btn">
-            <span class="panel-title">🧰 Massage Guns & Tools Guide</span>
-            <span class="toggle-arrow">▼ Click to Expand</span>
-        </button>
-
-        <div class="collapsible-drawer" id="tools-content-drawer">
-            <p class="content-p">
-                Using tools is like performing targeted shop maintenance on tight parts. They help break up stubborn muscle knots and tell the brain it's safe to let the guard down.
-            </p>
-            <div class="grid-cards">
-                <div class="spec-card">
-                    <h5>Massage Gun</h5>
-                    <div class="badge">Low Speed Setting / 2 Minutes</div>
-                    <p style="color: #94a3b8; font-size: 16px;">Float the gun head gently along the thick, fleshy muscle sheets on the outside of your thigh or the upper rear pocket. Do not press hard over any solid bone spots. Let the vibration work to loosen tight muscle shielding.</p>
-                    <div class="diagram-container">
-                        <!-- Embedded Layout Vector for Massage Gun -->
-                        <svg viewBox="0 0 400 150" xmlns="http://w3.org">
-                            <rect x="140" y="40" width="70" height="30" rx="6" fill="#1e293b" stroke="#475569" stroke-width="3"/>
-                            <rect x="180" y="65" width="25" height="50" rx="4" fill="#0f172a" stroke="#475569" stroke-width="3"/>
-                            <rect x="120" y="50" width="20" height="10" rx="2" fill="#38bdf8"/>
-                            <circle cx="110" cy="55" r="12" fill="#0284c7"/>
-                            <path d="M 85 45 L 95 55 L 85 65" fill="none" stroke="#e11d48" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M 75 50 L 82 55 L 75 60" fill="none" stroke="#e11d48" stroke-width="2" stroke-linecap="round"/>
-                            <text x="225" y="60" fill="#ffffff" font-size="13" font-weight="bold">Massage Gun Target</text>
-                            <text x="225" y="80" fill="#94a3b8" font-size="11">Apply to outer thigh sheets</text>
-                            <text x="225" y="95" fill="#94a3b8" font-size="11">Avoid direct hard bone</text>
-                        </svg>
-                    </div>
-                </div>
-                <div class="spec-card">
-                    <h5>Foam Roller Column</h5>
-                    <div class="badge">Slow Passes / 90 Seconds</div>
-                    <p style="color: #94a3b8; font-size: 16px;">Rest the side or rear of your hip right onto the roller tube. Use your arms to slowly roll over tight areas. When you hit a tender spot, hold still for a few seconds to let the pressure loosen up the knot.</p>
-                    <div class="diagram-container">
-                        <!-- Embedded Layout Vector for Foam Roller -->
-                        <svg viewBox="0 0 400 150" xmlns="http://w3.org">
-                            <line x1="20" y1="130" x2="380" y2="130" stroke="#334155" stroke-width="4"/>
-                            <ellipse cx="160" cy="115" rx="18" ry="15" fill="#0f172a" stroke="#38bdf8" stroke-width="4"/>
-                            <path d="M 100 80 L 155 102 L 240 125" fill="none" stroke="#0284c7" stroke-width="8" stroke-linecap="round"/>
-                            <circle cx="95" cy="75" r="8" fill="#38bdf8"/>
-                            <text x="190" y="60" fill="#ffffff" font-size="13" font-weight="bold">Foam Roller Placement</text>
-                            <text x="190" y="80" fill="#94a3b8" font-size="11">Roll slowly over fleshy areas</text>
-                            <text x="190" y="95" fill="#94a3b8" font-size="11">Pause on tender spots</text>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <!-- Part B: Dynamic Exercise Prescription -->
+            <div class="diagnostic-section-title">2. Target Maintenance Routines</div>
+            <p class="routine-p">Based on your specific input logs, focus on performing these targeted physical therapy movements to loosen up current shielding knots:</p>
+            <div class="grid-cards" id="exercises-render-target"></div>
+        </section>
 
     </div>
 
-    <!-- UI Core Logic Engine -->
+    <!-- UI & Analysis Core Engine Logic -->
     <script>
         function toggleDrawer(drawerId, headerElement) {
             const drawer = document.getElementById(drawerId);
             const arrow = headerElement.querySelector('.toggle-arrow');
 
-            if (drawer.style.display === 'block') {
-                drawer.style.display = 'none';
-                headerElement.style.borderRadius = '16px';
-                headerElement.style.borderColor = '#334155';
-                arrow.innerText = '▼ Click to Expand';
-            } else {
+            if (drawer.style.display === 'none') {
                 drawer.style.display = 'block';
                 headerElement.style.borderRadius = '16px 16px 0 0';
                 headerElement.style.borderColor = '#0284c7';
                 arrow.innerText = '▲ Click to Collapse';
+            } else {
+                drawer.style.display = 'none';
+                headerElement.style.borderRadius = '16px';
+                headerElement.style.borderColor = '#334155';
+                arrow.innerText = '▼ Click to Expand';
             }
         }
 
-        function clearHipSymptoms() {
+        function resetInputForm() {
             document.getElementById('hip-form').reset();
-            evaluateHipState();
+            document.getElementById('output-diagnostic-panel').style.display = 'none';
         }
 
-        function evaluateHipState() {
+        function runDiagnosticEngine() {
+            // Isolate current checkbox states
             const groin = document.getElementById('symp-groin').checked;
             const stuck = document.getElementById('symp-stuck').checked;
             const morning = document.getElementById('symp-morning').checked;
@@ -378,30 +315,140 @@
             const buttock = document.getElementById('symp-buttock').checked;
             const clicking = document.getElementById('symp-clicking').checked;
 
-            document.getElementById('scale-groin').style.display = groin ? 'block' : 'none';
-            document.getElementById('scale-stuck').style.display = stuck ? 'block' : 'none';
-            document.getElementById('scale-morning').style.display = morning ? 'block' : 'none';
-            document.getElementById('scale-outside').style.display = outside ? 'block' : 'none';
-            document.getElementById('scale-buttock').style.display = buttock ? 'block' : 'none';
-            document.getElementById('scale-clicking').style.display = clicking ? 'block' : 'none';
+            // Isolate slider numeric intensities
+            const groinLvl = parseInt(document.getElementById('scale-groin').value);
+            const stuckLvl = parseInt(document.getElementById('scale-stuck').value);
+            const morningLvl = parseInt(document.getElementById('scale-morning').value);
+            const outsideLvl = parseInt(document.getElementById('scale-outside').value);
+            const buttockLvl = parseInt(document.getElementById('scale-buttock').value);
+            const clickingLvl = parseInt(document.getElementById('scale-clicking').value);
 
-            let updates = [];
-            if (groin) updates.push("⚙️ <strong>Groin Pain Note:</strong> Deep aching in the crease of the hip or groin usually means the joint space itself is experiencing extra pressure. Doing gentle, unweighted movements (like swinging your leg back and forth while standing on a step) helps lubricate the socket without adding heavy stress.");
-            if (stuck) updates.push("⚙️ <strong>Tightness Note:</strong> Feeling restricted when turning your leg or twisting inward makes it tough to cross your legs or climb into a car. Daily, gentle stretches for the hip rotators can help loosen up that defensive muscle guarding.");
-            if (morning) updates.push("⚙️ <strong>Morning Ache Note:</strong> Waking up with heavy stiffness that begins to clear up after 20-30 minutes of moving around is very common. It means the natural joint fluids are stagnant overnight. Moving gently as soon as you wake up helps pump that protective lubrication back through the joint socket.");
-            if (outside) updates.push("⚙️ <strong>Outer Hip Pressure Note:</strong> Pain directly on the side bone that flares up while lying in bed often points to irritation of the fluid sacs cushioning the side hip tendons. Try sleeping with a thick pillow positioned securely between your knees to help take the direct pulling stress off that outer side bone.");
-            if (buttock) updates.push("⚙️ <strong>Buttock Pressure Note:</strong> Deep, nagging pain in the rear pocket area after sitting down in deep, soft furniture or low couches usually occurs because the muscle groups are compressed and overstretched. Try sticking to firm chairs or adding a solid foam pad cushion to sit on.");
-            if (clicking) updates.push("⚙️ <strong>Catch/Clicking Note:</strong> Feeling a sudden restriction or sharp pop during pivoting movements hints at a small internal shift or catch in the cushioning ring. Focus on keeping your feet flat and turning your whole trunk in line, instead of planting your feet firmly and twisting your hips alone.");
-
-            const banner = document.getElementById('hip-alert-banner');
-            const outputText = document.getElementById('hip-alert-text');
-
-            if (updates.length > 0) {
-                banner.style.display = 'block';
-                outputText.innerHTML = "<div>" + updates.join("</div><div style='margin-top:16px; border-top:2px solid #334155; padding-top:16px;'>") + "</div>";
-            } else {
-                banner.style.display = 'none';
+            // Verify if at least one checkbox is selected
+            if (!groin && !stuck && !morning && !outside && !buttock && !clicking) {
+                alert("Please select at least one symptom parameter before generating a report.");
+                return;
             }
+
+            let insightsHTML = "";
+            let exercisesHTML = "";
+            let maxIntensity = 0;
+            let triggersDoctorAdvisory = false;
+
+            // ----------------------------------------------------
+            // CORE DIAGNOSTIC ROUTINES MAPPING LABELS
+            // ----------------------------------------------------
+            
+            // Scenario A: Internal Mechanical Rub (Groin Pain / Tightness / Morning Stiffness)
+            if (groin || stuck || morning) {
+                let currentMax = Math.max(groin ? groinLvl : 0, stuck ? stuckLvl : 0, morning ? morningLvl : 0);
+                if (currentMax > maxIntensity) maxIntensity = currentMax;
+                
+                insightsHTML += `
+                    <div class="assessment-block">
+                        <div class="assessment-title">⚙️ Joint Space Narrowing & Rub (Intensity Level: ${currentMax}/10)</div>
+                        <p class="assessment-p">Aches inside the groin crease or heavy waking stiffness usually mean the ball-and-socket space is compacting, causing bone-on-bone friction. The surrounding hip stabilizers automatically knot up like a protective shield to lock down the joint.</p>
+                    </div>`;
+
+                // Add corresponding target movements
+                exercisesHTML += `
+                    <div class="spec-card">
+                        <h5>Standing Unweighted Leg Swings</h5>
+                        <div class="badge">20 Swings / Per Side</div>
+                        <p style="color: #94a3b8; font-size: 16px;">Stand tall on a step using one leg, letting the target leg hang free. Hold onto a rail or wall for balance. Slowly swing the free leg forward and backward like a pendulum. This unweighted motion coaxes the joint to pump protective lubrication fluid directly into the socket without grinding.</p>
+                    </div>
+                    <div class="spec-card">
+                        <h5>Isometric Glute Bridges</h5>
+                        <div class="badge">10 Reps / 5 Second Hold</div>
+                        <p style="color: #94a3b8; font-size: 16px;">Lie on your back with knees bent and feet flat on the floor. Drive down through your heels to raise your hips until your thighs run inline with your trunk. Squeezing your glutes tells the deep, overworking hip flexors on the front to turn off and let go.</p>
+                    </div>`;
+            }
+
+            // Scenario B: Outer Tendon Compression (Outer Bone Discomfort)
+            if (outside) {
+                if (outsideLvl > maxIntensity) maxIntensity = outsideLvl;
+                
+                insightsHTML += `
+                    <div class="assessment-block" style="border-left-color: #38bdf8;">
+                        <div class="assessment-title">⚙️ Outer Tendon Pressure (Intensity Level: ${outsideLvl}/10)</div>
+                        <p class="assessment-p">Discomfort on the hard outside bone at night occurs when the side hip tendons get squeezed against the bone framework, irritating the fluid protective sacs underneath.</p>
+                    </div>`;
+
+                exercisesHTML += `
+                    <div class="spec-card">
+                        <h5>Side-Lying Pelvic Alignment Block</h5>
+                        <div class="badge">Night Routine Modification</div>
+                        <p style="color: #94a3b8; font-size: 16px;">When resting on your side in bed, position a firm, thick pillow securely between your knees and shins. This structural block stops your top leg from crossing over your body line, preventing the outer tendons from getting tightly stretched and rubbed across the hip bone all night.</p>
+                    </div>`;
+            }
+
+            // Scenario C: Deep Pocket Muscle Strain (Buttock Pain After Sitting)
+            if (buttock) {
+                if (buttockLvl > maxIntensity) maxIntensity = buttockLvl;
+                
+                insightsHTML += `
+                    <div class="assessment-block" style="border-left-color: #a855f7;">
+                        <div class="assessment-title">⚙️ Deep Pocket Guarding Knot (Intensity Level: ${buttockLvl}/10)</div>
+                        <p class="assessment-p">A deep ache in the back pocket following sitting happens when the deep muscles underneath get overly squashed and strained by deep, soft chair bases.</p>
+                    </div>`;
+
+                exercisesHTML += `
+                    <div class="spec-card">
+                        <h5>Seated Figure-4 Release</h5>
+                        <div class="badge">3 Sets / 30 Second Hold</div>
+                        <p style="color: #94a3b8; font-size: 16px;">Sit upright on a flat, solid chair. Cross your ankle over your opposite knee line. Keeping your low back flat and chin up, pivot your upper body forward from your hip hinges until you feel a pull across your rear pocket. Hold steadily to let the tight strands unpack.</p>
+                    </div>`;
+            }
+
+            // Scenario D: Catching / Mechanical Shift Flags
+            if (clicking) {
+                if (clickingLvl > maxIntensity) maxIntensity = clickingLvl;
+                if (clickingLvl >= 7) triggersDoctorAdvisory = true; // Triggers review logic if severe catch occurs
+                
+                insightsHTML += `
+                    <div class="assessment-block" style="border-left-color: #e11d48;">
+                        <div class="assessment-title">⚙️ Internal Catching Warning (Intensity Level: ${clickingLvl}/10)</div>
+                        <p class="assessment-p">A sharp pinch or sudden click during pivoting implies an internal ring structure is getting caught or pinched between the ball and socket rim under load.</p>
+                    </div>`;
+
+                exercisesHTML += `
+                    <div class="spec-card">
+                        <h5>Whole-Body Stance Rotation</h5>
+                        <div class="badge">Movement Modification Guide</div>
+                        <p style="color: #94a3b8; font-size: 16px;">When turning around, avoid planting your feet firmly and twisting your trunk alone. Instead, pick up your feet and turn your whole body in line like a solid pillar. This stops the ball from rotating under heavy stress right against the socket rim.</p>
+                    </div>`;
+            }
+
+            // ----------------------------------------------------
+            // MEDICAL ADVISORY TRIGGER EVALUATIONS
+            // ----------------------------------------------------
+            if (maxIntensity >= 8 || triggersDoctorAdvisory) {
+                const warningBox = document.getElementById('doctor-warning-box');
+                const warningText = document.getElementById('doctor-warning-text');
+                
+                warningText.innerHTML = `Notice: Some parameters logged show a high sensitivity threshold (${maxIntensity}/10) or a noticeable structural catch. Having a clinical orthopedic specialist or physical therapist run a manual diagnostic check during a routine check-up is a proactive and highly effective step to rule out deeper joint issues.`;
+                warningBox.style.display = 'flex';
+            } else {
+                document.getElementById('doctor-warning-box').style.display = 'none';
+            }
+
+            // Render output templates into target nodes
+            document.getElementById('analysis-render-target').innerHTML = insightsHTML;
+            document.getElementById('exercises-render-target').innerHTML = exercisesHTML;
+
+            // Collapse input deck drawer to focus his view on results
+            const formDrawer = document.getElementById('master-checklist-drawer');
+            const formHeader = document.getElementById('header-trigger');
+            formDrawer.style.display = 'none';
+            formHeader.style.borderRadius = '16px';
+            formHeader.style.borderColor = '#334155';
+            formHeader.querySelector('.toggle-arrow').innerText = '▼ Click to Expand Input Deck';
+
+            // Smoothly display final layout report
+            const resultsPanel = document.getElementById('output-diagnostic-panel');
+            resultsPanel.style.display = 'block';
+            
+            // Scroll down smoothly to show him the generated text data
+            resultsPanel.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
