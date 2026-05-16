@@ -51,7 +51,6 @@
 
         /* Collapsible Toggle Header Button */
         .collapse-toggle-btn {
-            w-full: 100%;
             width: 100%;
             background-color: #0f172a;
             border: 2px solid #334155;
@@ -68,7 +67,7 @@
             transition: all 0.15s ease;
         }
         .collapse-toggle-btn:hover { background-color: #1a2333; border-color: #475569; }
-        .toggle-arrow { font-size: 14px; color: #38bdf8; transition: transform 0.2s ease; }
+        .toggle-arrow { font-size: 14px; color: #38bdf8; }
         
         /* Hidden Container by Default */
         .collapsible-content {
@@ -139,7 +138,8 @@
             border-left: 6px solid #0284c7;
             padding: 20px;
             border-radius: 12px;
-            margin-bottom: 24px;
+            margin-top: 10px;
+            margin-bottom: 10px;
             display: none;
         }
         .dynamic-banner h3 { font-size: 14px; font-weight: 900; color: #38bdf8; text-transform: uppercase; tracking-spacing: 0.5px; margin-bottom: 12px; }
@@ -169,7 +169,7 @@
 
     <div class="workspace-grid">
         
-        <!-- Left Side: Hip Selector Column -->
+        <!-- Left Side: Hip Selector Column (Now Holds Everything Symptom-Related) -->
         <section class="col-left panel-card">
             <div class="panel-title" style="margin-bottom: 12px;">
                 <span>Hip Checklists</span>
@@ -263,20 +263,21 @@
                 </form>
             </div>
 
+            <!-- MOVED: Dynamic Alert Feed Box Now Renders Right Below The Form -->
+            <div id="hip-alert-banner" class="dynamic-banner">
+                <h3>Live Notes Based on Your Selections</h3>
+                <div id="hip-alert-text" class="dynamic-text-content"></div>
+            </div>
+
+            <!-- Standard Context Warning Note -->
             <div class="alert-box">
                 <span style="font-size: 20px;">⚠️</span>
                 <p>Tracking these patterns helps you gather good information about your movement. Bringing a quick list of these notes to your next regular check-up is a helpful way to work with a physical specialist on a personalized exercise routine.</p>
             </div>
         </section>
 
-        <!-- Right Side: Informational Sheets & Live Notes Column -->
+        <!-- Right Side: Stable Informational Sheets Column -->
         <section class="col-right panel-card">
-            <!-- Dynamic Alert Feed Box -->
-            <div id="hip-alert-banner" class="dynamic-banner">
-                <h3>Live Notes Based on Your Selections</h3>
-                <div id="hip-alert-text" class="dynamic-text-content"></div>
-            </div>
-
             <!-- Core Knowledge Base -->
             <h3 class="content-title">Hip Joint Basics</h3>
             <p class="content-p">
@@ -302,7 +303,6 @@
 
     <!-- UI State Pipeline -->
     <script>
-        // Collapsible Drawer Trigger Function
         function toggleHipSymptomPanel() {
             const drawer = document.getElementById('hip-checker-drawer');
             const trigger = document.getElementById('toggle-trigger');
@@ -312,11 +312,10 @@
                 drawer.style.display = 'none';
                 trigger.style.borderColor = '#334155';
                 trigger.querySelector('span').innerText = '📋 Open Hip Symptom Checker';
-                arrow.style.transform = 'rotate(0deg)';
                 arrow.innerText = '▼';
             } else {
                 drawer.style.display = 'block';
-                trigger.style.borderColor = '#0284c7'; // Glow Blue border when active
+                trigger.style.borderColor = '#0284c7';
                 trigger.querySelector('span').innerText = '📂 Hide Hip Symptom Checker';
                 arrow.innerText = '▲';
             }
