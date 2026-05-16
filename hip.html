@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobility Hub - Hip Support</title>
+    <!-- Use the exact same styles as main page for design alignment -->
+    <link rel="stylesheet" href="index.html" id="style-loader">
+    <script>
+        // Inline duplication ensures styles stick even if referenced across separate file spaces
+        document.write(document.getElementById('style-loader').ownerDocument.head.innerHTML);
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-area">
+                <h1><span class="logo-icon">🔧</span> Mobility Hub</h1>
+                <p class="subtitle">Reference & Reading Console</p>
+            </div>
+            <nav>
+                <a href="index.html" class="tab-btn">🏠 Home Overview</a>
+                <a href="hip.html" class="tab-btn active-tab">🦿 Hip System</a>
+                <a href="back.html" class="tab-btn">⚙️ Back System</a>
+                <a href="summarizer.html" class="tab-btn">⚡ Reading Summarizer</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Include Left Sidebar Panel exactly for cross-page persistence -->
+        <section class="col-left panel-card">
+            <div class="panel-title"><span>Symptom Checker</span><button type="button" onclick="clearAllSymptoms()" class="reset-btn">Clear All</button></div>
+            <p class="panel-desc">Check the boxes that describe how your body feels right now.</p>
+            <form id="symptom-form" onchange="runAnalysisPipeline()">
+                <div class="control-block">
+                    <label class="checkbox-row"><span class="checkbox-label">Deep pain inside the groin or front hip joint</span><input type="checkbox" id="symp-groin"></label>
+                    <div id="scale-groin" class="slider-area"><div class="slider-labels"><span>Mild ache</span><span>Severe pain</span></div><input type="range" min="1" max="10" value="5"></div>
+                </div>
+                <div class="control-block">
+                    <label class="checkbox-row"><span class="checkbox-label">Hip feels tight or "stuck" when tying shoes or getting out of cars</span><input type="checkbox" id="symp-stuck"></label>
+                    <div id="scale-stuck" class="slider-area"><div class="slider-labels"><span>Slightly stiff</span><span>Hard to bend</span></div><input type="range" min="1" max="10" value="5"></div>
+                </div>
+                <div class="control-block">
+                    <label class="checkbox-row"><span class="checkbox-label">Heavy aching and stiffness right after waking up in the morning</span><input type="checkbox" id="symp-morning"></label>
+                    <div id="scale-morning" class="slider-area"><div class="slider-labels"><span>Loosens quickly</span><span>Lasts a long time</span></div><input type="range" min="1" max="10" value="5"></div>
+                </div>
+                <div class="control-block">
+                    <label class="checkbox-row"><span class="checkbox-label">Sharp or burning pain shooting down the back of the leg</span><input type="checkbox" id="symp-shooting"></label>
+                    <div id="scale-shooting" class="slider-area"><div class="slider-labels"><span>Dull twinge</span><span>Sharp shock</span></div><input type="range" min="1" max="10" value="5"></div>
+                </div>
+                <div class="control-block">
+                    <label class="checkbox-row"><span class="checkbox-label">Lower back hurts more when standing straight or walking downhill</span><input type="checkbox" id="symp-standing"></label>
+                    <div id="scale-standing" class="slider-area"><div class="slider-labels"><span>Mild ache</span><span>Must sit down</span></div><input type="range" min="1" max="10" value="5"></div>
+                </div>
+                <div class="control-block">
+                    <label class="checkbox-row"><span class="checkbox-label">Pins-and-needles or numbness in the legs, thighs, or feet</span><input type="checkbox" id="symp-numb"></label>
+                    <div id="scale-numb" class="slider-area"><div class="slider-labels"><span>Faint tingling</span><span>Loss of feeling</span></div><input type="range" min="1" max="10" value="5"></div>
+                </div>
+            </form>
+            <div class="alert-box"><span style="font-size: 20px;">⚠️</span><p>Tracking these patterns helps you gather good information about your movement. Bringing a quick list of these notes to your next regular check-up is a helpful way to work with a physical specialist on a personalized exercise routine.</p></div>
+        </section>
+
+        <!-- Right Column: HIP CONTENT -->
+        <div class="col-right panel-card">
+            <div id="dynamic-insight-banner" class="dynamic-banner">
+                <h3>Live Notes Based on Your Selections</h3>
+                <div id="dynamic-insight-text" class="dynamic-text-content"></div>
+            </div>
+
+            <h3 class="content-title">Hip Joint Basics</h3>
+            <p class="content-p">
+                The hip joint works like a heavy-duty ball-and-socket assembly designed to carry your upper body weight. When the smooth cushioning tissue inside the joint wears thin over time, the bones can rub closer together. This extra friction causes the surrounding muscles to tighten up automatically to try and shield the joint.
+            </p>
+
+            <h4 style="font-size: 20px; font-weight: 800; color: #ffffff;">🔧 Standard Hip Routines</h4>
+            <div class="quick-nav-box" style="display: grid; grid-template-columns: 1fr; gap: 16px;">
+                <div style="background-color: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 20px;">
+                    <h5>Glute Bridges</h5>
+                    <div style="display: inline-block; background-color: #1e293b; border: 1px solid #475569; color: #38bdf8; font-size: 12px; font-weight: 800; padding: 3px 12px; border-radius: 20px; margin-bottom: 12px; margin-top: 6px;">10 Reps / 3 Second Hold</div>
+                    <p style="color: #94a3b8; font-size: 16px;">Lie on your back with knees bent. Push firmly through your heels to raise your hips until your body forms a straight line from shoulders to knees. Squeeze the muscles to build stability around the joints.</p>
+                </div>
+                <div style="background-color: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 20px;">
+                    <h5>Seated Chair Stretch</h5>
+                    <div style="display: inline-block; background-color: #1e293b; border: 1px solid #475569; color: #38bdf8; font-size: 12px; font-weight: 800; padding: 3px 12px; border-radius: 20px; margin-bottom: 12px; margin-top: 6px;">3 Sets / 30 Second Hold</div>
+                    <p style="color: #94a3b8; font-size: 16px;">Sit upright in a solid chair. Cross one ankle flat over the opposite knee to make a "figure 4". Keeping your back straight, lean your upper body slightly forward until you feel a comfortable pull in the outer hip muscle.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Paste the exact script content block from File 1 to maintain sync logic across page reloads
+        function clearAllSymptoms() { document.getElementById('symptom-form').reset(); saveFormState(); runAnalysisPipeline(); }
+        function saveFormState() {
+            const state = {
+                groin: document.getElementById('symp-groin').checked, stuck: document.getElementById('symp-stuck').checked, morning: document.getElementById('symp-morning').checked,
+                shooting: document.getElementById('symp-shooting').checked, standing: document.getElementById('symp-standing').checked, numb: document.getElementById('symp-numb').checked
+            };
+            localStorage.setItem('mobility_hub_checks', JSON.stringify(state));
+        }
+        function loadFormState() {
+            const saved = JSON.parse(localStorage.getItem('mobility_hub_checks')) || {};
+            if (saved.groin) document.getElementById('symp-groin').checked = true;
+            if (saved.stuck) document.getElementById('symp-stuck').checked = true;
+            if (saved.morning) document.getElementById('symp-morning').checked = true;
+            if (saved.shooting) document.getElementById('symp-shooting').checked = true;
+            if (saved.standing) document.getElementById('symp-standing').checked = true;
+            if (saved.numb) document.getElementById('symp-numb').checked = true;
+        }
+        function runAnalysisPipeline() {
+            saveFormState();
+            const groin = document.getElementById('symp-groin').checked; const stuck = document.getElementById('symp-stuck').checked; const morning = document.getElementById('symp-morning').checked;
+            const shooting = document.getElementById('symp-shooting').checked; const standing = document.getElementById('symp-standing').checked; const numb = document.getElementById('symp-numb').checked;
+            document.getElementById('scale-groin').style.display = groin ? 'block' : 'none'; document.getElementById('scale-stuck').style.display = stuck ? 'block' : 'none'; document.getElementById('scale-morning').style.display = morning ? 'block' : 'none';
+            document.getElementById('scale-shooting').style.display = shooting ? 'block' : 'none'; document.getElementById('scale-standing').style.display = standing ? 'block' : 'none'; document.getElementById('scale-numb').style.display = numb ? 'block' : 'none';
+            let alerts = [];
+            if (groin) alerts.push("⚙️ <strong>Groin Pain Note:</strong> Deep aching in the crease of the hip or groin usually means the joint space itself is experiencing extra pressure. Doing gentle, unweighted movements helps lubricate the socket without adding heavy stress.");
+            if (stuck) alerts.push("⚙️ <strong>Tightness Note:</strong> Feeling restricted when turning your leg or twisting inward makes it tough to cross your legs or climb into a car. Daily, gentle stretches for the hip rotators can help loosen up that defensive muscle guarding.");
+            if (morning) alerts.push("⚙️ <strong>Morning Ache Note:</strong> Waking up with heavy stiffness that begins to clear up after 20-30 minutes of moving around is very common. Moving gently as soon as you wake up helps pump that protective lubrication back through the joint.");
+            if (shooting) alerts.push("⚙️ <strong>Shooting Leg Pain Note:</strong> Pain that acts like an electric shock traveling down the back of your leg means a nerve root in your lower spine is likely getting pinched or irritated. Try to avoid deep forward bends or touching your toes.");
+            if (standing) alerts.push("⚙️ <strong>Standing/Walking Pain Note:</strong> If your lower back hurts more when standing straight or walking downhill, but feels much better when you lean forward over a shopping cart, focus on exercises that strengthen the abdominal wall to help keep the lower back flatter.");
+            if (numb) alerts.push("⚙️ <strong>Numbness Note:</strong> A pins-and-needles sensation or dead weight feeling in the leg or foot means the nerve signal is being physically compressed. Keep track of what activities make this tingling spread or disappear.");
+            const banner = document.getElementById('dynamic-insight-banner'); const outputText = document.getElementById('dynamic-insight-text');
+            if (alerts.length > 0) { banner.style.display = 'block'; outputText.innerHTML = "<div>" + alerts.join("</div><div style='margin-top:16px; border-top:2px solid #334155; padding-top:16px;'>") + "</div>"; } else { banner.style.display = 'none'; }
+        }
+        window.addEventListener('DOMContentLoaded', () => { loadFormState(); runAnalysisPipeline(); });
+    </script>
+</body>
+</html>
