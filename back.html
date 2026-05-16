@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobility Hub - Back Support</title>
+    <script src="https://tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans min-h-screen flex flex-col">
+
+    <!-- Top Navigation Tabs -->
+    <header class="bg-indigo-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold tracking-tight py-4">Mobility Hub</h1>
+            <nav class="flex h-full align-bottom self-end">
+                <a href="index.html" class="hover:bg-indigo-800 text-slate-300 hover:text-white px-6 py-4 rounded-t-xl text-xl font-bold transition-all">Hip Support</a>
+                <a href="back.html" class="bg-slate-50 text-indigo-900 px-6 py-4 rounded-t-xl text-xl font-bold transition-all border-b-2 border-slate-50">Back Support</a>
+                <a href="summarizer.html" class="hover:bg-indigo-800 text-slate-300 hover:text-white px-6 py-4 rounded-t-xl text-xl font-bold transition-all">Reading Summarizer</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left Sidebar: Identical Symptom Checker Layout -->
+        <div class="lg:col-span-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200 h-fit sticky top-24">
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">Symptom Checker</h2>
+            <p class="text-sm text-slate-500 mb-6">Select current observations to reveal targeted insights and anatomical correlations across tabs.</p>
+            
+            <form id="symptom-form" onchange="updateSymptomInsights()">
+                <div class="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="symp-joint" class="w-6 h-6 rounded text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-xl font-semibold text-slate-700">Deep Joint / Groin Pain</span>
+                    </label>
+                    <div id="scale-joint" class="mt-3 hidden pl-9">
+                        <label class="block text-sm font-medium text-slate-600 mb-1">Intensity Level:</label>
+                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                        <div class="flex justify-between text-xs text-slate-400 px-1 mt-1"><span>Mild</span><span>Moderate</span><span>Severe</span></div>
+                    </div>
+                </div>
+
+                <div class="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="symp-nerve" class="w-6 h-6 rounded text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-xl font-semibold text-slate-700">Shooting Pain Down Leg</span>
+                    </label>
+                    <div id="scale-nerve" class="mt-3 hidden pl-9">
+                        <label class="block text-sm font-medium text-slate-600 mb-1">Intensity Level:</label>
+                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                        <div class="flex justify-between text-xs text-slate-400 px-1 mt-1"><span>Mild</span><span>Moderate</span><span>Severe</span></div>
+                    </div>
+                </div>
+
+                <div class="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="symp-stiff" class="w-6 h-6 rounded text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-xl font-semibold text-slate-700">Morning Stiffness / Aching</span>
+                    </label>
+                    <div id="scale-stiff" class="mt-3 hidden pl-9">
+                        <label class="block text-sm font-medium text-slate-600 mb-1">Intensity Level:</label>
+                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                        <div class="flex justify-between text-xs text-slate-400 px-1 mt-1"><span>Mild</span><span>Moderate</span><span>Severe</span></div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="mt-8 p-4 bg-amber-50 rounded-xl border border-amber-200 flex items-start gap-3">
+                <span class="text-amber-600 text-xl font-bold">ℹ️</span>
+                <p class="text-sm text-amber-800 leading-relaxed">
+                    Tracking patterns in structural comfort levels offers valuable data. Documenting these observations helps facilitate highly optimized, collaborative care planning during regular evaluations with a clinical physical therapist.
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Content Section: Back Data -->
+        <div class="lg:col-span-8 flex flex-col gap-8">
+            <div id="back-dynamic-box" class="bg-indigo-50 border border-indigo-100 p-6 rounded-2xl hidden">
+                <h3 class="text-2xl font-bold text-indigo-900 mb-3">Live Assessment Insights</h3>
+                <div id="back-dynamic-text" class="text-lg text-indigo-950 space-y-2"></div>
+            </div>
+
+            <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                <h3 class="text-3xl font-extrabold text-slate-800 mb-4 border-b pb-2">1. Spinal Mechanics & Support</h3>
+                <p class="text-lg text-slate-600 leading-relaxed mb-4">
+                    The human spine relies on complex structural coordination across spinal vertebrae, intervertebral spinal discs, and deep structural muscle chains. Poor sitting mechanics or sedentary habits place heavy, unaligned forces on the lower lumbar curves.
+                </p>
+                <p class="text-lg text-slate-600 leading-relaxed">
+                    Rather than treating the spine as an isolated column, modern physical therapy recognizes that building strong, active core muscles (the transverse abdominis and multifidus) acts like a biological corset, significantly relieving structural strain off the lower spinal discs.
+                </p>
+            </section>
+
+            <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                <h3 class="text-3xl font-extrabold text-slate-800 mb-4 border-b pb-2">2. Physical Therapy & Management</h3>
+                <div class="space-y-6">
+                    <div class="p-4 hover:bg-slate-50 rounded-xl transition-colors">
+                        <h4 class="text-2xl font-bold text-indigo-900 mb-2">Cat-Cow Mobility Drill</h4>
+                        <p class="text-lg text-slate-600">On hands and knees, slowly drop your belly toward the floor while lifting your gaze toward the ceiling. Then, smoothly round your spine up toward the ceiling like an arching cat while tucking your chin. Alternate between these forms smoothly for 10 fluid cycles.</p>
+                    </div>
+                    <div class="p-4 hover:bg-slate-50 rounded-xl transition-colors">
+                        <h4 class="text-2xl font-bold text-indigo-900 mb-2">Bird-Dog Core Stabilization</h4>
+                        <p class="text-lg text-slate-600">From an all-fours position, brace your torso. Extend your right arm straight ahead while simultaneously reaching your left leg straight back. Hold for 2 seconds, maintaining a perfectly level tabletop back, then return to base. Alternate sides for 10 controlled reps.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        function updateSymptomInsights() {
+            const state = {
+                joint: document.getElementById('symp-joint').checked,
+                nerve: document.getElementById('symp-nerve').checked,
+                stiff: document.getElementById('symp-stiff').checked
+            };
+            localStorage.setItem('hub_symptoms', JSON.stringify(state));
+            renderInsights(state);
+        }
+
+        function renderInsights(state) {
+            document.getElementById('scale-joint').style.display = state.joint ? 'block' : 'none';
+            document.getElementById('scale-nerve').style.display = state.nerve ? 'block' : 'none';
+            document.getElementById('scale-stiff').style.display = state.stiff ? 'block' : 'none';
+
+            let backInsights = [];
+            if (state.nerve) backInsights.push("• <strong>Neural Pathway Compressions:</strong> Sensations travelling downward past the lower knee lines point directly toward nerve root crowd spaces in the lower spinal column. Avoid deep forward bending motions which can push disc rings rearward.");
+            if (state.stiff) backInsights.push("• <strong>Structural Fluid Set:</strong> Waking with a deep achy rigidity that clears up cleanly with gentle movements points to classic localized spinal environment slowdowns. Prioritize the gentle Cat-Cow cycle before rising.");
+
+            const backBox = document.getElementById('back-dynamic-box');
+            if (backInsights.length > 0) {
+                backBox.classList.remove('hidden');
+                document.getElementById('back-dynamic-text').innerHTML = backInsights.join("<br><br>");
+            } else {
+                backBox.classList.add('hidden');
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const saved = JSON.parse(localStorage.getItem('hub_symptoms')) || {joint:false, nerve:false, stiff:false};
+            document.getElementById('symp-joint').checked = saved.joint;
+            document.getElementById('symp-nerve').checked = saved.nerve;
+            document.getElementById('symp-stiff').checked = saved.stiff;
+            renderInsights(saved);
+        });
+    </script>
+</body>
+</html>
