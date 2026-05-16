@@ -4,23 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mobility Hub Reference Engine</title>
-    <!-- Free WebGPU/WASM In-Browser AI Engine -->
-    <script type="module">
-        import { pipeline } from 'https://jsdelivr.net';
-        window.pipeline = pipeline;
-    </script>
     <style>
-        /* Standalone Core Layout Styles (Bypasses CSS Blockers) */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
             background-color: #121824; 
             color: #e2e8f0; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            min-height: screen;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
             line-height: 1.6;
         }
-
-        /* Top Industrial Header */
         header {
             background-color: #1e293b;
             border-bottom: 3px solid #334155;
@@ -44,23 +36,8 @@
             align-items: center;
             gap: 12px;
         }
-        .logo-icon {
-            background-color: #0284c7;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 20px;
-        }
-        .subtitle {
-            color: #94a3b8;
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 4px;
-            margin-bottom: 20px;
-        }
-
-        /* Heavy Machinery Navigation Tabs */
+        .logo-icon { background-color: #0284c7; padding: 6px 12px; border-radius: 8px; font-size: 20px; }
+        .subtitle { color: #94a3b8; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; margin-bottom: 20px; }
         nav { display: flex; gap: 8px; margin-bottom: -3px; }
         .tab-btn {
             background-color: #0f172a;
@@ -71,6 +48,7 @@
             font-size: 18px;
             font-weight: 800;
             border-radius: 12px 12px 0 0;
+            text-decoration: none;
             cursor: pointer;
             transition: all 0.15s ease;
             display: flex;
@@ -80,30 +58,25 @@
         .tab-btn:hover { color: #f8fafc; background-color: #1e293b; }
         .active-tab {
             background-color: #1e293b !important;
-            color: #38bdf8 !important; /* Industrial Blue Accent */
+            color: #38bdf8 !important;
             border-color: #0284c7 !important;
             border-bottom: 3px solid #1e293b !important;
             box-shadow: 0 -4px 15px rgba(2, 132, 199, 0.2);
             z-index: 10;
         }
-
-        /* Workspace Core Layout */
         main {
             max-w: 1200px;
             margin: 0 auto;
             padding: 32px 24px;
             display: grid;
-            grid-template-cols: 1;
+            grid-template-columns: 1fr;
             gap: 32px;
         }
         @media (min-width: 1024px) {
             main { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-            .col-left { grid-column: span 4 / span 4; }
-            .col-right { grid-column: span 8 / span 8; }
-            .full-width { grid-column: span 12 / span 12; max-width: 800px; margin: 0 auto; width: 100%; }
+            .col-left { grid-column: span 5 / span 5; }
+            .col-right { grid-column: span 7 / span 7; }
         }
-
-        /* Shop Dashboard Cards */
         .panel-card {
             background-color: #1e293b;
             border: 2px solid #334155;
@@ -111,146 +84,32 @@
             padding: 24px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
-        .panel-title {
-            font-size: 22px;
-            font-weight: 900;
-            color: #ffffff;
-            border-b: 2px solid #334155;
-            padding-bottom: 12px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .panel-desc { color: #94a3b8; font-size: 14px; margin-bottom: 24px; }
-
-        /* Custom Heavy-Duty Controls */
-        .control-block {
-            background-color: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-        .checkbox-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-        .checkbox-label { font-size: 16px; font-weight: 700; color: #cbd5e1; }
-        .control-block input[type="checkbox"] {
-            width: 24px;
-            height: 24px;
-            accent-color: #0284c7;
-            cursor: pointer;
-        }
-        .slider-area { margin-top: 16px; border-top: 1px solid #1e293b; padding-top: 12px; display: none; }
-        .slider-labels { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px; }
-        .control-block input[type="range"] {
-            width: 100%;
-            accent-color: #0284c7;
-            cursor: pointer;
-        }
-
-        /* Alert Callouts */
-        .alert-box {
-            background-color: #2a1b10;
-            border: 1px solid #b45309;
-            border-left: 5px solid #d97706; /* Caution Orange */
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 24px;
-            display: flex;
-            gap: 12px;
-        }
-        .alert-box p { color: #fef3c7; font-size: 13.5px; font-weight: 500; }
-
-        /* Dynamic Banner System */
-        .dynamic-banner {
-            background: linear-gradient(135deg, #0c4a6e 0%, #1e1b4b 100%);
-            border-left: 5px solid #0284c7;
-            padding: 20px;
-            border-radius: 0 12px 12px 0;
-            margin-bottom: 24px;
-            display: none;
-        }
-        .dynamic-banner h3 { font-size: 12px; font-weight: 900; color: #38bdf8; text-transform: uppercase; tracking-spacing: 1px; margin-bottom: 8px; }
-        .dynamic-text-content { font-size: 15px; color: #e2e8f0; display: flex; flex-direction: column; gap: 12px; }
-
-        /* Content Text Presentation */
-        .content-title {
-            font-size: 28px;
-            font-weight: 900;
-            color: #ffffff;
-            border-bottom: 2px solid #334155;
-            padding-bottom: 8px;
-            margin-bottom: 16px;
-        }
-        .content-p { font-size: 16px; color: #94a3b8; margin-bottom: 24px; line-height: 1.7; }
-        
-        /* Grid Block Specs Cards */
-        .grid-cards { display: grid; grid-template-columns: 1; gap: 16px; margin-top: 20px; }
-        @media (min-width: 640px) { .grid-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-        .spec-card {
-            background-color: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 20px;
-        }
-        .spec-card h5 { font-size: 18px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
-        .badge {
-            display: inline-block;
-            background-color: #1e293b;
-            border: 1px solid #475569;
-            color: #94a3b8;
-            font-size: 11px;
-            font-weight: 800;
-            padding: 2px 10px;
-            border-radius: 20px;
-            margin-bottom: 12px;
-        }
-
-        /* AI Summarizer Form Controls */
-        textarea {
-            width: 100%;
-            height: 240px;
-            background-color: #0f172a;
-            border: 2px solid #334155;
-            border-radius: 12px;
-            padding: 16px;
-            color: #ffffff;
-            font-size: 16px;
-            outline: none;
-            resize: vertical;
-        }
-        textarea:focus { border-color: #0284c7; }
-        .action-btn {
-            width: 100%;
-            background: linear-gradient(180deg, #059669 0%, #047857 100%); /* Heavy Grid Green */
-            border: none;
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 900;
-            padding: 18px;
-            border-radius: 12px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(4, 120, 87, 0.3);
-            margin-top: 16px;
-        }
-        .action-btn:active { transform: scale(0.99); }
-        .status-panel { background-color: #0f172a; padding: 16px; border-radius: 12px; margin-top: 16px; display: none; align-items: center; gap: 12px; font-weight: 700; color: #cbd5e1;}
-        .spinner { width: 18px; height: 18px; border: 3px solid #059669; border-top-transparent: true; border-radius: 50%; animation: spin 0.8s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .output-panel { background-color: #0f172a; border-left: 4px solid #059669; padding: 20px; border-radius: 0 12px 12px 0; margin-top: 24px; display: none; }
-        
-        .tab-view { display: none; }
-        .show-view { display: block; }
+        .panel-title { font-size: 24px; font-weight: 900; color: #ffffff; padding-bottom: 4px; display: flex; align-items: center; justify-content: space-between; }
+        .panel-desc { color: #94a3b8; font-size: 14px; margin-bottom: 20px; border-bottom: 2px solid #334155; padding-bottom: 12px; }
+        .reset-btn { background-color: #334155; color: #cbd5e1; border: none; padding: 4px 10px; font-size: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; }
+        .reset-btn:hover { background-color: #475569; color: #ffffff; }
+        .control-block { background-color: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+        .checkbox-row { display: flex; justify-content: space-between; align-items: center; cursor: pointer; gap: 12px; }
+        .checkbox-label { font-size: 17px; font-weight: 700; color: #f1f5f9; text-align: left; flex: 1; }
+        .control-block input[type="checkbox"] { width: 26px; height: 26px; accent-color: #0284c7; cursor: pointer; flex-shrink: 0; }
+        .slider-area { margin-top: 14px; border-top: 1px solid #1e293b; padding-top: 12px; display: none; }
+        .slider-labels { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 6px; }
+        .control-block input[type="range"] { width: 100%; accent-color: #0284c7; cursor: pointer; }
+        .alert-box { background-color: #2a1b10; border: 1px solid #b45309; border-left: 5px solid #d97706; border-radius: 12px; padding: 16px; margin-top: 24px; display: flex; gap: 12px; }
+        .alert-box p { color: #fef3c7; font-size: 14px; font-weight: 500; }
+        .dynamic-banner { background: linear-gradient(135deg, #0c4a6e 0%, #1e1b4b 100%); border: 2px solid #0284c7; border-left: 6px solid #0284c7; padding: 20px; border-radius: 12px; margin-bottom: 24px; display: none; }
+        .dynamic-banner h3 { font-size: 14px; font-weight: 900; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+        .dynamic-text-content { font-size: 16px; color: #f1f5f9; display: flex; flex-direction: column; gap: 16px; }
+        .content-title { font-size: 28px; font-weight: 900; color: #ffffff; border-bottom: 2px solid #334155; padding-bottom: 8px; margin-bottom: 16px; }
+        .content-p { font-size: 17px; color: #94a3b8; margin-bottom: 24px; line-height: 1.7; }
+        .quick-nav-box { display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
+        .nav-card { background-color: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 20px; text-decoration: none; display: block; color: inherit; transition: border-color 0.2s; }
+        .nav-card:hover { border-color: #0284c7; }
+        .nav-card h4 { font-size: 20px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
     </style>
 </head>
 <body>
 
-    <!-- Upper Control Dash Panel -->
     <header>
         <div class="header-container">
             <div class="logo-area">
@@ -258,234 +117,151 @@
                 <p class="subtitle">Reference & Reading Console</p>
             </div>
             <nav>
-                <button onclick="toggleActiveTab('hip')" id="tab-hip" class="tab-btn active-tab">🦿 Hip System</button>
-                <button onclick="toggleActiveTab('back')" id="tab-back" class="tab-btn">⚙️ Back System</button>
-                <button onclick="toggleActiveTab('summarizer')" id="tab-summarizer" class="tab-btn">⚡ Reading Summarizer</button>
+                <a href="index.html" class="tab-btn active-tab">🏠 Home Overview</a>
+                <a href="hip.html" class="tab-btn">🦿 Hip System</a>
+                <a href="back.html" class="tab-btn">⚙️ Back System</a>
+                <a href="summarizer.html" class="tab-btn">⚡ Reading Summarizer</a>
             </nav>
         </div>
     </header>
 
-    <!-- Main Workspace Layout -->
-    <main id="layout-grid">
-        
-        <!-- Left Column: Biomechanical Indicator Filters -->
-        <section id="sidebar-block" class="col-left panel-card">
-            <h2 class="panel-title">Indicator Profiler</h2>
-            <p class="panel-desc">Check active indicators to cross-reference data values across sections.</p>
+    <main>
+        <!-- Left Column: Shared Symptom Checker Component -->
+        <section class="col-left panel-card">
+            <div class="panel-title">
+                <span>Symptom Checker</span>
+                <button type="button" onclick="clearAllSymptoms()" class="reset-btn">Clear All</button>
+            </div>
+            <p class="panel-desc">Check the boxes that describe how your body feels right now.</p>
             
-            <form id="indicator-form" onchange="runAnalysisPipeline()">
-                <!-- Joint Block -->
+            <form id="symptom-form" onchange="runAnalysisPipeline()">
                 <div class="control-block">
-                    <label class="checkbox-row">
-                        <span class="checkbox-label">Deep Joint / Groin Pain</span>
-                        <input type="checkbox" id="symp-joint">
-                    </label>
-                    <div id="scale-joint" class="slider-area">
-                        <div class="slider-labels"><span>Mild Intensity</span><span>Severe Tension</span></div>
-                        <input type="range" min="1" max="10" value="5">
-                    </div>
+                    <label class="checkbox-row"><span class="checkbox-label">Deep pain inside the groin or front hip joint</span><input type="checkbox" id="symp-groin"></label>
+                    <div id="scale-groin" class="slider-area"><div class="slider-labels"><span>Mild ache</span><span>Severe pain</span></div><input type="range" min="1" max="10" value="5"></div>
                 </div>
-
-                <!-- Nerve Block -->
                 <div class="control-block">
-                    <label class="checkbox-row">
-                        <span class="checkbox-label">Shooting Nerve Radiation</span>
-                        <input type="checkbox" id="symp-nerve">
-                    </label>
-                    <div id="scale-nerve" class="slider-area">
-                        <div class="slider-labels"><span>Mild Intensity</span><span>Severe Tension</span></div>
-                        <input type="range" min="1" max="10" value="5">
-                    </div>
+                    <label class="checkbox-row"><span class="checkbox-label">Hip feels tight or "stuck" when tying shoes or getting out of cars</span><input type="checkbox" id="symp-stuck"></label>
+                    <div id="scale-stuck" class="slider-area"><div class="slider-labels"><span>Slightly stiff</span><span>Hard to bend</span></div><input type="range" min="1" max="10" value="5"></div>
                 </div>
-
-                <!-- Stiffness Block -->
                 <div class="control-block">
-                    <label class="checkbox-row">
-                        <span class="checkbox-label">Morning Stiffness / Aching</span>
-                        <input type="checkbox" id="symp-stiff">
-                    </label>
-                    <div id="scale-stiff" class="slider-area">
-                        <div class="slider-labels"><span>Mild Intensity</span><span>Severe Tension</span></div>
-                        <input type="range" min="1" max="10" value="5">
-                    </div>
+                    <label class="checkbox-row"><span class="checkbox-label">Heavy aching and stiffness right after waking up in the morning</span><input type="checkbox" id="symp-morning"></label>
+                    <div id="scale-morning" class="slider-area"><div class="slider-labels"><span>Loosens quickly</span><span>Lasts a long time</span></div><input type="range" min="1" max="10" value="5"></div>
+                </div>
+                <div class="control-block">
+                    <label class="checkbox-row"><span class="checkbox-label">Sharp or burning pain shooting down the back of the leg</span><input type="checkbox" id="symp-shooting"></label>
+                    <div id="scale-shooting" class="slider-area"><div class="slider-labels"><span>Dull twinge</span><span>Sharp shock</span></div><input type="range" min="1" max="10" value="5"></div>
+                </div>
+                <div class="control-block">
+                    <label class="checkbox-row"><span class="checkbox-label">Lower back hurts more when standing straight or walking downhill</span><input type="checkbox" id="symp-standing"></label>
+                    <div id="scale-standing" class="slider-area"><div class="slider-labels"><span>Mild ache</span><span>Must sit down</span></div><input type="range" min="1" max="10" value="5"></div>
+                </div>
+                <div class="control-block">
+                    <label class="checkbox-row"><span class="checkbox-label">Pins-and-needles or numbness in the legs, thighs, or feet</span><input type="checkbox" id="symp-numb"></label>
+                    <div id="scale-numb" class="slider-area"><div class="slider-labels"><span>Faint tingling</span><span>Loss of feeling</span></div><input type="range" min="1" max="10" value="5"></div>
                 </div>
             </form>
 
-            <!-- Standard Safety Disclaimer Row -->
             <div class="alert-box">
                 <span style="font-size: 20px;">⚠️</span>
-                <p>
-                    Tracking periodic physical fluctuations provides baseline indicators. Sharing compiled indicators ensures an optimal baseline comparison when refining movements alongside a certified physical specialist during regular evaluations.
-                </p>
+                <p>Tracking these patterns helps you gather good information about your movement. Bringing a quick list of these notes to your next regular check-up is a helpful way to work with a physical specialist on a personalized exercise routine.</p>
             </div>
         </section>
 
-        <!-- Right Column: Interactive Content Panes -->
-        <div id="main-content-window" class="col-right panel-card">
-            
-            <!-- Dynamic Alert Feed Banner -->
+        <!-- Right Column: Welcome Console Workspace -->
+        <div class="col-right panel-card">
             <div id="dynamic-insight-banner" class="dynamic-banner">
-                <h3>Live Cross-Reference Alerts</h3>
+                <h3>Live Notes Based on Your Selections</h3>
                 <div id="dynamic-insight-text" class="dynamic-text-content"></div>
             </div>
 
-            <!-- TAB PANE: HIP SPECIFICATION -->
-            <div id="view-hip" class="tab-view show-view">
-                <h3 class="content-title">Hip Joint Bio-Mechanics</h3>
-                <p class="content-p">
-                    The human acetabulofemoral hip configuration functions as a load-bearing ball-and-socket assembly engineered to handle complex compression vectors. Structural wear across the protective cartilage layer down-regulates shock dissipation, inducing adaptive muscle guarding in the surrounding supportive groups.
-                </p>
+            <h3 class="content-title">Welcome to the Mobility Reference Console</h3>
+            <p class="content-p">
+                This platform serves as a central clearinghouse for musculoskeletal wellness guides. Use the tabs above to select the structural zone you are looking to support, or log your current observations into the <strong>Symptom Checker</strong> to reveal specific real-time alerts.
+            </p>
 
-                <h4 style="font-size: 20px; font-weight: 800; color: #ffffff;">🔧 Targeted Maintenance Routines</h4>
-                <div class="grid-cards">
-                    <div class="spec-card">
-                        <h5>Isometric Glute Bridges</h5>
-                        <div class="badge">10 Reps / 3s Hold</div>
-                        <p style="color: #94a3b8; font-size: 15px;">Supine positioning. Drive down through posterior heel planes to align pelvic and lumbar angles. Recruits deep stabilizers to relieve internal joint capsules.</p>
-                    </div>
-                    <div class="spec-card">
-                        <h5>Seated Piriformis Stretch</h5>
-                        <div class="badge">3 Sets / 30s Hold</div>
-                        <p style="color: #94a3b8; font-size: 15px;">Cross target limb in a fixed figure-4 alignment on a stable chair base. Pivot gently forward from lumbar hinges to lengthen deep external rotators.</p>
-                    </div>
-                </div>
+            <h4 style="font-size: 20px; font-weight: 800; color: #ffffff;">Available Knowledge Bases</h4>
+            <div class="quick-nav-box">
+                <a href="hip.html" class="nav-card">
+                    <h4>🦿 Explore Hip Joint Systems</h4>
+                    <p style="color: #94a3b8; font-size: 15px; margin-top: 4px;">Review mechanics relating to ball-and-socket joint cushion wear and access standard stretches.</p>
+                </a>
+                <a href="back.html" class="nav-card">
+                    <h4>⚙️ Explore Lower Back Systems</h4>
+                    <p style="color: #94a3b8; font-size: 15px; margin-top: 4px;">Learn about vertebral compression relief, nerve management techniques, and core balancing mechanics.</p>
+                </a>
             </div>
-
-            <!-- TAB PANE: BACK SPECIFICATION -->
-            <div id="view-back" class="tab-view">
-                <h3 class="content-title">Lumbar Spine Dynamics</h3>
-                <p class="content-p">
-                    The lower lumbar spine utilizes an integrated sequence of vertebral bodies and cushioning hydro-elastic intervertebral discs. Unaligned static compression vectors can overwork muscle chains along the lower spinal core.
-                </p>
-
-                <h4 style="font-size: 20px; font-weight: 800; color: #ffffff;">🔧 Stabilizing Core Operations</h4>
-                <div class="grid-cards">
-                    <div class="spec-card">
-                        <h5>Controlled Cat-Cow Drill</h5>
-                        <div class="badge">10 Fluid Cycles</div>
-                        <p style="color: #94a3b8; font-size: 15px;">Quadruped posture. Alternately flex and extend the neural column within painless boundaries to stimulate spinal disc fluid circulation through motion.</p>
-                    </div>
-                    <div class="spec-card">
-                        <h5>Contralateral Bird-Dog</h5>
-                        <div class="badge">12 Alternating Reps</div>
-                        <p style="color: #94a3b8; font-size: 15px;">Brace deep abdominal walls. Simultaneously extend opposite upper and lower limbs outward to build a solid anti-rotation stability field.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB PANE: INTELLIGENT READING UTILITY -->
-            <div id="view-summarizer" class="tab-view">
-                <h3 class="content-title">Intelligent Reading Condenser</h3>
-                <p class="content-p" style="margin-bottom: 16px;">Drop long technical write-ups, articles, or reference documentation here to isolate high-yield analytical takeaways immediately.</p>
-                
-                <textarea id="text-input" placeholder="Right-click here and select Paste to drop source reference text..."></textarea>
-                <button onclick="executeBrowserAILogic()" id="sum-btn" class="action-btn">⚡ Synthesize Source Text</button>
-
-                <div id="processing-status-panel" class="status-panel">
-                    <div class="spinner"></div>
-                    <span id="processing-status-text">Awaiting input data...</span>
-                </div>
-
-                <div id="processing-output-panel" class="output-panel">
-                    <h4 style="font-size: 14px; font-weight: 900; color: #059669; text-transform: uppercase; margin-bottom: 8px;">Extracted Core Insights</h4>
-                    <div id="processing-output-text" style="font-size: 17px; color: #e2e8f0; font-weight: 600; white-space: pre-line;"></div>
-                </div>
-            </div>
-
         </div>
     </main>
 
-    <!-- Unified Dashboard Control Engine -->
+    <!-- Shared State Management Scripts (Repeated across all 3 structural pages) -->
     <script>
-        let localModelPipeline = null;
+        function clearAllSymptoms() {
+            document.getElementById('symptom-form').reset();
+            saveFormState();
+            runAnalysisPipeline();
+        }
 
-        function toggleActiveTab(targetTab) {
-            document.querySelectorAll('.tab-view').forEach(view => view.classList.remove('show-view'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active-tab'));
+        function saveFormState() {
+            const state = {
+                groin: document.getElementById('symp-groin').checked,
+                stuck: document.getElementById('symp-stuck').checked,
+                morning: document.getElementById('symp-morning').checked,
+                shooting: document.getElementById('symp-shooting').checked,
+                standing: document.getElementById('symp-standing').checked,
+                numb: document.getElementById('symp-numb').checked
+            };
+            localStorage.setItem('mobility_hub_checks', JSON.stringify(state));
+        }
 
-            const sidebar = document.getElementById('sidebar-block');
-            const mainContainer = document.getElementById('main-content-window');
-            const layoutGrid = document.getElementById('layout-grid');
-
-            if (targetTab === 'summarizer') {
-                document.getElementById('view-summarizer').classList.add('show-view');
-                document.getElementById('tab-summarizer').classList.add('active-tab');
-                sidebar.style.display = 'none';
-                layoutGrid.className = 'full-width';
-                mainContainer.className = 'panel-card';
-            } else {
-                document.getElementById(`view-${targetTab}`).classList.add('show-view');
-                document.getElementById(`tab-${targetTab}`).classList.add('active-tab');
-                sidebar.style.display = 'block';
-                layoutGrid.className = '';
-                mainContainer.className = 'col-right panel-card';
-            }
+        function loadFormState() {
+            const saved = JSON.parse(localStorage.getItem('mobility_hub_checks')) || {};
+            if (saved.groin) document.getElementById('symp-groin').checked = true;
+            if (saved.stuck) document.getElementById('symp-stuck').checked = true;
+            if (saved.morning) document.getElementById('symp-morning').checked = true;
+            if (saved.shooting) document.getElementById('symp-shooting').checked = true;
+            if (saved.standing) document.getElementById('symp-standing').checked = true;
+            if (saved.numb) document.getElementById('symp-numb').checked = true;
         }
 
         function runAnalysisPipeline() {
-            const joint = document.getElementById('symp-joint').checked;
-            const nerve = document.getElementById('symp-nerve').checked;
-            const stiff = document.getElementById('symp-stiff').checked;
+            saveFormState();
+            const groin = document.getElementById('symp-groin').checked;
+            const stuck = document.getElementById('symp-stuck').checked;
+            const morning = document.getElementById('symp-morning').checked;
+            const shooting = document.getElementById('symp-shooting').checked;
+            const standing = document.getElementById('symp-standing').checked;
+            const numb = document.getElementById('symp-numb').checked;
 
-            document.getElementById('scale-joint').style.display = joint ? 'block' : 'none';
-            document.getElementById('scale-nerve').style.display = nerve ? 'block' : 'none';
-            document.getElementById('scale-stiff').style.display = stiff ? 'block' : 'none';
+            document.getElementById('scale-groin').style.display = groin ? 'block' : 'none';
+            document.getElementById('scale-stuck').style.display = stuck ? 'block' : 'none';
+            document.getElementById('scale-morning').style.display = morning ? 'block' : 'none';
+            document.getElementById('scale-shooting').style.display = shooting ? 'block' : 'none';
+            document.getElementById('scale-standing').style.display = standing ? 'block' : 'none';
+            document.getElementById('scale-numb').style.display = numb ? 'block' : 'none';
 
             let alerts = [];
-            if (joint) alerts.push("🔧 <strong>Anatomical Groin Mapping:</strong> Micro-friction deep within the internal capsule structure frequently points to joint-space narrowing. Prioritize non-weightbearing mobility to keep the joint lubricated.");
-            if (nerve) alerts.push("🔧 <strong>Neural Column Compression:</strong> Distal radiation pointing past the hamstring boundary suggests irritation along the lower lumbar roots. Restrict deep lumbar rounding actions.");
-            if (stiff) alerts.push("🔧 <strong>Fluid Mechanics Delay:</strong> Pronounced morning stiffness indicates sluggish intra-articular fluid turnover. Utilize unloaded rhythmic mobility drills right after waking up to distribute joint lubrication.");
+            if (groin) alerts.push("⚙️ <strong>Groin Pain Note:</strong> Deep aching in the crease of the hip or groin usually means the joint space itself is experiencing extra pressure. Doing gentle, unweighted movements helps lubricate the socket without adding heavy stress.");
+            if (stuck) alerts.push("⚙️ <strong>Tightness Note:</strong> Feeling restricted when turning your leg or twisting inward makes it tough to cross your legs or climb into a car. Daily, gentle stretches for the hip rotators can help loosen up that defensive muscle guarding.");
+            if (morning) alerts.push("⚙️ <strong>Morning Ache Note:</strong> Waking up with heavy stiffness that begins to clear up after 20-30 minutes of moving around is very common. Moving gently as soon as you wake up helps pump that protective lubrication back through the joint.");
+            if (shooting) alerts.push("⚙️ <strong>Shooting Leg Pain Note:</strong> Pain that acts like an electric shock traveling down the back of your leg means a nerve root in your lower spine is likely getting pinched or irritated. Try to avoid deep forward bends or touching your toes.");
+            if (standing) alerts.push("⚙️ <strong>Standing/Walking Pain Note:</strong> If your lower back hurts more when standing straight or walking downhill, but feels much better when you lean forward over a shopping cart, focus on exercises that strengthen the abdominal wall to help keep the lower back flatter.");
+            if (numb) alerts.push("⚙️ <strong>Numbness Note:</strong> A pins-and-needles sensation or dead weight feeling in the leg or foot means the nerve signal is being physically compressed. Keep track of what activities make this tingling spread or disappear.");
 
             const banner = document.getElementById('dynamic-insight-banner');
             const outputText = document.getElementById('dynamic-insight-text');
 
             if (alerts.length > 0) {
                 banner.style.display = 'block';
-                outputText.innerHTML = "<div>" + alerts.join("</div><div style='margin-top:12px; border-top:1px solid #cbd5e1; padding-top:12px;'>") + "</div>";
+                outputText.innerHTML = "<div>" + alerts.join("</div><div style='margin-top:16px; border-top:2px solid #334155; padding-top:16px;'>") + "</div>";
             } else {
                 banner.style.display = 'none';
             }
         }
 
-        async function executeBrowserAILogic() {
-            const srcText = document.getElementById('text-input').value.trim();
-            const actionBtn = document.getElementById('sum-btn');
-            const statusBox = document.getElementById('processing-status-panel');
-            const statusLabel = document.getElementById('processing-status-text');
-            const outputBox = document.getElementById('processing-output-panel');
-            const outputLabel = document.getElementById('processing-output-text');
-
-            if (!srcText) {
-                alert("Please input source text first.");
-                return;
-            }
-
-            actionBtn.disabled = true;
-            statusBox.style.display = 'flex';
-            outputBox.style.display = 'none';
-
-            try {
-                if (!localModelPipeline) {
-                    statusLabel.innerText = "Downloading small AI data model into local browser cache (First-time launch takes ~30 seconds)...";
-                    localModelPipeline = await window.pipeline('summarization', 'Xenova/distilbart-cnn-6-6');
-                }
-
-                statusLabel.innerText = "Processing text strings through local device resources...";
-                const inference = await localModelPipeline(srcText, {
-                    max_length: 90, min_length: 30, length_penalty: 2.0, num_beams: 2
-                });
-
-                let parsed = inference.summary_text.replace(/\s+([.,!?:])/g, '$1').replace(/\. /g, '.\n• ');
-                outputLabel.innerHTML = "• " + parsed;
-                outputBox.style.display = 'block';
-            } catch (err) {
-                console.error(err);
-                alert("Processing Exception: " + err.message);
-            } finally {
-                actionBtn.disabled = false;
-                statusBox.style.display = 'none';
-            }
-        }
+        window.addEventListener('DOMContentLoaded', () => {
+            loadFormState();
+            runAnalysisPipeline();
+        });
     </script>
 </body>
 </html>
