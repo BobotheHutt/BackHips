@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Tools Frame</title>
+    <style>
+        /* Tool-Shop Workspace Styles */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background-color: #121824; 
+            color: #e2e8f0; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 16px;
+            line-height: 1.6;
+        }
+
+        /* Strict Single-Column Layout Container */
+        .workspace-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Full-Block Interactive Clickable Header Components */
+        .panel-header-btn {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 16px;
+            padding: 20px 24px;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: all 0.15s ease;
+        }
+        .panel-header-btn:hover { background-color: #243246; border-color: #475569; }
+        .panel-title {
+            font-size: 22px;
+            font-weight: 900;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .toggle-arrow { font-size: 16px; color: #38bdf8; }
+        
+        /* Master Drawer Container (Open by Default for Input) */
+        .collapsible-drawer {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            border-top: none;
+            border-radius: 0 0 16px 16px;
+            padding: 24px;
+            margin-top: -22px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Permanent Display Component Cards */
+        .panel-card {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            width: 100%;
+        }
+
+        /* Item Spec Boxes inside Drawer */
+        .spec-card { 
+            background-color: #0f172a; 
+            border: 1px solid #334155; 
+            border-radius: 12px; 
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        .spec-card:last-child { margin-bottom: 0; }
+        .spec-card h4 { font-size: 20px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
+        
+        .badge {
+            display: inline-block;
+            background-color: #1e293b;
+            border: 1px solid #475569;
+            color: #38bdf8;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 3px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        .photo-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 14px;
+            background-color: #0c4a6e;
+            border: 1px solid #0284c7;
+            color: #38bdf8;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+        .photo-link-btn:hover { background-color: #0284c7; color: #ffffff; }
+
+        /* Typography Styles */
+        .content-title { font-size: 26px; font-weight: 900; color: #ffffff; border-bottom: 2px solid #334155; padding-bottom: 8px; margin-bottom: 16px; }
+        .content-p { font-size: 17px; color: #cbd5e1; margin-bottom: 16px; line-height: 1.7; }
+        .instruction-step { color: #f1f5f9; font-weight: 700; margin-top: 8px; }
+    </style>
+</head>
+<body>
+
+    <div class="workspace-container">
+        
+        <!-- MODULE 1: Clickable Massage Gun Manual -->
+        <button onclick="toggleDrawer('gun-drawer', this)" class="panel-header-btn">
+            <span class="panel-title">🔫 Mechanical Massage Gun Manual</span>
+            <span class="toggle-arrow">▼ Click to Expand</span>
+        </button>
+
+        <div class="collapsible-drawer" id="gun-drawer">
+            <p class="content-p">
+                Think of a massage gun like a pneumatic tool meant to reset stuck parts. When muscles clamp down in defense, the steady, fast tapping of the gun disrupts that signal. It tells the nervous system the coast is clear, forcing tight knots to loosen up.
+            </p>
+            
+            <div class="spec-card">
+                <h4>How to Safely Apply It</h4>
+                <div class="badge">Speed: Low/Medium | Time: 2 Minutes Per Spot</div>
+                
+                <p class="instruction-step">1. Find Fleshy Targets Only</p>
+                <p class="content-p" style="font-size: 16px; color: #94a3b8; margin-bottom: 8px;">Only glide the tool over thick, soft muscle areas. For hip or back issues, target the side of your thigh, the thick part of your glutes (back pocket), or the muscle columns running on either side of your spine.</p>
+                
+                <p class="instruction-step">2. Steer Clear of Hard Bone</p>
+                <p class="content-p" style="font-size: 16px; color: #94a3b8; margin-bottom: 8px;">Never press the jackhammer head directly into hard bone. Keep it away from your spine blocks, hip side bones, or kneecaps. Rattling a bone will trigger muscle spasms instead of helping them let go.</p>
+                
+                <p class="instruction-step">3. Float the Head Lightly</p>
+                <p class="content-p" style="font-size: 16px; color: #94a3b8; margin-bottom: 0;">Do not dig or push the gun hard into your body. Let the tool do the heavy mechanical work. Gently glide it back and forth over the tight muscle sheet like you're lightly sanding a piece of wood.</p>
+                
+                <a href="https://google.com" target="_blank" class="photo-link-btn">🖼️ View Tool Setup Pictures</a>
+            </div>
+        </div>
+
+        <!-- MODULE 2: Clickable Foam Roller Manual -->
+        <button onclick="toggleDrawer('roller-drawer', this)" class="panel-header-btn">
+            <span class="panel-title">🪵 Foam Roller Column Manual</span>
+            <span class="toggle-arrow">▼ Click to Expand</span>
+        </button>
+
+        <div class="collapsible-drawer" id="roller-drawer">
+            <p class="content-p">
+                A foam roller acts like a manual press. By pinning your body weight against a firm cylinder, you roll out sticky tissue layers and flatten out stubborn muscle bands that have locked up due to posture strain.
+            </p>
+            
+            <div class="spec-card">
+                <h4>How to Safely Apply It</h4>
+                <div class="badge">Pace: Very Slow | Time: 90 Seconds Per Spot</div>
+                
+                <p class="instruction-step">1. Ease Weight Down Slowly</p>
+                <p class="content-p" style="font-size: 16px; color: #94a3b8; margin-bottom: 8px;">Sit on the floor and place the rolling tube under your outer hip or upper glute. Use your arm and leg levers to support most of your body weight so you can carefully control the downward pressure.</p>
+                
+                <p class="instruction-step">2. Hunt for Tender Knots</p>
+                <p class="content-p" style="font-size: 16px; color: #94a3b8; margin-bottom: 8px;">Creep along the roller tube about one inch per second. When you roll over a highly tender spot, stop completely. Do not saw back and forth rapidly over it.</p>
+                
+                <p class="instruction-step">3. Press and Hold to Clear</p>
+                <p class="content-p" style="font-size: 16px; color: #94a3b8; margin-bottom: 0;">Park your weight right on top of that tender spot for 20 to 30 seconds. Take deep, slow belly breaths. Keeping steady pressure on a knot starves the trigger signal, forcing the tight muscle fibers to relax and flatten out.</p>
+                
+                <a href="https://google.com" target="_blank" class="photo-link-btn">🖼️ View Tool Setup Pictures</a>
+            </div>
+        </div>
+
+        <!-- MODULE 3: Permanent Tool Reference Base -->
+        <section class="panel-card">
+            <h3 class="content-title">🛠️ Shop Hardware Principles</h3>
+            <p class="content-p">
+                Using body maintenance tools is exactly like performing scheduled shop maintenance on a heavy-duty machinery system. You aren't forcing components to change size; you are clearing out sticky spots and restoring fluid circulation so the mechanics can slide freely without seizing under pressure.
+            </p>
+            <p class="content-p">
+                Always use tools at an intensity level where you can keep your breathing completely relaxed and calm. If a tool causes you to hold your breath or grit your teeth, the pressure is too aggressive. The brain will interpret that extra stress as a physical threat and will instantly tighten your muscles even harder to protect the area.
+            </p>
+        </section>
+
+    </div>
+
+    <!-- UI Core Logic Engine -->
+    <script>
+        function toggleDrawer(drawerId, headerElement) {
+            const drawer = document.getElementById(drawerId);
+            const arrow = headerElement.querySelector('.toggle-arrow');
+
+            if (drawer.style.display === 'block') {
+                drawer.style.display = 'none';
+                headerElement.style.borderRadius = '16px';
+                headerElement.style.borderColor = '#334155';
+                arrow.innerText = '▼ Click to Expand';
+            } else {
+                drawer.style.display = 'block';
+                headerElement.style.borderRadius = '16px 16px 0 0';
+                headerElement.style.borderColor = '#0284c7';
+                arrow.innerText = '▲ Click to Collapse';
+            }
+        }
+    </script>
+</body>
+</html>
